@@ -4,7 +4,7 @@
   <title><![CDATA[Category: coderockr | Elton Luís Minetto]]></title>
   <link href="http://eminetto.github.com/blog/categories/coderockr/atom.xml" rel="self"/>
   <link href="http://eminetto.github.com/"/>
-  <updated>2012-05-08T17:48:13-03:00</updated>
+  <updated>2012-05-08T17:54:22-03:00</updated>
   <id>http://eminetto.github.com/</id>
   <author>
     <name><![CDATA[eminetto]]></name>
@@ -23,9 +23,9 @@ Já tive vários casos onde uma aplicação PHP gera um erro muito genérico nos
 Nesse post vou descrever o processo que fiz para encontrar um problema em uma aplicação. Os passos foram feitos em uma máquina virtual Ubuntu, a que eu gerei com o <a href="http://eltonminetto.net/2012/04/02/usando-o-vagrant-para-criar-maquinas-virtuais-para-desenvolvimento-e-testes/">Vagrant</a>.
 O primeiro passo é instalar os pacotes necessários para conseguirmos toda a informação possível:</p>
 
-<p>[sourcecode language="bash"]
-apt-get install libapr1-dbg libaprutil1-dbg gdb php5-dbg
-[/sourcecode]</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>apt-get install libapr1-dbg libaprutil1-dbg gdb php5-dbg
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Precisamos também configurar o Apache para que ele gere um "dump" com toda a informação do erro em um arquivo. No arquivo /etc/apache2/apache2.conf eu adicionei a seguinte linha:</p>
 
