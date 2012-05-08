@@ -117,37 +117,42 @@ O primeiro passo é instalar os pacotes necessários para conseguirmos toda a in
 
 <p>Precisamos também configurar o Apache para que ele gere um &#8220;dump&#8221; com toda a informação do erro em um arquivo. No arquivo /etc/apache2/apache2.conf eu adicionei a seguinte linha:</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-CoreDumpDirectory /tmp/apache2-gdb-dump
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>CoreDumpDirectory /tmp/apache2-gdb-dump
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Também precisamos criar o diretório e dar permissões para o Apache criar os arquivos:</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-mkdir /tmp/apache2-gdb-dump
-chown -R www-data:www-data /tmp/apache2-gdb-dump
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>mkdir /tmp/apache2-gdb-dump
+</span><span class='line'>chown -R www-data:www-data /tmp/apache2-gdb-dump
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Após reiniciar o Apache é só executar novamente o script que está gerando o erro, e um arquivo será gerado no diretório criado, o <em>/tmp/apache2-gdb-dump/core</em></p>
 
 <p>Com esse arquivo podemos executar o gdb e verificar o que aconteceu com o programa. Precisamos executar:</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-gdb /usr/sbin/apache2 /tmp/apache2-gdb-dump/core
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gdb /usr/sbin/apache2 /tmp/apache2-gdb-dump/core
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Será mostrado uma lista de ítens que o Apache executou. Para ver mais detalhe é só executar o comando
-[sourcecode language=&#8221;bash&#8221;]
-bt full
-[/sourcecode]</p>
+
+<p>Será mostrado uma lista de ítens que o Apache executou. Para ver mais detalhe é só executar o comando</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>bt full
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Analisando as mensagem é bem provável que você vai encontrar uma pista para o que exatamente está ocorrendo. No caso da minha aplicação que testei hoje o problema era na forma como estava carregando o arquivo .phar do Silex, conforme o que o gdb me mostrou:</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="c">#0  0x0112cefe in phar_get_archive (archive=0xbff5f87c, fname=0xb5dab6c4 &quot;/vagrant/SOA-Server/vendor/silex.phar&quot;, fname_len=55, alias=0x213f323c &quot;silex.phar&quot;, alias_len=10, error=0x0) at /build/buildd/php5-5.3.2/ext/phar/util.c:1255</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<h1>0  0x0112cefe in phar_get_archive (archive=0xbff5f87c, fname=0xb5dab6c4 &#8220;/vagrant/SOA-Server/vendor/silex.phar&#8221;, fname_len=55, alias=0x213f323c &#8220;silex.phar&#8221;, alias_len=10, error=0x0) at /build/buildd/php5-5.3.2/ext/phar/util.c:1255</h1>
-
-<p>[/sourcecode]</p>
 
 <p>Espero que esse post seja útil para mais alguém, e se você tiver outra receita de como desvendar esse tipo de problemas é só usar os comentários para dar a dica.</p>
 </div>
