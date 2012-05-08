@@ -4,7 +4,7 @@
   <title><![CDATA[Elton Luís Minetto]]></title>
   <link href="http://eminetto.github.com/atom.xml" rel="self"/>
   <link href="http://eminetto.github.com/"/>
-  <updated>2012-05-08T18:15:56-03:00</updated>
+  <updated>2012-05-08T18:18:12-03:00</updated>
   <id>http://eminetto.github.com/</id>
   <author>
     <name><![CDATA[eminetto]]></name>
@@ -242,7 +242,7 @@ Para instalar o Meteor é preciso executar os comandos no terminal (no Linux e M
 
 <p>No arquivo ContactList.htzml é definido o visual do aplicativo, usando o sistema de templates usado pelo Meteor. No trecho abaixo definimos dois templates (add_contact e contacts) e fazemos a inclusão dos dois, dentro da tag body:</p>
 
-<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -277,42 +277,41 @@ Para instalar o Meteor é preciso executar os comandos no terminal (no Linux e M
 <span class='line-number'>33</span>
 <span class='line-number'>34</span>
 <span class='line-number'>35</span>
-</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">ContactList</span><span class="o">&lt;</span><span class="err">/title&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/head&gt;</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;head>
+</span><span class='line'>  &lt;title>ContactList&lt;/title>
+</span><span class='line'>&lt;/head>
 </span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'>&lt;body>
+</span><span class='line'>  
+</span><span class='line'>
+</span><span class='line'>  
 </span><span class='line'>
 </span><span class='line'>
+</span><span class='line'>&lt;/body>
 </span><span class='line'>
+</span><span class='line'>&lt;template name="add_contact">
+</span><span class='line'>  &lt;h3> contact&lt;/h3>
+</span><span class='line'>  &lt;div id="new-contact">
+</span><span class='line'>    &lt;input type="hidden" id="id" name="id">
+</span><span class='line'>    Name: &lt;input type="text" name="name" id="name">&lt;br>
+</span><span class='line'>    E-mail: &lt;input type="text" name="email" id="email">&lt;br>
+</span><span class='line'>    &lt;input type="button" id="actionButton" value="">
+</span><span class='line'>  &lt;/div>
+</span><span class='line'>&lt;/template>
 </span><span class='line'>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/body&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">template</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;add_contact&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span> <span class="nx">contact</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;new-contact&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;id&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>    <span class="nx">Name</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="o">&gt;&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
-</span><span class='line'>    <span class="nx">E</span><span class="o">-</span><span class="nx">mail</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;email&quot;</span><span class="o">&gt;&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
-</span><span class='line'>    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;actionButton&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="err">/div&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/template&gt;</span>
-</span><span class='line'>
-</span><span class='line'><span class="o">&lt;</span><span class="nx">template</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;contacts&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">Contacts</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
-</span><span class='line'>  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;contacts&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>
-</span><span class='line'>      <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;contact&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>         <span class="o">-</span>
-</span><span class='line'>        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;edit&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;edit&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;del&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;del&quot;</span><span class="o">&gt;</span>
-</span><span class='line'>        <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
-</span><span class='line'>      <span class="o">&lt;</span><span class="err">/div&gt;</span>
-</span><span class='line'>
-</span><span class='line'>  <span class="o">&lt;</span><span class="err">/div&gt;</span>
-</span><span class='line'><span class="o">&lt;</span><span class="err">/template&gt;</span>
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>&lt;template name="contacts">
+</span><span class='line'>  &lt;h3>Contacts&lt;/h3>
+</span><span class='line'>  &lt;div id="contacts">
+</span><span class='line'>    
+</span><span class='line'>      &lt;div class="contact">
+</span><span class='line'>         -  
+</span><span class='line'>        &lt;input type="button" class="edit" id="" value="edit">
+</span><span class='line'>        &lt;input type="button" class="del" id="" value="del">
+</span><span class='line'>        &lt;br>
+</span><span class='line'>      &lt;/div>
+</span><span class='line'>    
+</span><span class='line'>  &lt;/div>
+</span><span class='line'>&lt;/template></span></code></pre></td></tr></table></div></figure>
 
 
 <p>O que está dentro de  são variáveis que serão substituídas pelo sistema de templates. A instrução <em>each</em> é usada como um <em>for</em> e mostrará todos os contatos existentes.</p>
