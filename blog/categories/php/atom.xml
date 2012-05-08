@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: php | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/php/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Usando Vagrant para criar máquinas virtuais para desenvolvimento e testes]]></title>
+    <link href="http://eminetto.github.com/blog/2012/04/02/usando-o-vagrant-para-criar-maquinas-virtuais-para-desenvolvimento-e-testes/"/>
+    <updated>2012-04-02T21:38:49-03:00</updated>
+    <id>http://eminetto.github.com/blog/2012/04/02/usando-o-vagrant-para-criar-maquinas-virtuais-para-desenvolvimento-e-testes</id>
+    <content type="html"><![CDATA[<p>Recentemente trabalhei em um projeto grande, com equipes trabalhando remotamente, cada desenvolvedor usando o seu ambiente favorito para trabalhar (Linux, MacOS X e Windows) e o sistema tendo diversos requisitos (PHP, MySQL, Memcached, Solr, PHPUnit, etc). Era comum acontecerem problemas como "na minha máquina todos os testes funcionam, mas na máquina de fulano, que roda Windows não" ou "temos um novo programador na equipe, precisamos instalar todos os requisitos para ele começar a trabalhar". Para resolver este tipo de problemas uma solução é usarmos máquinas virtuais, com todos os requisitos já instalados e prontos para uso. O VMWare e o VirtualBox são exemplos interessantes para estes casos, mas ainda assim exigem um pouco de trabalho para configurar e instalar tudo. O <a href="http://vagrantup.com/">Vagrant</a> é uma ferramenta que auxilia exatamente neste quesito, a criação das máquinas virtuais.
+O Vagrant roda em Windows, Linux e MacOS X (onde eu fiz os testes que apresento nesse post) e necessita do VirtualBox para funcionar. Neste post vou descrever os passos que fizemos na Coderockr para criarmos máquinas virtuais Ubuntu dentro de nossos MacOS X.
+O primeiro passo é fazer o download do Vagrant no link <a href="http://downloads.vagrantup.com/tags/v1.0.2">http://downloads.vagrantup.com/tags/v1.0.2</a>
+Depois precisamos fazer o download da máquina virtual "base" que será usada para gerar as máquinas para cada projeto, com o comando</p>
+
+<p>[sourcecode language="bash"]
+vagrant box add base http://files.vagrantup.com/lucid32.box
+[/sourcecode]</p>
+
+<p>Um arquivo de 260M é copiado para o diretório .vagrant.d de seu home (/Users/eminetto/.vagrant.d no meu caso). É uma imagem do VirtualBox com o sistema Ubuntu 10.04.</p>
+
+<p>Agora vamos criar o nosso primeiro projeto. Eu criei um diretório:</p>
+
+<p>[sourcecode language="bash"]
+mkdir ~/Projects/vagrant
+[/sourcecode]</p>
+
+<p>E dentro deste diretório devemos executar o comando</p>
+
+<p>[sourcecode language="bash"]
+vagrant init
+[/sourcecode]</p>
+
+<p>É criado um arquivo chamado Vagrantfile que é a configuração da sua máquina virtual
+Vamos alterar o arquivo e alterar a linha abaixo, que indica qual é nossa VM original.</p>
+
+<p>[sourcecode language="ruby"]
+config.vm.box = "base"
+[/sourcecode]</p>
+
+<p>Se inicializarmos a máquina neste momento ela será criada com o sistema Ubuntu "zerado", sem nenhum pacote adicional, o que não é muito útil para nossa necessidade. Vamos usar uma ferramenta chamada <a href="http://puppetlabs.com/">Puppet</a> (também é possível usar a ferramenta <a href="http://vagrantup.com/docs/provisioners/chef_solo.html">Chef</a>) para automatizar o processo de instalação dos pacotes necessários.
+Para instalar o Puppet é necessário o interpretador da linguagem Ruby, que já vem instalado no MacOS X e na maioria dos sistemas Linux atuais (ou pode ser instalado usando o apt-get ou yum, dependendo da distribuição). Vamos executar o comando:</p>
+
+<p>[sourcecode language="bash"]
+sudo gem install puppet
+[/sourcecode]</p>
+
+<p>Agora precisamos criar um arquivo de configuração para o Puppet. No diretório do projeto (~/Projects/vagrant) vamos criar o diretório manifests:</p>
+
+<p>[sourcecode language="bash"]
+mkdir manifests
+[/sourcecode]</p>
+
+<p>e o arquivo manifests/base.php, cujo conteúdo está no link <a href="https://gist.github.com/2288198">https://gist.github.com/2288198</a>
+Neste arquivo definimos os comandos que queremos executar (exec), os pacotes que devem ser instalados (package) e os serviços que devem ser inicializados (service).
+Precisamos também configurar o arquivo Vagrantfile para que ele execute o Puppet:</p>
+
+<p>[sourcecode language="ruby"]
+config.vm.provision :puppet do |puppet|</p>
+
+<pre><code>puppet.manifests_path = "manifests"
+puppet.manifest_file  = "base.pp"
+</code></pre>
+
+<p>end
+[/sourcecode]</p>
+
+<p>Agora basta criar a máquina virtual, com o comando</p>
+
+<p>[sourcecode language="bash"]
+vagrant up
+[/sourcecode]</p>
+
+<p>A primeira vez deve demorar alguns minutos, pois a máquina "base" é clonada e o Puppet é executado para instalar os pacotes que indicamos</p>
+
+<p>Para acessar o Apache instalado na máquina virtual é só acessar a url http://127.0.0.1:8080 e para acessar o SSH basta executar</p>
+
+<p>[sourcecode language="bash"]
+vagrant ssh
+[/sourcecode]</p>
+
+<p>Quando precisar desligar a máquina é só executar</p>
+
+<p>[sourcecode language="bash"]
+vagrant halt
+[/sourcecode]</p>
+
+<p>e para inicializar novamente basta um</p>
+
+<p>[sourcecode language="bash"]
+vagrant up
+[/sourcecode]</p>
+
+<p>Caso queira remover a máquina e recriá-la o comando é</p>
+
+<p>[sourcecode language="bash"]
+vagrant destroy
+[/sourcecode]</p>
+
+<p>E repetir o processo anterior.</p>
+
+<p>Também é possível compartilhar a máquina criada com o restante da equipe, como mostra a <a href="http://vagrantup.com/docs/getting-started/packaging.html">documentação oficial</a></p>
+
+<p>O Vagrant facilita bastante o processo de criação do ambiente de desenvolvimento, e trás diversas vantagens, tanto para um programador solo (poder separar o ambiente de desenvolvimento da máquina real, ter vários ambientes distintos, para os diversos projetos) quanto para equipes (poder facilmente instalar novas máquinas e ter o mesmo ambiente de desenvolvimento em todas as máquinas da equipe).</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Snippet do Sublime Text 2 para gerar getters e setters em PHP]]></title>
+    <link href="http://eminetto.github.com/blog/2012/03/20/snippet-do-sublime-text-2-para-gerar-getters-e-setters-em-php/"/>
+    <updated>2012-03-20T13:51:13-03:00</updated>
+    <id>http://eminetto.github.com/blog/2012/03/20/snippet-do-sublime-text-2-para-gerar-getters-e-setters-em-php</id>
+    <content type="html"><![CDATA[<p>Aqui entre nós... Escrever as funções de get() e set() para cada atributo de uma classe é uma daquelas tarefas repetitivas e chatas. Seguindo o conceito de DRY eu fiz uma pesquisa para encontrar alguma forma de gerar isso de maneira mais fácil, usando o meu editor de programação favorito, o <a href="http://eltonminetto.net/2011/12/23/sublime-text/">Sublime Text 2</a>.
+Para resolver isso basta escolher a função Tools->New Snippet e substituir o texto pelo novo <a href="https://gist.github.com/2137945">snippet</a></p>
+
+<p>Depois de salvar o arquivo com o nome getset.sublime-snippet está pronto para uso.
+Para demonstrar eu criei um pequeno <a href="http://youtu.be/NxPyQMCF_IQ?hd=1">video</a></p>
+
+<p><a href="http://akrabat.com/software/sublime-text-2-snippet-for-php-getter-and-setter-generation/">Fonte</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Meus dois centavos sobre o MicroPHP Manifesto]]></title>
+    <link href="http://eminetto.github.com/blog/2012/01/05/meus-dois-centavos-sobre-o-microphp-manifesto/"/>
+    <updated>2012-01-05T15:52:37-02:00</updated>
+    <id>http://eminetto.github.com/blog/2012/01/05/meus-dois-centavos-sobre-o-microphp-manifesto</id>
+    <content type="html"><![CDATA[<p>Nos últimos dias um post tem gerado alguma discussão entre os programadores PHP: o MicroPHP Manifesto (<a href="http://funkatron.com/posts/the-microphp-manifesto.html">post original</a> e o <a href="http://microphp.org/">site que foi gerado depois</a>)
+Confesso que concordo com vários pontos levantados pelo Ed Finkler no seu artigo, principalmente no ponto de que alguns frameworks estão ficando muito mais complexos do que o necessário.
+Logo depois da publicação do post surgiram algumas respostas (<a href="http://blog.ircmaxell.com/2012/01/microphp-fallacy.html">essa</a> e <a href="http://www.phpriot.com/news/reddit-com-a-response-to-the-microphp-manifesto">essa</a>, por exemplo), umas concordando e outras crucificando o autor.
+A minha opinião é: depende :) Depende do projeto. Estou trabalhando atualmente em um projeto enorme, com vários requisitos técnicos bem avançados, com equipes trabalhando remotamente e paralelamente. Neste projeto estamos usando Zend Framework e Doctrine e foi a melhor decisão.
+Ao mesmo tempo precisei ministrar um curso onde o foco eram tecnologias bem específicas e não precisava adicionar complexidade, então a melhor opção foi o Slim, conforme comentei em outro <a href="http://eltonminetto.net/2011/11/29/slim-framework/">post</a>. Aliás, gostamos tanto do Slim que estamos usando em outros pequenos projetos da Coderockr. Gosto também da abordagem do Symfony, seus componentes e o <a href="http://silex.sensiolabs.org/">Silex</a>, micro-framework baseado nestes componentes.
+Eu acho que o post teve um bom efeito, que foi gerar a discussão sobre o assunto, mas ele não deve ser levado tão ao pé da letra e nem gerar flamewars intermináveis. A idéia é sempre analisar qual é a melhor situação para seu projeto, e mesmo usando algo completo, como o Zend Framework, tentar sempre manter o desenvolvimento o mais simples e bem implementado.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Curso sobre PHP, Memcache, Sphinx e Gearman]]></title>
+    <link href="http://eminetto.github.com/blog/2012/01/03/curso-sobre-php-memcache-sphinx-e-gearman/"/>
+    <updated>2012-01-03T15:09:05-02:00</updated>
+    <id>http://eminetto.github.com/blog/2012/01/03/curso-sobre-php-memcache-sphinx-e-gearman</id>
+    <content type="html"><![CDATA[<p>Em Fevereiro vou repetir o curso "mão na massa" que ministrei no <a href="http://eltonminetto.net/2011/09/30/tutorial-mao-na-massa-php-conference-2011/">PHPConference de 2011</a>, pela Tempo Real Eventos, em SP.
+Os detalhes do curso encontram-se na <a href="http://www.temporealeventos.com.br/?area=242-memcached-gearman-e-sphinx-search">página do evento</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHPConference 2011]]></title>
+    <link href="http://eminetto.github.com/blog/2011/12/07/phpconference-2011/"/>
+    <updated>2011-12-07T09:47:03-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/12/07/phpconference-2011</id>
+    <content type="html"><![CDATA[<p>Na última semana estive em Osasco-SP para a sexta edição do PHPConference, o maior evento de PHP da América Latina.
+Novamente pude rever os amigos e lendas da programação PHP, além de conhecer novas pessoas, algumas que eu conhecia via Twitter. Na minha opinião essa é a parte mais importante do evento, a troca de conhecimentos que acontece fora das salas de palestras.
+Quanto as palestras, não consegui ver todas as que gostaria, mas as que consegui ver foram muito boas.
+Assistindo algumas palestras e conversando com algumas pessoas a sensação que tenho é que o "mundo PHP" ganhou nos últimos meses um novo impulso de qualidade e inovação. Fazia um bom tempo que eu não me sentia empolgado com o ambiente, mas com coisas legais como bancos NoSQL, novos frameworks como Symfony 2, Zend Framework 2, diversos micro frameworks, o Service Oriented Architecture finalmente deixando de ser "tendência" e virando realidade, o MVC evoluindo para algo novo, tudo isso abre novos horizontes para os profissionais.
+O material da minha palestra está no meu <a href="http://speakerdeck.com/u/eminetto/p/otimizando-aplicacoes-com-zend-framework">Speakerdeck</a> e os comentários estão no <a href="http://joind.in/talk/view/4505">Joind.in</a>
+E que venha o PHPConference 2012!</p>
+]]></content>
+  </entry>
+  
+</feed>

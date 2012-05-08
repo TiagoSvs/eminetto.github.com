@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: palestras | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/palestras/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[PHPConference 2011]]></title>
+    <link href="http://eminetto.github.com/blog/2011/12/07/phpconference-2011/"/>
+    <updated>2011-12-07T09:47:03-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/12/07/phpconference-2011</id>
+    <content type="html"><![CDATA[<p>Na última semana estive em Osasco-SP para a sexta edição do PHPConference, o maior evento de PHP da América Latina.
+Novamente pude rever os amigos e lendas da programação PHP, além de conhecer novas pessoas, algumas que eu conhecia via Twitter. Na minha opinião essa é a parte mais importante do evento, a troca de conhecimentos que acontece fora das salas de palestras.
+Quanto as palestras, não consegui ver todas as que gostaria, mas as que consegui ver foram muito boas.
+Assistindo algumas palestras e conversando com algumas pessoas a sensação que tenho é que o "mundo PHP" ganhou nos últimos meses um novo impulso de qualidade e inovação. Fazia um bom tempo que eu não me sentia empolgado com o ambiente, mas com coisas legais como bancos NoSQL, novos frameworks como Symfony 2, Zend Framework 2, diversos micro frameworks, o Service Oriented Architecture finalmente deixando de ser "tendência" e virando realidade, o MVC evoluindo para algo novo, tudo isso abre novos horizontes para os profissionais.
+O material da minha palestra está no meu <a href="http://speakerdeck.com/u/eminetto/p/otimizando-aplicacoes-com-zend-framework">Speakerdeck</a> e os comentários estão no <a href="http://joind.in/talk/view/4505">Joind.in</a>
+E que venha o PHPConference 2012!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Slides da minha apresentação no PHPSCConf 2011]]></title>
+    <link href="http://eminetto.github.com/blog/2011/11/21/slides-da-minha-apresentacao-no-phpscconf-2011/"/>
+    <updated>2011-11-21T15:10:31-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/11/21/slides-da-minha-apresentacao-no-phpscconf-2011</id>
+    <content type="html"><![CDATA[<p>No último sábado aconteceu o PHPSCConf 2011 em Itajaí.
+O evento foi um sucesso, com ótimas palestras e boas discussões nos intervalos.
+Os slide da minha apresentação "<a href="http://speakerdeck.com/u/eminetto/p/10-dicas-de-carreira">10 dicas de carreira</a>" estão no <a href="http://speakerdeck.com/u/eminetto">Speaker Deck</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Palestra no PHP Conference 2011]]></title>
+    <link href="http://eminetto.github.com/blog/2011/11/16/palestra-no-php-conference-2011/"/>
+    <updated>2011-11-16T18:50:27-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/11/16/palestra-no-php-conference-2011</id>
+    <content type="html"><![CDATA[<p>Além do <a href="http://eltonminetto.net/2011/09/30/tutorial-mao-na-massa-php-conference-2011/">tutorial</a> também vou palestrar no PHP Conference 2011!
+A minha palestra será no dia <a href="http://www.phpconference.com.br/schedule/day2">03/12</a>, as 12:00, com o título "Otimizando aplicações com Zend Framework"
+Aproveite e faça sua <a href="http://www.phpconference.com.br/registration">inscrição</a> para o evento. Imperdível é pouco!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHPSC Conf 2011]]></title>
+    <link href="http://eminetto.github.com/blog/2011/10/25/phpsc-conf-2011/"/>
+    <updated>2011-10-25T15:05:23-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/10/25/phpsc-conf-2011</id>
+    <content type="html"><![CDATA[<p>O PHPSC, grupo de usuários de PHP de SC, do qual sou um dos organizadores está promovendo o quarto evento anual. Depois de passar por <a href="http://eltonminetto.net/2008/05/30/phpsc-conf/">Chapecó</a>, <a href="http://eltonminetto.net/2009/04/17/chamada-de-trabalhos-phpsc-conf-202009-univali-itajai/">Itajaí</a> e <a href="http://eltonminetto.net/2010/06/21/phpsc-conf-2010/">Joinville</a> o evento volta a ser na cidade de Itajaí, no dia 19/11/2011.
+A chamada de trabalhos já está aberta, então se você tem interesse em palestrar ou ministrar algum mini-curso é só ver os detalhes neste link: <a href="http://bit.ly/phpsc2011">bit.ly/phpsc2011</a>
+O processo de inscrição vai ser aberto nos próximos dias, no site do PHPSC, então acompanhe o site, <a href="https://twitter.com/search/phpscconf">Twitter</a> e Facebook para ficar por dentro das novidades</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apresentação Fórum Maranhanse de Profissionais PHP]]></title>
+    <link href="http://eminetto.github.com/blog/2011/10/18/apresentacao-forum-maranhense-de-profissionais-php/"/>
+    <updated>2011-10-18T13:40:18-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/10/18/apresentacao-forum-maranhense-de-profissionais-php</id>
+    <content type="html"><![CDATA[<p>No último fim de semana estive na bela cidade de <a href="http://eltonminetto.net/2011/09/17/forum-maranhense-de-profissionais-php/">São Luis, no Maranhão</a>, para apresentar minha palestra sobre E-commerce e o novo consumidor.
+O evento foi muito produtivo, com boas conversas de corredor e de bar :)
+O material da apresentação está no <a href="http://slidesha.re/orbyH1">Slideshare</a></p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ubuntu | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/ubuntu/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Promoção de aniversário do site]]></title>
+    <link href="http://eminetto.github.com/blog/2008/08/30/promocao-de-aniversario-do-site/"/>
+    <updated>2008-08-30T14:12:20-03:00</updated>
+    <id>http://eminetto.github.com/blog/2008/08/30/promocao-de-aniversario-do-site</id>
+    <content type="html"><![CDATA[<p>No dia 04/09/2008 fazem 5 anos que criei este site!</p>
+
+<p>Nestes 5 anos foram 245 posts (246 contando com este), 576 comentários, vários novos amigos e grande conhecimento adquirido.  Realmente foi uma das melhores  práticas profissionais e pessoais que já fiz.</p>
+
+<p>Para comemorar e agradecer aos leitores eu vou sortear duas cópias do meu livro <a href="http://www.novateceditora.com.br/livros/frameworks/?idA=16">Frameworks para Desenvolvimento em PHP</a>. Autografados e enviados pelo correio. Lembre-se que minha assinatura e mais 15 reais valem uma cerveja em qualquer Night Club do país!!</p>
+
+<p>Para participar é só deixar um comentário nesse post, com nome e e-mail corretos. O sorteio vai ser feito pelo meu pequeno e humilde <a href="http://www.eltonminetto.net/professor-nerd.htm">script para sortear alunos azarados</a> no dia 08/09/2008</p>
+
+<p>Boa sorte e obrigado por ler meu site</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[pyBovespa]]></title>
+    <link href="http://eminetto.github.com/blog/2008/05/01/pybovespa/"/>
+    <updated>2008-05-01T12:49:13-03:00</updated>
+    <id>http://eminetto.github.com/blog/2008/05/01/pybovespa</id>
+    <content type="html"><![CDATA[<p>Neste ano eu comecei a investir em ações. É algo ao mesmo tempo emocionante e apavorante porque você pode ganhar e perder dinheiro em questão de horas. Por isso é importante ficar sempre atento as alterações dos valores das ações. Existem vários programas e sites que permitem o acompanhamento das alterações. Mesmo assim, eu aproveitei a manhã de feriado, enquanto me recupero de uma pequena ressaca, e fiz um script em Python que busca os dados da Bovespa e permite o acompanhamento da sua "carteira de ações". Assim dá para deixar um terminal aberto e ir acompanhando o mercado.
+O script foi feito por diversão e uso pessoal, mas se servir para alguém mais legal. O código:</p>
+
+<pre><code># -*- coding: utf-8 -*-
+# Elton Luís Minetto
+import urllib
+from xml.dom import minidom
+from time import sleep
+from os import system
+
+#adicionar as acoes aqui
+#formato ACAO: [num_acoes,valor_compra,data_compra]
+acoes = {
+    'BBDC4':[100,34.84,'25/04/2008'],
+    'PETR4':[100,42.00,'20/04/2008'],
+}
+
+def atualiza(acoes):
+    system('clear')
+    url = 'http://www.bovespa.com.br/Mercado/RendaVariavel/InfoPregao/ExecutaAcaoAjax.asp?CodigoPapel='
+    for i in acoes:
+        url += '|'+i
+    f = urllib.urlopen(url)
+    xml = f.read()
+    xmldoc = minidom.parseString(xml)
+    papeis = xmldoc.getElementsByTagName('Papel')
+    #cabecalho
+    print 'Ação\tValor de Compra\tData da Compra\tQtd\tAtual\tDiferença R$\tDiferença %\tData de Atualização'
+
+    total_compra = 0.0
+    total_dif_reais = 0.0
+    for i in papeis:
+        codigo = i.attributes['Codigo'].value
+        valor_compra = acoes[codigo][1]
+        qtd_acoes = acoes[codigo][0]
+        data_compra = acoes[codigo][2]
+        valor_atual = i.attributes['Ultimo'].value.replace(',','.')
+        data_atual = i.attributes['Data'].value
+
+        diferenca_reais = (float(valor_atual) * qtd_acoes) - (valor_compra * qtd_acoes)
+        diferenca_perc = (diferenca_reais*100)/(valor_compra * qtd_acoes)
+        total_compra += valor_compra * qtd_acoes
+        total_dif_reais += diferenca_reais
+
+        print '%s\t%02f\t%s\t%d\t%s\t%02f\t%02f\t%s' % (codigo,valor_compra,data_compra,qtd_acoes,valor_atual,diferenca_reais,diferenca_perc,data_atual)
+
+    print 'Total de Compra:%02f' % total_compra
+    print 'Total da Diferença em Reais:%02f' % total_dif_reais
+    total_dif_perc = (total_dif_reais * 100)/total_compra
+    print 'Total da Diferença em Percentual:%02f' % total_dif_perc
+    sleep(1200)
+
+while 1:
+    atualiza(acoes)
+</code></pre>
+
+<p>Eu testei o script no MacOSX Leopard. Mas deve funcionar legal no Linux e no Windows
+<a href="https://s3.amazonaws.com/elton/codes/pyBovespa.py">Download do arquivo</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Better Gmail]]></title>
+    <link href="http://eminetto.github.com/blog/2007/04/30/better-gmail/"/>
+    <updated>2007-04-30T14:50:47-03:00</updated>
+    <id>http://eminetto.github.com/blog/2007/04/30/better-gmail</id>
+    <content type="html"><![CDATA[<p>O Gmail foi uma das melhores invenções do Google. Eu sou usuário fiel desde meados de 2004 e sou dependente de suas funcionalidades. Mesmo assim sempre é possível melhorar algumas coisas. Foi lançado uma extensão para o Firefox chamada "<a href="http://lifehacker.com/software/gmail/lifehacker-code-better-gmail-firefox-extension-251923.php">Better Gmail</a>" que fornece uma série de novas opções para o Gmail, como skins, novos ícones, etc. É só instalar a extensão e configurá-la na opção Ferramentas->Complementos->Opções. Testei no Firefox 2.0 e funcionou legal.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Komodo Edit]]></title>
+    <link href="http://eminetto.github.com/blog/2007/03/24/komodo-edit/"/>
+    <updated>2007-03-24T15:55:14-03:00</updated>
+    <id>http://eminetto.github.com/blog/2007/03/24/komodo-edit</id>
+    <content type="html"><![CDATA[<p>Estou testando um novo editor para programação que estou achando interessante. É o <a href="http://www.activestate.com/products/komodo_edit/">Komodo Edit</a>, da empresa ActiveState. Ele é a versão gratuíta da ferramenta <a href="http://www.activestate.com/products/komodo_ide/">Komodo IDE</a> que é bem mais completa. Ele possui versões para Windows, MacOS e Linux. No Ubuntu deve-se fazer o download do arquivo</p>
+
+<p>Komodo-Edit-4.0.2-275451-linux-libcpp6-x86.tar.gz</p>
+
+<p>que encontra-se no site da ferramenta. A instalação resume-se a executar o script install.sh e indicar onde será instalado.
+Apesar de possuir menos recursos do que a versão paga ela possui várias características que um bom editor precisa, como syntax highlighting, code folding, etc. Ela possui suporte para PHP, Python (inclusive Django), Perl, Ruby e JavaScript. É uma ferramenta muito legal para trabalhar com desenvolvimento para Web. Só senti falta do suporte a versionamento de código (CVS e Subversion) que tem na versão paga. Além disso ela é bem mais leve que o Eclipse. Na verdade estou pensando em usar os comandos do CVS em um terminal e usar o Komodo para editar os códigos, consumindo bem menos memória do que o Eclipse (que possui suporte integrado ao CVS).</p>
+
+<p>Uma característica legal é o suporte aos snippets, que são trechos de códigos que podem ser automatizados. Criei alguns snippets para o PHP. Para instalar é só fazer o download deste <a href="http://www.eltonminetto.net/codes/php_snippets.kpz">arquivo</a> e salvar em seu computador. Depois é preciso clicar em Views->Tabs e selecionar o Toolbox. Vai aparecer um novo painel na direita do editor. Lá deve-se clicar no ícone em forma de árvore de um navegador de arquivos e criar um novo Folder. Com o segundo botão sobre o novo folder escolhe-se Import Package e indica o arquivo que foi copiado. Assim os snippets estão instalados e podem ser usados com um duplo-clique sobre ele ou com a tecla Enter. De dentro de um código sendo editado dá para usar as teclas ALT+B, selecionar o snippet e teclar Enter. Assim nem do mouse precisa :-)</p>
+
+<p>Se alguém quiser melhorar os snippets ou criar os de outra linguagem coloquem nos comentários o link. Seria útil</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Cool Ubuntu Applications]]></title>
+    <link href="http://eminetto.github.com/blog/2007/02/09/cool-ubuntu-applications/"/>
+    <updated>2007-02-09T16:10:26-02:00</updated>
+    <id>http://eminetto.github.com/blog/2007/02/09/cool-ubuntu-applications</id>
+    <content type="html"><![CDATA[<p>Achei um site chamado <a href="http://www.coolmacapps.com/">CoolMacApps</a> onde os usuários podem votar no seu aplicativo favorito para MacOS. Aí pensei que poderíamos ter o mesmo para o Ubuntu. Como eu estava querendo uma aplicação para treinar mais um pouco o CakePHP resolvi fazer uma brincadeira. Aí surgiu o <a href="http://www.eltonminetto.net/cake/coolubuntuapps/principal/">Cool Ubuntu Applications</a></p>
+
+<p>Fiz em poucas horas usando o Cake, então não está muito bonito e pode haver erros. Se alguém quiser fazer um teste e me avisar de qualquer erro estou a disposição.</p>
+
+<p>Quem sabe uma aplicação como essa responda aquelas questões como "Existem Killer Applications para Ubuntu?", "Quais são minhas opções para edição de vídeo no Linux?" etc.</p>
+]]></content>
+  </entry>
+  
+</feed>

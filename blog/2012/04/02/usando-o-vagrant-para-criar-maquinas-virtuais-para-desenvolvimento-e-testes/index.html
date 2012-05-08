@@ -1,0 +1,395 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Usando Vagrant para criar máquinas virtuais para desenvolvimento e testes - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Recentemente trabalhei em um projeto grande, com equipes trabalhando remotamente, cada desenvolvedor usando o seu ambiente favorito para trabalhar ( &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2012/04/02/usando-o-vagrant-para-criar-maquinas-virtuais-para-desenvolvimento-e-testes">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Usando Vagrant Para Criar Máquinas Virtuais Para Desenvolvimento E Testes</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-02T21:38:49-03:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Recentemente trabalhei em um projeto grande, com equipes trabalhando remotamente, cada desenvolvedor usando o seu ambiente favorito para trabalhar (Linux, MacOS X e Windows) e o sistema tendo diversos requisitos (PHP, MySQL, Memcached, Solr, PHPUnit, etc). Era comum acontecerem problemas como &#8220;na minha máquina todos os testes funcionam, mas na máquina de fulano, que roda Windows não&#8221; ou &#8220;temos um novo programador na equipe, precisamos instalar todos os requisitos para ele começar a trabalhar&#8221;. Para resolver este tipo de problemas uma solução é usarmos máquinas virtuais, com todos os requisitos já instalados e prontos para uso. O VMWare e o VirtualBox são exemplos interessantes para estes casos, mas ainda assim exigem um pouco de trabalho para configurar e instalar tudo. O <a href="http://vagrantup.com/">Vagrant</a> é uma ferramenta que auxilia exatamente neste quesito, a criação das máquinas virtuais.
+O Vagrant roda em Windows, Linux e MacOS X (onde eu fiz os testes que apresento nesse post) e necessita do VirtualBox para funcionar. Neste post vou descrever os passos que fizemos na Coderockr para criarmos máquinas virtuais Ubuntu dentro de nossos MacOS X.
+O primeiro passo é fazer o download do Vagrant no link <a href="http://downloads.vagrantup.com/tags/v1.0.2">http://downloads.vagrantup.com/tags/v1.0.2</a>
+Depois precisamos fazer o download da máquina virtual &#8220;base&#8221; que será usada para gerar as máquinas para cada projeto, com o comando</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+vagrant box add base http://files.vagrantup.com/lucid32.box
+[/sourcecode]</p>
+
+<p>Um arquivo de 260M é copiado para o diretório .vagrant.d de seu home (/Users/eminetto/.vagrant.d no meu caso). É uma imagem do VirtualBox com o sistema Ubuntu 10.04.</p>
+
+<p>Agora vamos criar o nosso primeiro projeto. Eu criei um diretório:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+mkdir ~/Projects/vagrant
+[/sourcecode]</p>
+
+<p>E dentro deste diretório devemos executar o comando</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+vagrant init
+[/sourcecode]</p>
+
+<p>É criado um arquivo chamado Vagrantfile que é a configuração da sua máquina virtual
+Vamos alterar o arquivo e alterar a linha abaixo, que indica qual é nossa VM original.</p>
+
+<p>[sourcecode language=&#8221;ruby&#8221;]
+config.vm.box = &#8220;base&#8221;
+[/sourcecode]</p>
+
+<p>Se inicializarmos a máquina neste momento ela será criada com o sistema Ubuntu &#8220;zerado&#8221;, sem nenhum pacote adicional, o que não é muito útil para nossa necessidade. Vamos usar uma ferramenta chamada <a href="http://puppetlabs.com/">Puppet</a> (também é possível usar a ferramenta <a href="http://vagrantup.com/docs/provisioners/chef_solo.html">Chef</a>) para automatizar o processo de instalação dos pacotes necessários.
+Para instalar o Puppet é necessário o interpretador da linguagem Ruby, que já vem instalado no MacOS X e na maioria dos sistemas Linux atuais (ou pode ser instalado usando o apt-get ou yum, dependendo da distribuição). Vamos executar o comando:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+sudo gem install puppet
+[/sourcecode]</p>
+
+<p>Agora precisamos criar um arquivo de configuração para o Puppet. No diretório do projeto (~/Projects/vagrant) vamos criar o diretório manifests:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+mkdir manifests
+[/sourcecode]</p>
+
+<p>e o arquivo manifests/base.php, cujo conteúdo está no link <a href="https://gist.github.com/2288198">https://gist.github.com/2288198</a>
+Neste arquivo definimos os comandos que queremos executar (exec), os pacotes que devem ser instalados (package) e os serviços que devem ser inicializados (service).
+Precisamos também configurar o arquivo Vagrantfile para que ele execute o Puppet:</p>
+
+<p>[sourcecode language=&#8221;ruby&#8221;]
+config.vm.provision :puppet do |puppet|</p>
+
+<pre><code>puppet.manifests_path = "manifests"
+puppet.manifest_file  = "base.pp"
+</code></pre>
+
+<p>end
+[/sourcecode]</p>
+
+<p>Agora basta criar a máquina virtual, com o comando</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+vagrant up
+[/sourcecode]</p>
+
+<p>A primeira vez deve demorar alguns minutos, pois a máquina &#8220;base&#8221; é clonada e o Puppet é executado para instalar os pacotes que indicamos</p>
+
+<p>Para acessar o Apache instalado na máquina virtual é só acessar a url http://127.0.0.1:8080 e para acessar o SSH basta executar</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+vagrant ssh
+[/sourcecode]</p>
+
+<p>Quando precisar desligar a máquina é só executar</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+vagrant halt
+[/sourcecode]</p>
+
+<p>e para inicializar novamente basta um</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+vagrant up
+[/sourcecode]</p>
+
+<p>Caso queira remover a máquina e recriá-la o comando é</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+vagrant destroy
+[/sourcecode]</p>
+
+<p>E repetir o processo anterior.</p>
+
+<p>Também é possível compartilhar a máquina criada com o restante da equipe, como mostra a <a href="http://vagrantup.com/docs/getting-started/packaging.html">documentação oficial</a></p>
+
+<p>O Vagrant facilita bastante o processo de criação do ambiente de desenvolvimento, e trás diversas vantagens, tanto para um programador solo (poder separar o ambiente de desenvolvimento da máquina real, ter vários ambientes distintos, para os diversos projetos) quanto para equipes (poder facilmente instalar novas máquinas e ter o mesmo ambiente de desenvolvimento em todas as máquinas da equipe).</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-02T21:38:49-03:00" pubdate data-updated="true">Apr 2<span>nd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2012/04/02/usando-o-vagrant-para-criar-maquinas-virtuais-para-desenvolvimento-e-testes/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2012/04/02/usando-o-vagrant-para-criar-maquinas-virtuais-para-desenvolvimento-e-testes/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/03/20/snippet-do-sublime-text-2-para-gerar-getters-e-setters-em-php/" title="Previous Post: Snippet do Sublime Text 2 para gerar getters e setters em PHP">&laquo; Snippet do Sublime Text 2 para gerar getters e setters em PHP</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/04/18/desafio-de-programacao/" title="Next Post: Desafio de programação">Desafio de programação &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: home | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/home/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Novo layout e nova hospedagem]]></title>
+    <link href="http://eminetto.github.com/blog/2011/01/06/novo-layout-e-nova-hospedagem/"/>
+    <updated>2011-01-06T14:33:50-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/01/06/novo-layout-e-nova-hospedagem</id>
+    <content type="html"><![CDATA[<p>Já comecei a cumprir a minha lista de resoluções de ano novo. A primeira era mudar o layout deste site e migrar a hospedagem para o wordpress.com.  Assim eu não preciso mais me preocupar em atualizar o wordpress de tempos em tempos
+Quaisquer sugestões que tiverem é só me avisar.
+Bom 2011 para todos.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Novos rumos 2.0]]></title>
+    <link href="http://eminetto.github.com/blog/2010/12/20/novos-rumos-2-0/"/>
+    <updated>2010-12-20T13:56:16-02:00</updated>
+    <id>http://eminetto.github.com/blog/2010/12/20/novos-rumos-2-0</id>
+    <content type="html"><![CDATA[<p>Essa é a época do ano onde revisamos tudo que passou, tiramos lições do que aconteceu de ruim e tentamos dar continuidade ao que aconteceu de bom.
+2010 foi ruim em alguns aspectos, mas muita coisa boa aconteceu. Foi o ano que eu fiz mais palestras, participei de vários eventos, conheci pessoas incríveis, aprendi novas tecnologias, entre outras.
+Feito o balanço de 2010, é hora de planejar 2011. A principal mudança na minha vida é que estou finalizando a minha passagem pelo Drimio e iniciando um novo desafio. Esse desafio chama-se Coderockr
+<a href="http://www.coderockr.com">Coderockr</a> é a materialização de um sonho. Trabalhar em projetos inovadores, em um ambiente que seja o mais próximo possível do que imagino ser o ideal.
+O nome da empresa reflete nossas idéias e visão de mundo:
+"Programadores são artistas. São rockstars
+Não desenvolvemos software, desenvolvemos Riffs e Solos com código fonte. Nossos programadores não trabalham em uma empresa, eles fazem parte de uma banda de rock. Keep Rocking!"
+É isso que queremos fazer, é isso que defendemos. O Rock n' Roll sempre quebrou paradigmas, inventou novas formas som e de vida. É o que queremos. Inventar novas idéias, novas formas de trabalhar, quebrar convenções
+Meu sócio nessa empreitada é o <a href="http://twitter.com/xorna">@xorna</a>. Mago das idéias e dos códigos, grande apreciador do bom e velho som pesado das guitarras e distorções. Também estamos contando com apoio e parceirias de amigos, como a Agência Magica, que teve a inspiração de criar a nossa logo.</p>
+
+<p><a href="http://eltonminetto.files.wordpress.com/2011/01/coderockr-marcal.jpg"><img src="http://eltonminetto.files.wordpress.com/2011/01/coderockr-marcal.jpg?w=150" alt="" /></a>
+E outras parcerias que devemos comentar com mais detalhes no nosso site, que está no forno.
+Mas afinal, o que vamos fazer na Coderockr?  Estamos desenvolvendo projetos para a Web e para iOS, prestando consultoria e treinamento, e principalmente, nos divertindo muito com isso.
+Que 2011 seja só o início de uma aventura maior e mais divertida.</p>
+
+<p>P.S.: o título desse post é uma <a href="http://www.eltonminetto.net/novos-rumos.htm">auto-referência</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Meu ambiente]]></title>
+    <link href="http://eminetto.github.com/blog/2010/12/16/meu-ambiente/"/>
+    <updated>2010-12-16T12:25:55-02:00</updated>
+    <id>http://eminetto.github.com/blog/2010/12/16/meu-ambiente</id>
+    <content type="html"><![CDATA[<p>Esse post é uma resposta a <a href="http://duodra.co/post/seu-ambiente-de-trabalho-em-7-itens/">proposta do Duodraco</a>, um "meme" onde as pessoas colocam sete ítens que usam em seu ambiente de trabalho e indicam mais pessoas para continuar a brincadeira.</p>
+
+<p><strong>1. MacOSX</strong>: na minha opinião é o SO perfeito para desenvolvimento. Eu usei Linux como desktop por mais de 8 anos (e continuo usando nos servidores) mas o MacOSX tem tudo que eu preciso: uma plataforma Unix e uma interface gráfica produtiva e bonita. Me tornei realmente muito produtivo no Mac. As teclas de atalho, o multi-touch, as ferramentas do sistema, etc. Nele consigo programar muito bem em PHP, Python, Java (eca) e Objective C (estou aprendendo ainda)</p>
+
+<p><strong>2. Textmate</strong>: nunca fui muito fã de IDEs complexas e monstruosas como o Eclipse. O Textmate é um editor de programação muito bom. Possui suporte a todas as linguagens de programação que uso, automação de comandos, teclas de atalho programáveis, etc. Você também pode extendê-lo com bundles para, por exemplo, executar um script Python direto de dentro dele. É muito rápido e fácil de usar.</p>
+
+<p><strong>3. Cornerstone</strong>: eu ainda não tive a necessidade de usar um controle de versões distribuído como o Git, então o SVN é a minha escolha para a tarefa. O Cornerstone é um cliente SVN para o Mac muito bem feito e útil.</p>
+
+<p><strong>4. Terminal</strong>: Ok. Confesso. Eu sou "old school" (modo bonito de dizer que estou ficando velho). Apesar de todas as ferramentas gráficas e utilidades do Mac eu ainda me sinto mais confortável usando o bom e velho terminal. Vivo fazendo pequenos scripts em shell para automatizar as minhas tarefas diárias, mesmo as que poderia tranquilamente fazer usando o mouse e alguma interface cool do Mac</p>
+
+<p><strong>5. Things</strong> : Sou totalmente dependente dele. O Things é uma ferramenta para gerenciar meus projetos e suas listas de tarefas. Divido em listas com prioridades, uso tags, faço anotações, etc. Ele possui um aplicativo para o iPhone, que sincroniza com a versão desktop. Então estou sempre com as tarefas sincronizadas, para saber o que preciso fazer em seguida (assim que publicar esse post vou correndo lá dar OK na tarefa que eu adicionei para me lembrar de fazer isso)</p>
+
+<p><strong>6. Navegadores</strong>: Impossível viver sem esses benditos (e as vezes malditos) pedaços de código. Como programo bastante para a Internet preciso ter vários deles instalados. Hoje, no meu dock do Mac vejo o Safari, o Firefox e o Chrome. Mas tenho o Opera instalado e o IE no VirtualBox. Realmente não consigo dizer qual é meu favorito, pois estou sempre com dois ou três deles abertos ao mesmo tempo. Mas posso dizer que adoro o Firebug do Firefox, a velocidade do Chrome e a beleza do Safari</p>
+
+<p><strong>7. iTunes</strong>: Eu não consigo viver sem música. Isso deve ter alguma explicação científica, mas de qualquer forma já me disseram que eu vou ser enterrado com os fones de ouvido. Trabalhar com música é muito mais produtivo para mim. Centralizo tudo no iTunes e sincronizo com o Last.fm, assim tenho um histórico de tudo que eu ouço, o que é divertido (e perigoso as vezes. Vai que tem um Bon Jovi escondido em algum lugar da biblioteca e eu não sei? Aliás, vou procurar hehe)</p>
+
+<p>Seguindo a brincadeira, vou indicar mais três malucos para escreverem seus ambientes:
+<a href="http://www.blogdoxorna.com.br">Xorna</a>
+<a href="http://php5.net.br">Alganet</a>
+<a href="http://www.uhelski.org">Guilherme Uelski</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Prêmio Meritus Unochapecó - Eu ganhei!!]]></title>
+    <link href="http://eminetto.github.com/blog/2010/11/16/premio-meritus-unochapeco-eu-ganhei/"/>
+    <updated>2010-11-16T13:38:31-02:00</updated>
+    <id>http://eminetto.github.com/blog/2010/11/16/premio-meritus-unochapeco-eu-ganhei</id>
+    <content type="html"><![CDATA[<p>Eu comentei em um <a href="http://www.eltonminetto.net/premio-meritus-unochapeco.htm">post anterior</a> que eu havia sido indicado a um prêmio de "Inovação" promovido pela Unochapecó, universidade onde estudei e trabalhei.
+Graças ao voto de meus amigos, alunos e familiares eu fui o ganhador do prêmio
+Infelizmente não pude comparecer na entrega do prêmio, mas meu amigo e mentor Jorge Di Domenico fez as honras e recebeu a estatueta por mim. Fez inclusive um <a href="http://www.unochapeco.edu.br/unowebtv/play/meritus-unochapeco">depoimento em vídeo</a> para a TV da Universidade.
+Fiquei muito orgulhoso pela indicação e ainda mais pela honra de ter ganhado.
+Obrigado a todos que votaram.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[about.me]]></title>
+    <link href="http://eminetto.github.com/blog/2010/11/01/about-me/"/>
+    <updated>2010-11-01T15:41:57-02:00</updated>
+    <id>http://eminetto.github.com/blog/2010/11/01/about-me</id>
+    <content type="html"><![CDATA[<p>Com o passar do tempo todos nós vamos criando diversos perfis em vários serviços, redes sociais, blogs, etc.
+Um problema que isso acarreta é como unificarmos nossa presença nesses diversos serviços em um só lugar.
+Para resolver este problema existem alguns sites que se propõem a serem centralizadores, "hubs de sua presença online".
+Dentre os que eu testei (<a href="http://name.ly/">Name.ly</a> , <a href="http://flavors.me/">Flavors.Me</a> , <a href="http://card.ly">Card.Ly</a> e <a href="http://chi.mp/">Chi.mp</a> ) o que achei mais interessante foi o <a href="http://about.me">about.me</a>
+Você pode escrever um resumo do seu currículo, escolher um background legal, configurar as fontes, e indicar sua presença no Twitter, Facebook, Linkedin, Foursquare e outros sites.
+<a href="http://eltonminetto.files.wordpress.com/2010/11/perfil.png"><img src="http://eltonminetto.files.wordpress.com/2010/11/perfil.png?w=150" alt="" /></a>
+Além disso, existe uma funcionalidade legal que é uma espécie de Analytics com estatísticas de acesso ao seu perfil.
+<a href="http://eltonminetto.files.wordpress.com/2010/11/stats1.png"><img src="http://eltonminetto.files.wordpress.com/2010/11/stats1.png?w=150" alt="" /></a>
+Atualmente o serviço está em Beta. Você pode requisitar um convite e aguardar. Futuramente vai existir uma versão paga, com algumas funcionalidades extras.
+O meu endereço é <a href="http://about.me/eminetto">http://about.me/eminetto</a></p>
+]]></content>
+  </entry>
+  
+</feed>

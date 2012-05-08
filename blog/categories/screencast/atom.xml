@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: screencast | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/screencast/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Webcast sobre Frameworks]]></title>
+    <link href="http://eminetto.github.com/blog/2011/07/19/webcast-sobre-frameworks/"/>
+    <updated>2011-07-19T09:56:20-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/07/19/webcast-sobre-frameworks</id>
+    <content type="html"><![CDATA[<p>Depois do sucesso do <a href="http://eltonminetto.net/2011/06/16/webcast-sobre-mysql/">webcast sobre MySQL</a> o pessoal da ConexTI me convidou para mais duas edições, um sobre frameworks em PHP e outro sobre Zend Framework. O primeiro, sobre frameworks, vai acontecer no dia 09/08 às 19:00.
+Mais detalhes no <a href="http://www.conextilive.com.br/index.php?option=com_content&amp;view=article&amp;id=126&amp;Itemid=60">site do evento</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Screencast sobre Sphinx]]></title>
+    <link href="http://eminetto.github.com/blog/2011/07/15/screencast-sobre-sphinx/"/>
+    <updated>2011-07-15T09:32:29-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/07/15/screencast-sobre-sphinx</id>
+    <content type="html"><![CDATA[<p>Publiquei um novo screencast no canal da Coderockr no Vimeo, desta vez sobre a ferramenta de indexação Sphinx search.
+<a href="http://www.vimeo.com/26448459">Confere lá</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Screencast sobre Amazon Web Services]]></title>
+    <link href="http://eminetto.github.com/blog/2011/05/06/screencast-sobre-amazon-web-services/"/>
+    <updated>2011-05-06T18:43:29-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/05/06/screencast-sobre-amazon-web-services</id>
+    <content type="html"><![CDATA[<p>Mais um screencast da <a href="http://www.coderockr.com">Coderockr</a>!
+Desta vez eu apresento os serviços disponibilizados pela Amazon para desenvolvedores
+<a href="http://www.vimeo.com/23379551">Introdução a Amazon Web Services</a>
+Aproveite e assine o <a href="http://vimeo.com/channels/174796">canal da Coderockr</a> no Vimeo ;)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Screencast - Avaliação de performance no MySQL]]></title>
+    <link href="http://eminetto.github.com/blog/2011/03/03/screencast-avaliacao-de-performance-no-mysql/"/>
+    <updated>2011-03-03T09:01:43-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/03/03/screencast-avaliacao-de-performance-no-mysql</id>
+    <content type="html"><![CDATA[<p>Publiquei mais um screencast no <a href="http://vimeo.com/coderockr">canal da Coderockr</a>.
+O assunto dessa semana é "<a href="http://vimeo.com/20565041">Avaliação de performance no MySQL</a>"
+Opiniões e críticas são sempre bem vindas</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Screencast sobre Siege]]></title>
+    <link href="http://eminetto.github.com/blog/2011/02/26/screencast-sobre-siege/"/>
+    <updated>2011-02-26T06:53:28-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/02/26/screencast-sobre-siege</id>
+    <content type="html"><![CDATA[<p>Estamos iniciando um novo projeto na <a href="http://www.coderockr.com">Coderockr</a>
+Uma série de screencasts e videos sobre algumas tecnologias que usamos.
+Para iniciar o projeto e testar o formato criei um screencast sobre o Siege, ferramenta para ajudar na avaliação de performance de um aplicativo web.
+Como esse foi o meu primeiro vídeo, esperem um pouco de amadorismo :)
+Entre os próximos vídeos pensamos em falar sobre Xdebug, Zend Framework, desenvolvimento para iOS, entre outros. Se tudo der certo, vamos fazer alguns vídeos sobre outras áreas que gostamos, como música :)
+O vídeo:</p>
+
+<p>[vimeo http://vimeo.com/20387525]</p>
+
+<p>Você pode também assinar o <a href="http://vimeo.com/channels/174796">canal da Coderockr</a>. Assim vai ser avisado sempre que um novo vídeo for publicado</p>
+
+<p>Sugestões e críticas são bem vindas.</p>
+]]></content>
+  </entry>
+  
+</feed>

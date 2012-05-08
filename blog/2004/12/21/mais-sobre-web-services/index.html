@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Mais sobre Web Services - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Ultimamente tenho estudado bastante sobre Web Services. O motivo por esse interesse é meu interesse sobre Grid Computing. A versão 3 do Globus &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2004/12/21/mais-sobre-web-services">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Mais Sobre Web Services</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2004-12-21T17:32:17-02:00" pubdate data-updated="true">Dec 21<span>st</span>, 2004</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Ultimamente tenho estudado bastante sobre Web Services. O motivo por esse interesse é meu interesse sobre Grid Computing. A versão 3 do Globus Toolkit (GT3)  é baseada no conceito de Grid Services,  ou seja, os recursos do Grid são acessíveis na forma de serviços. Para entender melhor como funciona a teoria por trás dos Web Services estou lendo um excelente livro, o Professional Java Web Services, da Wrox. Também fiz alguns testes para ver como funciona o esquema. Vou tentar aqui colocar algumas coisas que fiz. Pode ser que auxilie alguém a começar os estudos, como está me ajudando.
+<strong>O Serviço</strong>
+Para iniciar os testes eu fiz um pequeno programa em Java que será meu primeiro Web Service. O código é:
+<code>
+import java.util.*;
+public class CalcService {
+public int add(int p1, int p2) {</code></p>
+
+<p>return p1 + p2;
+}</p>
+
+<p>public int subtract(int p1, int p2) {</p>
+
+<p>return p1 - p2;
+}
+}
+<strong>Publicando o serviço</strong>
+Para que o serviço possa ser acessado ele precisa ser publicado em algum servidor de aplicações. Neste caso eu escolhi o Tomcat, desenvolvido pela Apache Foundation. Fiz o download dos binários(4.1) no site http://jakarta.apache.org/ e descompactei no /usr/local/tomcat
+O próximo passo é adicionar o suporte ao protocolo SOAP no Tomcat. O SOAP é o protocolo com o qual o Web Service será acessado e é padronizado pela W3C. Para fazer isso fiz o download do pacote (2.3.1) no site http://www.apache.org/dyn/closer.cgi/ws/soap/. Depois de descompactado é preciso copiar o arquivo soap-2_3_1/webapps/soap.war para o diretório de applicativos do Tomcat (cp soap-2_3_1/webapps/soap.war /usr/local/tomcat/webapps). Para testar se funcionou a instalação é só acessar o endereço http://localhost:8080/soap/
+Para realizar a publicação é necessário primeiro criar um arquivo de definição no padrão WSDL. É um arquivo xml usado para definir a interface do Web Service. O arquivo que usei para esse teste foi:
+<code>
+&lt;isd :service xmlns:isd="http://xml.apache.org/xml-soap/deployment" id="urn:onjavaserver"&gt;
+&lt;isd :provider type="java" scope="Application" methods="add subtract"&gt;
+&lt;isd :java class="CalcService"/&gt;
+&lt;/isd&gt;
+&lt;isd :faultListener&gt;org.apache.soap.server.DOMFaultListener&lt;/isd&gt;
+&lt;/isd&gt;
+</code>
+Para realizar o deploy é só executar o comando:
+<code>java -classpath soap-2_3_1/lib/soap.jar:/usr/local/tomcat/common/lib/mail.jar:/usr/local/tomcat/common/lib/activation.jar org.apache.soap.server.ServiceManagerClient http://localhost:8080/soap/servlet/rpcrouter deploy DeploymentDescriptor.xml
+</code>
+Para visualizar se o deploy funcionou pode-se usar a interface de administração do SOAP:
+http://localhost:8080/soap/admin/index.html
+Na opção List é possível ver os serviços.
+O próximo passo é copiar o CalcService.class para o diretório de classes do soap para que o servidor de aplicações possa executar. :
+<code>
+cp CalcService.class /usr/local/tomcat/webapps/soap/WEB-INF/classes/
+</code>
+<strong>Os clientes</strong>
+Para realizar os testes fiz tres pequenos clientes para &#8220;consumir&#8221; o serviço.
+O primeiro, em Java:
+<code>
+import java.io.*;
+import java.net.*;
+import java.util.*;
+import org.apache.soap.*;
+import org.apache.soap.rpc.*;</code></p>
+
+<p>public class CalcClient {</p>
+
+<p>public static void main(String[] args) throws Exception {</p>
+
+<p>URL url = new URL (&#8220;http://localhost:8080/soap/servlet/rpcrouter&#8221;);</p>
+
+<p>Integer p1 = new Integer(args[1]);
+Integer p2 = new Integer(args[2]);</p>
+
+<p>// Constroi a chamada.
+Call call = new Call();
+call.setTargetObjectURI(&#8220;urn:onjavaserver&#8221;);
+call.setMethodName(args[0]);
+call.setEncodingStyleURI(Constants.NS_URI_SOAP_ENC);
+Vector params = new Vector();
+params.addElement(new Parameter(&#8220;p1&#8221;, Integer.class, p1, null));
+params.addElement(new Parameter(&#8220;p2&#8221;, Integer.class, p2, null));
+call.setParams (params);</p>
+
+<p>// faz a chamada
+Response resp = call.invoke(url, &#8220;&#8221; );
+Parameter result = resp.getReturnValue();
+System.out.println(args[0]+&#8221;=&#8221;+result.getValue());
+}
+}</p>
+
+<p>O resultado da execução:
+<code>
+elm@elm:~/documentos/soap $ java CalcClient subtract 5 1
+subtract=4
+elm@elm:~/documentos/soap $ java CalcClient add 5 1
+add=6
+</code>
+A segunda versão do cliente, em PHP:
+<code>
+include("SOAP/Client.php");</code></p>
+
+<p>$soapclient = new SOAP_Client(&#8216;http://localhost:8080/soap/servlet/rpcrouter&#8217;);
+$soapoptions = array(&#8216;namespace&#8217; => &#8216;urn:onjavaserver&#8217;,&#8217;trace&#8217; => 0);
+//chamando a função add
+$ret = $soapclient->call(&#8216;add&#8217;, $params = array(1,2), $soapoptions);</p>
+
+<p>if (PEAR::isError($ret))
+{    // tratamento de erros
+}
+else
+{
+echo &#8220;Add=&#8221;.$ret;
+}
+//chamando a função substract
+$ret = $soapclient->call(&#8216;subtract&#8217;, $params = array(10,2), $soapoptions);</p>
+
+<p>if (PEAR::isError($ret))
+{    // tratamento de erros
+}
+else
+{
+echo &#8220;Subtract=&#8221;.$ret;
+}
+E o terceiro, em python:
+`</p>
+
+<h1>cliente python usando servico feito em java rodando em servidor tomcat</h1>
+
+<p>from SOAPpy import SOAPProxy
+server = SOAPProxy(&#8216;http://127.0.0.1:8080/soap/servlet/rpcrouter&#8217;)
+print &#8216;2 + 2 = &#8217; + str(server.<em>ns(&#8220;urn:onjavaserver&#8221;).add(2,2))
+print &#8216;5 - 2 = &#8217; + str(server.</em>ns(&#8220;urn:onjavaserver&#8221;).subtract(5,2))
+`
+A funcionalidade dos três é a mesma, mas o tamanho do código é interessante. O código em python é muito menor e mais fácil de se entender, IMHO.
+Esses foram apenas alguns testes que fiz para tentar entender o funcionamento dos Web Services.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2004-12-21T17:32:17-02:00" pubdate data-updated="true">Dec 21<span>st</span>, 2004</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/docs/'>docs</a>, <a class='category' href='/blog/categories/home/'>home</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2004/12/21/mais-sobre-web-services/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2004/12/21/mais-sobre-web-services/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2004/12/13/ubuntu-linux/" title="Previous Post: Ubuntu Linux">&laquo; Ubuntu Linux</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2004/12/22/palavras-do-torvalds/" title="Next Post: Palavras do Torvalds">Palavras do Torvalds &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

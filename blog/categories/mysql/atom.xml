@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mysql | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/mysql/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Webcast sobre MySQL]]></title>
+    <link href="http://eminetto.github.com/blog/2011/06/16/webcast-sobre-mysql/"/>
+    <updated>2011-06-16T09:51:32-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/06/16/webcast-sobre-mysql</id>
+    <content type="html"><![CDATA[<p>Eu fui convidado pelo amigo Jackson para fazer um webcast, sobre MySQL. O evento vai acontecer no dia 05/07 e você pode fazer a inscrição no site abaixo.</p>
+
+<p><a href="http://www.conextilive.com.br/index.php?option=com_content&amp;view=article&amp;id=120&amp;Itemid=60">MySQL para aplicações escaláveis</a></p>
+
+<p>É a primeira vez que vou trabalhar com essa plataforma de e-learning, e gostei muito dos testes que fizemos. A ferramenta possui muitos recursos legais e acho que vai ser uma experiência muito produtiva. Já tem outros <a href="http://www.conextilive.com.br/">webcasts programados</a>, sobre Linux, Zend Frameworks e outros estão na fila.
+Parabéns ao pessoal da ConexTI pela idéia. É uma forma de garantir o acesso a conteúdos para pessoas que estão espalhadas pelo país.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Apresentação sobre MySQL na ERBD]]></title>
+    <link href="http://eminetto.github.com/blog/2010/04/19/apresentacao-sobre-mysql-no-erbd/"/>
+    <updated>2010-04-19T09:50:32-03:00</updated>
+    <id>http://eminetto.github.com/blog/2010/04/19/apresentacao-sobre-mysql-no-erbd</id>
+    <content type="html"><![CDATA[<p>Estou disponibilizando o material da minha <a href="http://www.eltonminetto.net/vi-escola-regional-de-banco-de-dados.htm">apresentação</a> no ERBD em Joinville.
+Os slides estão no <a href="http://slidesha.re/9KPhUB">Slideshare</a> e os arquivos com os exemplos que apresentei podem ser baixados <a href="https://s3.amazonaws.com/elton/docs/mysql_escalavel.zip">aqui</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[VI Escola Regional de Banco de Dados]]></title>
+    <link href="http://eminetto.github.com/blog/2010/03/29/vi-escola-regional-de-banco-de-dados/"/>
+    <updated>2010-03-29T10:44:37-03:00</updated>
+    <id>http://eminetto.github.com/blog/2010/03/29/vi-escola-regional-de-banco-de-dados</id>
+    <content type="html"><![CDATA[<p>A VI edição da Escola Regional de Banco de Dados vai acontecer em Joinville/SC, de 14 a 16/Abril de 2010.
+É um evento da SBC que está sendo organizado pela UDESC e UNIVILLE. Eu vou ministrar um mini-curso "<a href="http://www.erbd2010.udesc.br/programacao_detalhe.php?cont=mc1">Mysql para aplicações Web escaláveis</a>"
+Os detalhes sobre o evento estão no <a href="http://www.erbd2010.udesc.br/index.php">site oficial</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Enviando DMs do Twitter via shell script]]></title>
+    <link href="http://eminetto.github.com/blog/2010/01/28/enviando-dms-do-twitter-via-shell-script/"/>
+    <updated>2010-01-28T20:38:19-02:00</updated>
+    <id>http://eminetto.github.com/blog/2010/01/28/enviando-dms-do-twitter-via-shell-script</id>
+    <content type="html"><![CDATA[<p>Monitorar os servidores e serviços é uma tarefa importante para manter seus sites e sistemas sempre em ordem. Existem diversas ferramentas bem completas como o Nagios que fazem praticamente todo o serviço. Eu uso o Nagios para monitorar quase tudo e ele me avisa via e-mail de quaisquer problemas. O problema é que nã verifico e-mail o tempo todo.  Uma solução seria mandar os avisos via SMS, mas isso envolve alguns custos.</p>
+
+<p>Nesse momento me lembrei do Twitter. Eu sou um daqueles viciados, que verifica o twitter diversas vezes por dia.  Pensando nisso fiz um pequeno script para monitorar o MySQL e caso o ping não responda eu recebo uma DM avisando.</p>
+
+<p>Um exemplo do script:</p>
+
+<pre><code>status=`mysqladmin ping -hhost -uuser -psenha 2&gt; /dev/null`
+if [ "$status"  != "mysqld is alive" ]; then
+   curl -u usuario_mon:senha -d "text=Erro conectando ao MySQL&amp;user=eminetto" http://twitter.com/direct_messages/new.xml 2&gt; /dev/null &gt; /dev/null
+fi
+</code></pre>
+
+<p>Um detalhe importante a lembrar é que não é bom usar sua conta no Twitter para enviar as DMs. O Twitter tem uma polí­tica que remove contas que usam muitas DMs por dia, temendo abuso e SPAM. O melhor é criar uma nova conta.  Além disso, é preciso que as duas contas sejam seguidoras uma da outra, senão a DM não pode ser enviada</p>
+
+<p>Claro que eu poderia criar um plugin ou script para o próprio Nagios e deixar ele fazer isso para mim, mas assim ficou mais rápido. Além disso é só um exemplo</p>
+
+<p>Fonte: <a href="http://davidwalsh.name/twitter-dm">http://davidwalsh.name/twitter-dm</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Script para tunning de performance do MySQL]]></title>
+    <link href="http://eminetto.github.com/blog/2009/11/05/script-para-tunning-de-performance-do-mysql/"/>
+    <updated>2009-11-05T16:52:21-02:00</updated>
+    <id>http://eminetto.github.com/blog/2009/11/05/script-para-tunning-de-performance-do-mysql</id>
+    <content type="html"><![CDATA[<p>Com esse post espero iniciar uma série sobre otimizações de performance e escalabilidade de PHP, MySQL e outras tecnologias relacionadas.
+Numa das andanças pelo Google encontrei um script que faz uma análise do banco MySQL e indica melhorias de configuração do arquivo my.cnf
+Achei interessante para iniciar um estudo de otimização do banco de dados.
+Script: <a href="http://www.eltonminetto.net/codes/tunning-primer.sh">http://www.eltonminetto.net/codes/tunning-primer.sh</a></p>
+
+<p>Referências
+<a href="http://www.howtogeek.com/howto/linux/using-a-mysql-performance-tuning-analyzer-script/">http://www.howtogeek.com/howto/linux/using-a-mysql-performance-tuning-analyzer-script/</a>
+<a href="http://www.epigroove.com/posts/63/optimize_mysql_the_thread_cache">http://www.epigroove.com/posts/63/optimize_mysql_the_thread_cache</a></p>
+]]></content>
+  </entry>
+  
+</feed>

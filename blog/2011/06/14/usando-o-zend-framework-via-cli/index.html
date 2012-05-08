@@ -1,0 +1,332 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Usando o Zend Framework via CLI - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Existem várias tarefas dentro de um sistema web que podem/devem ser executadas direto no servidor, sem a interação com o usuário, como workers do &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2011/06/14/usando-o-zend-framework-via-cli">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Usando O Zend Framework via CLI</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-14T14:18:40-03:00" pubdate data-updated="true">Jun 14<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Existem várias tarefas dentro de um sistema web que podem/devem ser executadas direto no servidor, sem a interação com o usuário, como workers do Gearman, tarefas agendadas na crontab do Linux, etc.
+Estas tarefas podem ser executadas com o PHP-CLI (Command Line Interface). Na <a href="http://br.php.net/manual/en/features.commandline.php">documentação oficial</a> do PHP existem exemplos bem fáceis de entender e extender. Nesse post vou comentar como usar o CLI em projetos com o Zend Framework.
+O primeiro passo é criar um Bootstrap simplificado, que vou chamar de clip.php. Ele tem a mesma tarefa do Bootstrap normal de uma aplicação Zend Framework, com algumas coisas a menos como o uso das variáveis $<em>GET e $</em>POST. Eu criei dois exemplos de cli.php, um para <a href="https://github.com/eminetto/Template-ZF-Modulos">projetos usando módulos</a> e outro para <a href="https://github.com/eminetto/Template-ZF">projetos mais simples</a>.
+Para usá-los basta usar o projeto exemplo que está no Github ou baixar apenas o cli.php e customizá-lo para seu projeto. Para executar é:</p>
+
+<p><code>php cli.php -e development -a default/index/index</code></p>
+
+<p>Você precisa ter o executável do PHP em seu Path. No Windows você iria executar:</p>
+
+<p><code>php.exe cli.php -e development -a default/index/index</code></p>
+
+<p>Os parâmetros significam:
+-e = ambiente que você está executando. Se não passar parâmetro o script vai considerar como &#8220;development&#8221;. Isso é usado para ler as configurações de caminhos e dados do config.ini
+-a = o que você irá executar. O formato é modulo/controlador/acao/param/valor</p>
+
+<p>Se precisar passar parâmetros para a ação é só adicioná-los no comando, da mesma forma como faria em um navegador. Exemplo:</p>
+
+<p><code>php cli.php -e development -a default/index/index/id/10/nome/elton</code></p>
+
+<p>Desta forma a action indexAction do controlador IndexController vai poder acessar os parâmetros id e nome usando o comando:</p>
+
+<p><code>
+$id = $this-&gt;getRequest()-&gt;getParam('id');
+$nome = $this-&gt;getRequest()-&gt;getParam('nome');
+</code></p>
+
+<p>No caso de não estar usando módulos no seu projeto basta invocar sem o nome do módulo:</p>
+
+<p><code>php cli.php -e development -a index/index/id/10/nome/elton</code></p>
+
+<p>Nós usamos bastante esse recurso em diversas tarefas agendadas nos projetos da <a href="http://www.coderockr.com">Coderockr</a>. É algo realmente útil.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-14T14:18:40-03:00" pubdate data-updated="true">Jun 14<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/zend-framework/'>Zend Framework</a>, <a class='category' href='/blog/categories/php/'>php</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2011/06/14/usando-o-zend-framework-via-cli/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2011/06/14/usando-o-zend-framework-via-cli/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/06/02/sobre-e-books-e-ideias-que-mudam/" title="Previous Post: Sobre e-books e idéias que mudam">&laquo; Sobre e-books e idéias que mudam</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/06/16/webcast-sobre-mysql/" title="Next Post: Webcast sobre MySQL">Webcast sobre MySQL &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

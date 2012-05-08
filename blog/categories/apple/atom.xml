@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: apple | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/apple/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Usando o growlnotify para gerar notificações no Mac OSX]]></title>
+    <link href="http://eminetto.github.com/blog/2011/10/24/usando-o-growlnotify-para-gerar-notificacoes-no-mac-osx/"/>
+    <updated>2011-10-24T19:08:17-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/10/24/usando-o-growlnotify-para-gerar-notificacoes-no-mac-osx</id>
+    <content type="html"><![CDATA[<p>O <a href="http://growl.info">Growl</a> é uma das ferramentas mais úteis que tenho instalado no Mac OSX. Ele é uma central de notificações que é usada por vários aplicativos para mostrar informações na sua tela. Twitter, iTunes, Last.fm, Adium, Skype são apenas alguns exemplos de ferramentas que usam o Growl para informar o que está acontecendo aos seus usuários.
+Um dos <a href="http://growl.info/extras.php">extras</a> que estão disponíveis, na forma de plugins, é o <a href="http://growl.info/extras.php#growlnotify">growlnotify</a>. Trata-se de uma ferramenta de linha de comando que você pode usar nos seus scripts para lhe informar de eventos que ocorrerem.
+Para instalar basta fazer o <a href="http://growl.info/downloads.php">download</a> do .dmg, montá-lo e seguir as instruções na tela.</p>
+
+<p>Um exemplo de uso:</p>
+
+<p><code>phpunit ; growlnotify -m "Fim do build"</code></p>
+
+<p>Quando o build do phpunit terminar uma mensagem é mostrada na tela:
+<a href="http://eltonminetto.files.wordpress.com/2011/10/notify.png"><img src="http://eltonminetto.files.wordpress.com/2011/10/notify.png?w=150" alt="" /></a></p>
+
+<p>Existem outras opções como mudar o ícone, forçar a notificação para que não desapareça automaticamente, mudar a prioridade, etc. Além disso, como o Growl é um servidor de rede é possível mandar notificações para outras máquinas.
+Uma lista de opções do comando está disponível no help:
+<code>growlnotify --help</code>
+Até a versão 1.2 o Growl era gratuíto, mas a partir da 1.3 ele está disponível por U$ 1.99 na Apple Store. Mas é um investimento que valhe a pena.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Processando arquivos de profiling do Xdebug no MacOSX]]></title>
+    <link href="http://eminetto.github.com/blog/2011/01/27/processando-arquivos-de-profiling-do-xdebug-no-macosx/"/>
+    <updated>2011-01-27T13:33:44-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/01/27/processando-arquivos-de-profiling-do-xdebug-no-macosx</id>
+    <content type="html"><![CDATA[<p>O Xdebug é uma das ferramentas mais úteis que conheço para quem trabalha com PHP. Eu escrevi um resumo das suas funcionalidades em um <a href="http://eltonminetto.wordpress.com/2007/06/05/xdebug/">post anterior</a>.
+Uma das funcionalidades que mais uso é a geração de "profiling" de aplicações. Ajuda muito na hora de encontrar "gargalos" de performance. O único problema é que eu precisava usar o <a href="http://kcachegrind.sourceforge.net/html/Home.html">Kcachegrind</a> ou o <a href="http://code.google.com/p/webgrind/">Webgrind</a> para analisar os arquivos gerados pelo Xdebug.
+Como eu uso MacOSX eu procurei uma forma mais rápida de processar essas informações, sem ter que acessar uma máquina virtual Linux ou configurar o Webgrind.
+Para isso eu usei a dupla <a href="http://code.google.com/p/xdebugtoolkit/">xdebugtoolkit</a> e <a href="http://www.pixelglow.com/graphviz/download/">graphviz</a>. O primeiro analisa o arquivo gerado pelo Xdebug e gera um arquivo .dot, que eu posso abrir com o graphviz.
+Para instalar o xdebugtoolkit é preciso acessar o Terminal e executar os comandos:</p>
+
+<p><code>
+svn co http://xdebugtoolkit.googlecode.com/svn/tags/0.1.5/xdebugtoolkit/ xdebugtoolkit
+</code>
+e
+<code>
+cd xdebugtoolkit/
+</code>
+Ele é um programa desenvolvido em Python, que vem instalado nativamente no MacOSX.</p>
+
+<p>Com o xdebugtoolkit é possível converter o arquivo de profiling em uma imagem no formato .dot. Para isso é preciso executar o comando:
+<code>
+./cg2dot.py cachegrind.out.5398 &gt; cachegrind.dot
+</code>
+Agora basta usar o graphviz para abrir o arquivo cachegrind.dot. A instalação segue o formato .DMG do MacOSX e não apresenta nenhum mistério.
+Abaixo um exemplo de arquivo gerado por esse processo, e exportado para JPG.
+<a href="http://eltonminetto.files.wordpress.com/2011/01/cachegrind.jpg"><img src="http://eltonminetto.files.wordpress.com/2011/01/cachegrind.jpg?w=150" alt="" /></a>
+No arquivo é possível ver toda a árvore de execução da página, com seus respectivos tempos de processamento, ajudando a encontrar partes que estejam comprometendo a performance.
+Com certeza não é tão avançado quanto o Kcachegrind, mas tem me ajudado bastante.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Promoção de aniversário do site]]></title>
+    <link href="http://eminetto.github.com/blog/2008/08/30/promocao-de-aniversario-do-site/"/>
+    <updated>2008-08-30T14:12:20-03:00</updated>
+    <id>http://eminetto.github.com/blog/2008/08/30/promocao-de-aniversario-do-site</id>
+    <content type="html"><![CDATA[<p>No dia 04/09/2008 fazem 5 anos que criei este site!</p>
+
+<p>Nestes 5 anos foram 245 posts (246 contando com este), 576 comentários, vários novos amigos e grande conhecimento adquirido.  Realmente foi uma das melhores  práticas profissionais e pessoais que já fiz.</p>
+
+<p>Para comemorar e agradecer aos leitores eu vou sortear duas cópias do meu livro <a href="http://www.novateceditora.com.br/livros/frameworks/?idA=16">Frameworks para Desenvolvimento em PHP</a>. Autografados e enviados pelo correio. Lembre-se que minha assinatura e mais 15 reais valem uma cerveja em qualquer Night Club do país!!</p>
+
+<p>Para participar é só deixar um comentário nesse post, com nome e e-mail corretos. O sorteio vai ser feito pelo meu pequeno e humilde <a href="http://www.eltonminetto.net/professor-nerd.htm">script para sortear alunos azarados</a> no dia 08/09/2008</p>
+
+<p>Boa sorte e obrigado por ler meu site</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Softwares para Mac]]></title>
+    <link href="http://eminetto.github.com/blog/2008/07/27/softwares-para-mac/"/>
+    <updated>2008-07-27T19:55:12-03:00</updated>
+    <id>http://eminetto.github.com/blog/2008/07/27/softwares-para-mac</id>
+    <content type="html"><![CDATA[<p>Já faz quase um ano que estou usando o Mac. Nesse tempo fui coletando alguns softwares legais. Resolvi escrever aqui a minha lista de escolhas porque pode ser útil para quem está iniciando com o sistema da Apple.</p>
+
+<p>É uma continuação deste <a href="http://www.eltonminetto.net/editores-de-programacao-para-mac.htm">post</a>, e <a href="http://www.eltonminetto.net/softwares-open-source-para-mac.htm">deste</a>, e <a href="http://www.eltonminetto.net/aptana.htm">deste</a> :-)</p>
+
+<p><a href="http://www.adiumx.com/">Adium</a>
+O tudo-em-um dos Instant Messages. Conecta em MSN, GTalk, Jabber.</p>
+
+<p><a href="http://metaquark.de/appfresh/">AppFresh</a>
+Ajuda a saber se algum software instalado deve ser atualizado.</p>
+
+<p><a href="http://www.macupdate.com/info.php/id/25276/appcleaner">AppCleaner</a>
+Apesar do processo de remoção de softwares no MacOSX ser muito simples, com o AppCleaner fica mais fácil ainda. Ao remover um software ele remove todas as configurações e possíveis "resquícios" do programa</p>
+
+<p><a href="http://www.amule.org/">aMule</a>
+Outro que dispensa apresentações. É o mesmo software que usava no Linux</p>
+
+<p><a href="http://burn-osx.sourceforge.net/">Burn</a>
+Bem útil e simples para "queimar" CDs e DVDs</p>
+
+<p><a href="http://colloquy.info/">Colloquy</a>
+Cliente de IRC com interface polida e simples</p>
+
+<p><a href="http://cyberduck.ch/">Cyberduck</a>
+Excelente cliente de FTP</p>
+
+<p><a href="http://www.coconut-flavour.com/coconutbattery/">Coconut Batery</a>
+Para monitorar o estado da sua bateria. Dá para saber a idade da bateria, quantas cargas já fez e a capacidade de carga. A minha bateria depois de 13 meses de vida já perdeu 6% de sua capacidade.</p>
+
+<p><a href="http://evernote.com/">Evernote</a>
+É um serviço interessante. Você se cadastra no site e faz o download de um pequeno aplicativo. Depois pode colar textos, fotos, anotações e ele salva no site. É uma espécie de del.icio.us mas para anotações. Útil.</p>
+
+<p><a href="http://www.eternalstorms.at/gimmesometune/">GimmeSomeTune</a>
+Uma espécie de plugin para o iTunes. Ele é executado junto com o player da Apple e faz o download das capas, letras das músicas e outros ajustes.</p>
+
+<p><a href="http://bargiel.home.pl/">iGTD</a>
+Software muito útil, para controlar seus projetos e tarefas. Possui integração com o iCal.</p>
+
+<p><a href="http://www.blacktree.com/">Quicksilver</a>
+Indispensável. Com ele é possível executar aplicativos, abrir arquivos e diretórios, etc. Tudo via tecla de atalho. Surpreende a utilidade e produtividade que isso proporciona. Tem um <a href="http://www.youtube.com/watch?v=EBvFUhTqKK4">vídeo</a> legal mostrando como usar ele.</p>
+
+<p><a href="http://www.simonhaertel.de/quinn">Quinn</a>
+Eu sou viciado no Tetris. A primeira coisa que faço quando compro um celular novo é procurar uma versão do jogo para ele. Com o Mac não foi diferente :-) O Quinn é divertido e bonito.</p>
+
+<p><a href="http://www.macupdate.com/info.php/id/27054/superdocker">Superdocker</a>
+Ativa algumas configurações especiais e legais para o Dock, Finder, Safari e Time Machine. Dá para trocar as cores do Dock, estilos, etc.</p>
+
+<p><a href="http://seashore.sourceforge.net/">Seashore</a>
+Existem vários aplicativos legais para edição de imagens no Mac. Mas para mim, que a principal tarefa é redimensionar imagens e outras coisas simples o Seashore é perfeito. Ele é baseado no código do Gimp.</p>
+
+<p><a href="http://www.hostm.com/css/">Simple CSS</a>
+Software muito útil para trabalhar com arquivos CSS. Ele ajuda a organizar o código de acordo com as funcionalidades (fonts, bordas, dimensões, etc)</p>
+
+<p><a href="http://www.transmissionbt.com/">Transmission</a>
+Cliente de bittorrent muito simples e fácil.</p>
+
+<p><a href="http://macromates.com/">Textmate</a>
+Acho que dispensa apresentações. Excelente editor de programação. Pena que não é livre.</p>
+
+<p><a href="http://www.unrarx.com/">UnRarX</a>
+Parece que eu sou o último fã do formato zip porque todo mundo usa o rar. Então o UnRarX é necessário.</p>
+
+<p><a href="http://sourceforge.net/projects/osxvnc/">Vine Server/Viewer</a>
+Bem útil para mim que sou professor. Com o servidor VNC os alunos podem conectar no micro para acompanhar as instruções e códigos que quero demonstrar.</p>
+
+<p><a href="http://www.virtualbox.org/">VirtualBox</a>
+Álternativa ao VMWare, este aplicativo open source que foi adquirido pela Sun é muito útil. Eu criei máquinas virtuais para o Windows e o Linux, assim posso utilizar os três sistemas ao mesmo tempo sem precisar reiniciar o computador ou ter que pagar licenças para o Parallels.</p>
+
+<p><a href="http://www.apachefriends.org/en/xampp-macosx.html">Xampp</a>
+Pacote com o Apache, PHP, MySQL e outras coisas úteis para programar para Web.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Eu quero trabalhar nessa empresa]]></title>
+    <link href="http://eminetto.github.com/blog/2008/07/04/eu-quero-trabalhar-nessa-empresa/"/>
+    <updated>2008-07-04T21:29:25-03:00</updated>
+    <id>http://eminetto.github.com/blog/2008/07/04/eu-quero-trabalhar-nessa-empresa</id>
+    <content type="html"><![CDATA[<p>No meio dos 120 (sério) feeds que leio diariamente (na verdade várias vezes ao dia) <a href="http://www.techcrunch.com/2008/07/03/how-to-build-a-web-app-in-four-days-for-10000-say-hello-to-matt/">encontrei</a> o site desta empresa: <a href="http://carsonified.com/">Carsonfied</a></p>
+
+<p>Eles são uma empresa de desenvolvimento na Inglaterra, que trabalham com Django, Rails, Symfony, etc. Mas o mais interessante é a página de <a href="http://carsonified.com/jobs">vagas de emprego</a>. Olha como eles se descrevem (tradução resumida e alterada):</p>
+
+<p>"... Não somos uma empresa normal :-) Alguns benefícios da vaga:</p>
+
+<p>Semana de 4 dias(O escritório é fechado nas Sextas-feiras). Seu próprio iPhone, monitor de 23 '', cadeira confortável e MacBook Pro. Bons salários.</p>
+
+<p>Trabalhar na Carsonified não é apenas um trabalho - é um estilo de vida. Nós queremos que você ame trabalhar aqui, então fornecemos o melhor kit do mercado</p>
+
+<p>....</p>
+
+<p>"</p>
+
+<p>Viu? É disso que eu falo! Melhor do que o Google.</p>
+
+<p>Imagino as pessoas que trabalham lá: Papai Noel (Programador), Coelho da Páscoa (Designer), Capitão Nascimento (Gerente de Projetos)...</p>
+
+<p>Será que isso existe mesmo?</p>
+]]></content>
+  </entry>
+  
+</feed>

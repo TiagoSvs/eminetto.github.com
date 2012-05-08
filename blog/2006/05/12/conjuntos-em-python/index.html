@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Conjuntos em Python - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Em uma das disciplinas que ministro, Algotimos e Estruturas de Dados III, consta o conteúdo de Teoria de Conjuntos aplicada em computação e &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2006/05/12/conjuntos-em-python">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Conjuntos Em Python</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-12T15:26:26-03:00" pubdate data-updated="true">May 12<span>th</span>, 2006</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Em uma das disciplinas que ministro, Algotimos e Estruturas de Dados III, consta o conteúdo de Teoria de Conjuntos aplicada em computação e Estruturas de Dados para Conjuntos. A primeira é a aplicação das teorias matemáticas de conjuntos nas linguagens de programação. O livro que utilizo [1] traz exemplos em Pascal. Pesquisando um pouco na internet encontrei exemplos em Python:</p>
+
+<p><a href="/codes/conj.py">conj.py</a></p>
+
+<p>A outra matéria trata sobre conjuntos disjuntos [2]. Segundo [3] &#8220;algumas aplicações envolvem o agrupamento de n elementos distintos em uma coleção de conjuntos disjuntos. Duas operações importantes são encontrar o conjunto a que pertence um dado elemento e unir dois conjuntos.&#8221; Em C é possível desenvolver estas estruturas de dados utilizando listas ou usando árvores. O código da versão em C usando listas é</p>
+
+<p><a href="/codes/conjuntos_disjuntos.c">conjuntos_disjuntos.c</a></p>
+
+<p>Além disso, fiz uma pesquisa na internet para encontrar uma implementação em Python.  Encontrei a classe Grouper [4]. Um exemplo do uso da classe é:</p>
+
+<p><a href="/codes/distset.py">distset.py</a></p>
+
+<p>Uma das aplicações dos conjuntos disjuntos é a determinação dos componentes conectados em um grafo não orientado.
+A implementação deste algoritmo usando C e listas é:</p>
+
+<p><a href="/codes/connected_components.c">connected_components.c</a></p>
+
+<p>E a implementação usando Python:</p>
+
+<p><a href="/codes/connected_components.c"> </a><a href="/codes/connected_components.py">connected_components.py</a></p>
+
+<p>[1] <a href="http://www.temporeal.com.br/produtos.php?id=169855">http://www.temporeal.com.br/produtos.php?id=169855</a>
+[2] <a href="http://en.wikipedia.org/wiki/Disjoint-set_data_structure">http://en.wikipedia.org/wiki/Disjoint-set_data_structure</a>
+[3] <a href="http://www.livrariasaraiva.com.br/produto/produto.dll/detalhe?pro_id=466688&amp;ID=C8F434217D5051E1012260358">http://www.livrariasaraiva.com.br/produto/produto.dll/detalhe?pro_id=466688&amp;ID=C8F434217D5051E1012260358</a>
+[4] <a href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/387776">http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/387776</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-12T15:26:26-03:00" pubdate data-updated="true">May 12<span>th</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/codes/'>codes</a>, <a class='category' href='/blog/categories/docs/'>docs</a>, <a class='category' href='/blog/categories/home/'>home</a>, <a class='category' href='/blog/categories/python/'>python</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2006/05/12/conjuntos-em-python/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2006/05/12/conjuntos-em-python/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2006/05/11/miniframework-php/" title="Previous Post: Miniframework PHP">&laquo; Miniframework PHP</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2006/05/12/lastfm/" title="Next Post: Last.fm">Last.fm &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

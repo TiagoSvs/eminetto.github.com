@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: e-book | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/e-book/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Novidades sobre o Zend Framework na prática]]></title>
+    <link href="http://eminetto.github.com/blog/2011/12/09/novidades-sobre-o-zend-framework-na-pratica/"/>
+    <updated>2011-12-09T15:29:08-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/12/09/novidades-sobre-o-zend-framework-na-pratica</id>
+    <content type="html"><![CDATA[<p><a href="http://www.zfnapratica.com.br/2011/12/novidades-sobre-o-zend-framework-na-pratica/">Novidades</a> sobre o Zend Framework na prática!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Review e promoção do e-book ]]></title>
+    <link href="http://eminetto.github.com/blog/2011/05/30/review-e-promocao-do-e-book/"/>
+    <updated>2011-05-30T09:32:31-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/05/30/review-e-promocao-do-e-book</id>
+    <content type="html"><![CDATA[<p>O amigo Rafael Jaques, do site <a href="http://www.phpit.com.br/">PHPit</a> fez um <a href="http://www.phpit.com.br/artigos/livro-zend-framework-na-pratica.phpit">review</a> do "Zend Framework na prática" e lançou uma <a href="http://www.phpit.com.br/artigos/promocao-livro-zend-framework-na-pratica.phpit">promoção</a> para sortear uma cópia.
+Confira lá, e se não ganhar o sorteio, aproveite e <a href="http://www.zfnapratica.com.br/comprar/">compre</a> a sua cópia ;)
+E obrigado Rafael pelo review.</p>
+]]></content>
+  </entry>
+  
+</feed>

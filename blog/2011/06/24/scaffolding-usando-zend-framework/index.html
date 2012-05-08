@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Scaffolding usando Zend Framework - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Segundo a Wikipedia, scaffolding é: &#8230;termo é usado em programação para indicar que o código a que se refere é apenas um esqueleto usado para &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2011/06/24/scaffolding-usando-zend-framework">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Scaffolding Usando Zend Framework</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-24T16:58:18-03:00" pubdate data-updated="true">Jun 24<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Segundo a Wikipedia, scaffolding é:</p>
+
+<blockquote><p>&#8230;termo é usado em programação para indicar que o código a que se refere é apenas um esqueleto usado para tornar a aplicação funcional, e se espera que seja substituído por algoritmos mais complexos à medida que o desenvolvimento da aplicação progride.</p></blockquote>
+
+<p>A idéia do scaffolding é gerar código de forma rápida, geralmente para você poder testar algum conceito ou modelagem de banco de dados, mas nada impede de usar o código gerado para algumas aplicações pequenas.
+Essa é uma função que já vi em outros frameworks, como CakePHP, Django e Rails (por favor me corrijam se eu estiver errado). No Zend Framework isso ainda não existe, mas um programador criou um projeto para podermos usar os componentes padrão do framework (Zend_Form, Zend_Validate) e gerar códigos em tempo de execução para as tarefas básicas de manipulação de dados de uma tabela, o famoso CRUD (Create, Retrieve, Update,Delete)
+Para usar precisamos fazer o download do código no site abaixo:</p>
+
+<p><a href="http://code.google.com/p/zendscaffolding/">http://code.google.com/p/zendscaffolding/</a></p>
+
+<p>Após baixar o arquivo e descompatá-lo você vai encontrar um diretório com o conteúdo:
+<code>
+README.txt - exemplos de como usar o componente
+Scaffolding.php - a classe, que deve ser salva no diretório library/Zend/Controller/
+tests - uma aplicação de exemplo
+views - diretório com as visões usadas pelo componente. Deve ser salvo no diretório views/scripts do seu projeto
+</code>
+Vamos fazer um exemplo de uso.</p>
+
+<p>Tendo uma tabela no banco de dados com a seguinte estrutura:</p>
+
+<pre><code>CREATE TABLE `users` (
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `status` enum('Ativo','Inativo') DEFAULT 'Ativo',
+  `role` enum('admin','redator','revisor') DEFAULT 'revisor',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+</code></pre>
+
+<p>Após seguirmos os passos normais de uma aplicação Zend Framework, criando o model para tratar esta tabela podemos criar um controlador:</p>
+
+<p><a href="https://gist.github.com/1045552">UserController.php</a></p>
+
+<p>Somente isto é necessário. Não é preciso criar as visões ou outros métodos. Ao acessar a URL
+http://projeto/users</p>
+
+<p>É apresentado :</p>
+
+<p><a href="http://eltonminetto.files.wordpress.com/2011/06/captura-de-tela-2011-06-24-c3a0s-16-41-25.png"><img src="http://eltonminetto.files.wordpress.com/2011/06/captura-de-tela-2011-06-24-c3a0s-16-41-25.png?w=150" alt="" /></a></p>
+
+<p>Esta tela é gerada usando-se as visões do diretório scaffolding dentro do views/scripts, então podemos alterá-las para termos uma interface mais amigável.</p>
+
+<p>Ao clicar em adicionar ou editar um usuários somos apresentados o formulário:
+<a href="http://eltonminetto.files.wordpress.com/2011/06/captura-de-tela-2011-06-24-c3a0s-16-43-23.png"><img src="http://eltonminetto.files.wordpress.com/2011/06/captura-de-tela-2011-06-24-c3a0s-16-43-23.png?w=150" alt="" /></a></p>
+
+<p>É interessante notar que os campos ENUM da base de dados foram apresentados como campos SELECT, o que facilita o preenchimento.
+Um dos detalhes que achei interessante no código é que ele usa todos os componentes padrão do Zend Framework, então é muito fácil extender a classe Zend_Controller_Scaffolding e usar validators, decorators e outras funcionalidades.
+No README.txt que vem incluso no pacote, e na documentação do site existem outros exemplos mais complexos, inclusive com o uso de chaves estrangeiras e tabelas relacionais, tudo muito simples de usar.
+O desenvolvedor apresentou <a href="http://framework.zend.com/wiki/display/ZFPROP/Zend_Controller_Scaffolding+-+Alex+Oroshchuk">uma proposta de inclusão</a> desta classe na versão oficial do framework, mas o processo ainda está em andamento, mas espero que seja aprovado, pois tenho usado bastante e acho uma feature realmente útil</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-06-24T16:58:18-03:00" pubdate data-updated="true">Jun 24<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/etc/'>etc</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2011/06/24/scaffolding-usando-zend-framework/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2011/06/24/scaffolding-usando-zend-framework/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/06/24/tdc-sao-paulo-2011/" title="Previous Post: TDC São Paulo 2011">&laquo; TDC São Paulo 2011</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/07/11/slides-da-palestra-do-tdc/" title="Next Post: Slides da palestra do TDC">Slides da palestra do TDC &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: General | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/general/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Novo layout]]></title>
+    <link href="http://eminetto.github.com/blog/2009/04/13/novo-layout/"/>
+    <updated>2009-04-13T11:14:57-03:00</updated>
+    <id>http://eminetto.github.com/blog/2009/04/13/novo-layout</id>
+    <content type="html"><![CDATA[<p>Aproveitei o feriadão para modificar um pouco o layout do site. Como não tenho capacidades de design acabei pegando um tema do Wordpress e modificando um pouco.
+Coloquei um plugin para mostrar os meus posts no Twitter. Como tenho pouco tempo para postar no site pelo menos assim ele não fica tão parado.
+Se alguém tiver alguma sugestão ou crítica é só comentar.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Novo blog]]></title>
+    <link href="http://eminetto.github.com/blog/2008/12/04/novo-blog/"/>
+    <updated>2008-12-04T16:01:05-02:00</updated>
+    <id>http://eminetto.github.com/blog/2008/12/04/novo-blog</id>
+    <content type="html"><![CDATA[<p>Foi criado o blog da empresa onde estou trabalhando em Joinville: <a href="http://blog.drimio.com">http://blog.drimio.com</a></p>
+
+<p>Por enquanto estamos escrevendo nossas experiências com o Zend Framework, escalabilidade, performance, etc. E em breve mais novidades sobre nosso megalomaníaco projeto de domínio global :-)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[YAGNI]]></title>
+    <link href="http://eminetto.github.com/blog/2008/02/18/yagni/"/>
+    <updated>2008-02-18T16:19:39-03:00</updated>
+    <id>http://eminetto.github.com/blog/2008/02/18/yagni</id>
+    <content type="html"><![CDATA[<p>Algumas coisas que aprendemos na área de programação podem ser utilizadas na nossa vida "off-line".</p>
+
+<p>Aprendi mais uma recentemente. O "<a href="http://en.wikipedia.org/wiki/You_Ain't_Gonna_Need_It">YAGNI argument</a>". YAGNI é uma sigla para "You Ain't Gonna Need It", ou "Você não vai precisar disso" em português. É uma idéia usada na engenharia de software para controlar a adição de novas funcionalidades em um aplicativo que irão acrescentar mais custos de manutenção do que benefícios.</p>
+
+<p>E como usar isso no dia a dia?</p>
+
+<p>Você está morrendo de vontade de trocar sua TV de 29 por uma de 42?  YAGNI!</p>
+
+<p>Quer trocar o celular por um smartphone? YAGNI!</p>
+
+<p>Sua esposa/namorada quer comprar o centésimo par de sapatos? YAGNI, definitivamente YAGNI!</p>
+
+<p>Espero que com esta nova filosofia de vida eu consiga economizar alguns trocados.</p>
+]]></content>
+  </entry>
+  
+</feed>

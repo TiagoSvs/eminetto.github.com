@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Zend Framework | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/zend-framework/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Usando componentes do Zend Framework]]></title>
+    <link href="http://eminetto.github.com/blog/2012/01/19/usando-componentes-do-zend-framework/"/>
+    <updated>2012-01-19T11:00:37-02:00</updated>
+    <id>http://eminetto.github.com/blog/2012/01/19/usando-componentes-do-zend-framework</id>
+    <content type="html"><![CDATA[<p>Uma das coisas mais legais do Zend Framework é a forma como ele foi construído, na forma de componentes que podem ser usados separadamente ou até substituídos. Dessa forma é possível usar somente alguns componentes em qualquer projeto, desenvolvido com outros frameworks ou mesmo sem nenhum. Exemplos de componentes que podem ser bem úteis:</p>
+
+<ul>
+<li>Zend_Mail</li>
+<li>Zend_Cache</li>
+<li>Zend_Db</li>
+<li>Zend_Config</li>
+<li>Zend_Date</li>
+<li>Zend_Log</li>
+</ul>
+
+
+<p>Entre outros.
+Um exemplo bem simples, usando o Zend_Cache:
+[sourcecode language="php"]
+&lt;?php
+//include do zend framework
+$includePath  = get_include_path();
+//o : é o separador de diretórios no Unix. No Windows seria ;
+$includePath .= ':/var/www/html/library/';
+set_include_path($includePath);</p>
+
+<p>//inicia o autoloader, responsável por incluir os arquivos dos componentes
+require_once 'Zend/Loader/Autoloader.php';
+$autoloader = Zend_Loader_Autoloader::getInstance();
+$autoloader->setFallbackAutoloader(true);</p>
+
+<p>$frontendOptions = array(</p>
+
+<pre><code>'lifetime' =&gt; 7200, // tempo de vida
+'automatic_serialization' =&gt; true
+</code></pre>
+
+<p>);
+$backendOptions = array('cache_dir' => '/tmp');
+// criando uma instancia do cache
+$cache = Zend_Cache::factory('Core',//frontend</p>
+
+<pre><code>'File',  //backend
+$frontendOptions,
+$backendOptions
+</code></pre>
+
+<p>);</p>
+
+<p>if(!$result = $cache->load('cachePosts')) {</p>
+
+<pre><code>  //aqui podemos usar o Zend_Db, por exemplo
+  $result = 'aqui vai o processamento, como buscar os dados do banco';
+  $cache-&gt;save($result, 'cachePosts');
+</code></pre>
+
+<p>}
+echo $result;</p>
+
+<p>[/sourcecode]
+Dessa forma é fácil de extender seu projeto usando componentes bem estruturados e testados.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Meus dois centavos sobre o MicroPHP Manifesto]]></title>
+    <link href="http://eminetto.github.com/blog/2012/01/05/meus-dois-centavos-sobre-o-microphp-manifesto/"/>
+    <updated>2012-01-05T15:52:37-02:00</updated>
+    <id>http://eminetto.github.com/blog/2012/01/05/meus-dois-centavos-sobre-o-microphp-manifesto</id>
+    <content type="html"><![CDATA[<p>Nos últimos dias um post tem gerado alguma discussão entre os programadores PHP: o MicroPHP Manifesto (<a href="http://funkatron.com/posts/the-microphp-manifesto.html">post original</a> e o <a href="http://microphp.org/">site que foi gerado depois</a>)
+Confesso que concordo com vários pontos levantados pelo Ed Finkler no seu artigo, principalmente no ponto de que alguns frameworks estão ficando muito mais complexos do que o necessário.
+Logo depois da publicação do post surgiram algumas respostas (<a href="http://blog.ircmaxell.com/2012/01/microphp-fallacy.html">essa</a> e <a href="http://www.phpriot.com/news/reddit-com-a-response-to-the-microphp-manifesto">essa</a>, por exemplo), umas concordando e outras crucificando o autor.
+A minha opinião é: depende :) Depende do projeto. Estou trabalhando atualmente em um projeto enorme, com vários requisitos técnicos bem avançados, com equipes trabalhando remotamente e paralelamente. Neste projeto estamos usando Zend Framework e Doctrine e foi a melhor decisão.
+Ao mesmo tempo precisei ministrar um curso onde o foco eram tecnologias bem específicas e não precisava adicionar complexidade, então a melhor opção foi o Slim, conforme comentei em outro <a href="http://eltonminetto.net/2011/11/29/slim-framework/">post</a>. Aliás, gostamos tanto do Slim que estamos usando em outros pequenos projetos da Coderockr. Gosto também da abordagem do Symfony, seus componentes e o <a href="http://silex.sensiolabs.org/">Silex</a>, micro-framework baseado nestes componentes.
+Eu acho que o post teve um bom efeito, que foi gerar a discussão sobre o assunto, mas ele não deve ser levado tão ao pé da letra e nem gerar flamewars intermináveis. A idéia é sempre analisar qual é a melhor situação para seu projeto, e mesmo usando algo completo, como o Zend Framework, tentar sempre manter o desenvolvimento o mais simples e bem implementado.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[PHPConference 2011]]></title>
+    <link href="http://eminetto.github.com/blog/2011/12/07/phpconference-2011/"/>
+    <updated>2011-12-07T09:47:03-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/12/07/phpconference-2011</id>
+    <content type="html"><![CDATA[<p>Na última semana estive em Osasco-SP para a sexta edição do PHPConference, o maior evento de PHP da América Latina.
+Novamente pude rever os amigos e lendas da programação PHP, além de conhecer novas pessoas, algumas que eu conhecia via Twitter. Na minha opinião essa é a parte mais importante do evento, a troca de conhecimentos que acontece fora das salas de palestras.
+Quanto as palestras, não consegui ver todas as que gostaria, mas as que consegui ver foram muito boas.
+Assistindo algumas palestras e conversando com algumas pessoas a sensação que tenho é que o "mundo PHP" ganhou nos últimos meses um novo impulso de qualidade e inovação. Fazia um bom tempo que eu não me sentia empolgado com o ambiente, mas com coisas legais como bancos NoSQL, novos frameworks como Symfony 2, Zend Framework 2, diversos micro frameworks, o Service Oriented Architecture finalmente deixando de ser "tendência" e virando realidade, o MVC evoluindo para algo novo, tudo isso abre novos horizontes para os profissionais.
+O material da minha palestra está no meu <a href="http://speakerdeck.com/u/eminetto/p/otimizando-aplicacoes-com-zend-framework">Speakerdeck</a> e os comentários estão no <a href="http://joind.in/talk/view/4505">Joind.in</a>
+E que venha o PHPConference 2012!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Pós-graduação em Umuarama]]></title>
+    <link href="http://eminetto.github.com/blog/2011/11/24/pos-graduacao-em-umuarama/"/>
+    <updated>2011-11-24T09:56:26-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/11/24/pos-graduacao-em-umuarama</id>
+    <content type="html"><![CDATA[<p>Fui convidado a ministrar uma disciplina na pós-graduação "Desenvolvimento de Software para Internet e Dispositivos Móveis" que vai acontecer em 2012, na cidade paranaense de Umuarama. A disciplina vai ser "Framework de desenvolvimento PHP", onde vou apresentar o Zend Framework.
+Mais informações no site da <a href="http://www.alfaumuarama.com.br/faculdade/curso-pos/desenvolvimento-de-software-para-internet-e-dispositivos-moveis">Faculdade ALFA</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Palestra no PHP Conference 2011]]></title>
+    <link href="http://eminetto.github.com/blog/2011/11/16/palestra-no-php-conference-2011/"/>
+    <updated>2011-11-16T18:50:27-02:00</updated>
+    <id>http://eminetto.github.com/blog/2011/11/16/palestra-no-php-conference-2011</id>
+    <content type="html"><![CDATA[<p>Além do <a href="http://eltonminetto.net/2011/09/30/tutorial-mao-na-massa-php-conference-2011/">tutorial</a> também vou palestrar no PHP Conference 2011!
+A minha palestra será no dia <a href="http://www.phpconference.com.br/schedule/day2">03/12</a>, as 12:00, com o título "Otimizando aplicações com Zend Framework"
+Aproveite e faça sua <a href="http://www.phpconference.com.br/registration">inscrição</a> para o evento. Imperdível é pouco!</p>
+]]></content>
+  </entry>
+  
+</feed>

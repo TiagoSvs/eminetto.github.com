@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: codes | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/codes/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Maldito segmentation fault]]></title>
+    <link href="http://eminetto.github.com/blog/2012/04/27/maldito-segmentation-fault/"/>
+    <updated>2012-04-27T15:30:50-03:00</updated>
+    <id>http://eminetto.github.com/blog/2012/04/27/maldito-segmentation-fault</id>
+    <content type="html"><![CDATA[<p>Esse é um daqueles posts que serve mais para me ajudar, mas acho que pode ser útil para mais pessoas.
+Já tive vários casos onde uma aplicação PHP gera um erro muito genérico nos logs do Apache, o famigerado "Segmentation fault". Na prática significa que alguma coisa deu tão errado que o processo do Apache que estava executando o seu script PHP foi cancelado. Mas o log não ajuda muito, pois podem ser várias coisas.
+Nesse post vou descrever o processo que fiz para encontrar um problema em uma aplicação. Os passos foram feitos em uma máquina virtual Ubuntu, a que eu gerei com o <a href="http://eltonminetto.net/2012/04/02/usando-o-vagrant-para-criar-maquinas-virtuais-para-desenvolvimento-e-testes/">Vagrant</a>.
+O primeiro passo é instalar os pacotes necessários para conseguirmos toda a informação possível:</p>
+
+<p>[sourcecode language="bash"]
+apt-get install libapr1-dbg libaprutil1-dbg gdb php5-dbg
+[/sourcecode]</p>
+
+<p>Precisamos também configurar o Apache para que ele gere um "dump" com toda a informação do erro em um arquivo. No arquivo /etc/apache2/apache2.conf eu adicionei a seguinte linha:</p>
+
+<p>[sourcecode language="bash"]
+CoreDumpDirectory /tmp/apache2-gdb-dump
+[/sourcecode]</p>
+
+<p>Também precisamos criar o diretório e dar permissões para o Apache criar os arquivos:</p>
+
+<p>[sourcecode language="bash"]
+mkdir /tmp/apache2-gdb-dump
+chown -R www-data:www-data /tmp/apache2-gdb-dump
+[/sourcecode]</p>
+
+<p>Após reiniciar o Apache é só executar novamente o script que está gerando o erro, e um arquivo será gerado no diretório criado, o <em>/tmp/apache2-gdb-dump/core</em></p>
+
+<p>Com esse arquivo podemos executar o gdb e verificar o que aconteceu com o programa. Precisamos executar:</p>
+
+<p>[sourcecode language="bash"]
+gdb /usr/sbin/apache2 /tmp/apache2-gdb-dump/core
+[/sourcecode]</p>
+
+<p>Será mostrado uma lista de ítens que o Apache executou. Para ver mais detalhe é só executar o comando
+[sourcecode language="bash"]
+bt full
+[/sourcecode]</p>
+
+<p>Analisando as mensagem é bem provável que você vai encontrar uma pista para o que exatamente está ocorrendo. No caso da minha aplicação que testei hoje o problema era na forma como estava carregando o arquivo .phar do Silex, conforme o que o gdb me mostrou:</p>
+
+<p>[sourcecode language="bash"]</p>
+
+<h1>0  0x0112cefe in phar_get_archive (archive=0xbff5f87c, fname=0xb5dab6c4 "/vagrant/SOA-Server/vendor/silex.phar", fname_len=55, alias=0x213f323c "silex.phar", alias_len=10, error=0x0) at /build/buildd/php5-5.3.2/ext/phar/util.c:1255</h1>
+
+<p>[/sourcecode]</p>
+
+<p>Espero que esse post seja útil para mais alguém, e se você tiver outra receita de como desvendar esse tipo de problemas é só usar os comentários para dar a dica.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[News feed usando nodeJS, Pubsub.io e jQuery]]></title>
+    <link href="http://eminetto.github.com/blog/2011/07/19/news-feed-usando-nodejs-pubsub-io-e-jquery/"/>
+    <updated>2011-07-19T15:00:25-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/07/19/news-feed-usando-nodejs-pubsub-io-e-jquery</id>
+    <content type="html"><![CDATA[<p>Um dos projetos que estamos desenvolvendo na <a href="http://www.coderockr.com">Coderockr</a> é uma rede social, da qual vamos dar mais detalhes no futuro, e um dos componentes é um news feed, algo parecido com o "mural do Facebook" onde são mostrados os eventos mais atuais aos usuários (novas notícias, novos pedidos de amizade, novos conteúdos, etc).
+Estamos estudando algumas tecnologias para melhor solucionar esta necessidade, e uma das soluções é algo bem novo para nós, o uso quase que total de Javascript: <a href="http://nodejs.org">nodeJS</a>, <a href="http://pubsub.io/">Pubsub.io</a> e nossa velha amiga jQuery.
+O nodeJS é uma das tecnologias mais interessantes que surgiu nos últimos tempos. O mago do Javascript  <a href="http://twitter.com/jaydson">@jaydson</a> escreveu alguns posts muito legais fazendo uma <a href="http://jaydson.org/nodejs-introducao">introdução</a> e mostrando os <a href="http://jaydson.org/nodejs-instalacao">primeiros passos</a> na ferramenta. Recomendo a leitura.
+O Pubsub.io é construído sobre o nodeJS e é um "query based message hub", trabalhando com o conceito de publishers (programas que publicam conteúdo) e consumers (os que consumem as mensagens), e adicionando a possibilidade de usar uma query language baseada na usada pelo banco NoSQL MongoDB para filtrar os resultados.
+A solução que estamos testando funciona da seguinte forma: sempre que um evento acontece (uma nova foto é salva, por exemplo) o componente que executou o evento (um model ou um controller de uma aplicação Zend Framework, por exemplo) faz uma requisição http para uma url servida pelo nodeJS e este publica uma mensagem no Pubsub.io. Na aplicação client, no navegador web, usando a biblioteca JS do Pubsub.io e o jQuery mostramos as mensagens na tela. Vamos tentar explicar com códigos :)
+Após instalar o nodeJS e o npm (<a href="http://howtonode.org/introduction-to-npm">node packet manager</a>) é preciso instalar o Pubsub.io, usando o comando abaixo, no mesmo diretório onde ficará o script server.js (script nodeJS mostrado abaixo):
+<code>npm install pubsub.io</code>
+Agora é preciso instalar e executar o servidor do Pubsub.io:
+<code>
+git clone git@github.com:pubsubio/pubsub-hub.git
+./pubsub-hub/lib/server.js
+</code>
+Ele ficará ouvindo na porta 9999
+O próximo passo é escrever o <a href="https://gist.github.com/1093224">código do aplicativo</a> do nodeJS e executá-lo com o comando:
+<code>node server.js</code>
+Como o nodeJS fica executando na porta 8080 podemos publicar novos eventos usando algo simples como um comando curl, via linha de comando:
+<code>curl -d "title=new photo&amp;detail=http://localhost/photo/id/1&amp;user=eminetto" http://127.0.0.1:8888</code>
+O -d indica que estamos usando o comando POST para enviar.
+Podemos também usar o curl no PHP:
+<code>
+$url = 'http://127.0.0.1:8888';
+$postvars = 'title=new image&amp;detail=http://localhost/image/id/1&amp;user=eminetto';
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_POST      ,1);
+curl_setopt($ch, CURLOPT_POSTFIELDS    ,$postvars);
+curl_setopt($ch, CURLOPT_FOLLOWLOCATION  ,1);
+curl_setopt($ch, CURLOPT_HEADER      ,0);  
+curl_setopt($ch, CURLOPT_RETURNTRANSFER  ,1);
+$Rec_Data = curl_exec($ch);
+</code>
+Na parte client vamos usar a biblioteca Javascript do Pubsub.io e jQuery para mostrar ao usuário a notificação: <a href="https://gist.github.com/1093252">ver código</a></p>
+
+<p>No site do Pubsub.io é possível ver outras features importantes como a possibilidade de usar autenticação para garantir a segurança, queries avançadas e a possibilidade de usar o MongoDB para armazenar as mensagens.
+Gostei muito da solução. Ainda falta testar coisas como performance, escalabilidade mas me parece ter um bom futuro.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Contabilizar espaço usado em FTP usando Python]]></title>
+    <link href="http://eminetto.github.com/blog/2010/03/10/contabilizar-espaco-usado-em-ftp-usando-python/"/>
+    <updated>2010-03-10T11:34:05-03:00</updated>
+    <id>http://eminetto.github.com/blog/2010/03/10/contabilizar-espaco-usado-em-ftp-usando-python</id>
+    <content type="html"><![CDATA[<p>Aqui na <a href="http://www.drimio.com">empresa</a> temos duas contas de FTP contratadas no nosso plano de hospedagem para usarmos como espaço de backup. As duas contas tem um espaço limitado e toda semana eu preciso monitorar quanto espaço estamos usando, para evitar erros no script de backup. Para facilitar esse controle eu criei um pequeno script Python para navegar em todas as pastas e me dizer quanto espaço estou usando. O script ficou assim:</p>
+
+<pre><code>import os
+from ftplib import FTP
+
+def pretty_filesize(bytes):
+    if bytes &gt;= 1073741824:
+        return str(bytes / 1024 / 1024 / 1024) + ' GB'
+    elif bytes &gt;= 1048576:
+        return str(bytes / 1024 / 1024) + ' MB'
+    elif bytes &gt;= 1024:
+        return str(bytes / 1024) + ' KB'
+    elif bytes &lt; 1024:
+        return str(bytes) + ' bytes'
+
+endereco_ftp = 'servidor'
+usuario = 'usuario'
+senha = 'senha'
+conexao_ftp = FTP(endereco_ftp)
+
+conexao_ftp.login(usuario,senha)
+diretorio_corrente = conexao_ftp.pwd()
+soma = 0
+for i in conexao_ftp.nlst():
+    conexao_ftp.cwd(i)
+    for j in conexao_ftp.nlst():
+        soma = soma + conexao_ftp.size(j)
+    conexao_ftp.cwd('..')
+
+print pretty_filesize(soma)
+</code></pre>
+
+<p>Agora é só colocar no crontab e receber diariamente o espaço utilizado.
+Fontes:
+<a href="http://www.vivaolinux.com.br/script/navegador-ftp">http://www.vivaolinux.com.br/script/navegador-ftp</a>
+<a href="http://code.rivers.pro/python-function-to-convert-bytes-to-kbmbgb/">http://code.rivers.pro/python-function-to-convert-bytes-to-kbmbgb/</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Enviando DMs do Twitter via shell script]]></title>
+    <link href="http://eminetto.github.com/blog/2010/01/28/enviando-dms-do-twitter-via-shell-script/"/>
+    <updated>2010-01-28T20:38:19-02:00</updated>
+    <id>http://eminetto.github.com/blog/2010/01/28/enviando-dms-do-twitter-via-shell-script</id>
+    <content type="html"><![CDATA[<p>Monitorar os servidores e serviços é uma tarefa importante para manter seus sites e sistemas sempre em ordem. Existem diversas ferramentas bem completas como o Nagios que fazem praticamente todo o serviço. Eu uso o Nagios para monitorar quase tudo e ele me avisa via e-mail de quaisquer problemas. O problema é que nã verifico e-mail o tempo todo.  Uma solução seria mandar os avisos via SMS, mas isso envolve alguns custos.</p>
+
+<p>Nesse momento me lembrei do Twitter. Eu sou um daqueles viciados, que verifica o twitter diversas vezes por dia.  Pensando nisso fiz um pequeno script para monitorar o MySQL e caso o ping não responda eu recebo uma DM avisando.</p>
+
+<p>Um exemplo do script:</p>
+
+<pre><code>status=`mysqladmin ping -hhost -uuser -psenha 2&gt; /dev/null`
+if [ "$status"  != "mysqld is alive" ]; then
+   curl -u usuario_mon:senha -d "text=Erro conectando ao MySQL&amp;user=eminetto" http://twitter.com/direct_messages/new.xml 2&gt; /dev/null &gt; /dev/null
+fi
+</code></pre>
+
+<p>Um detalhe importante a lembrar é que não é bom usar sua conta no Twitter para enviar as DMs. O Twitter tem uma polí­tica que remove contas que usam muitas DMs por dia, temendo abuso e SPAM. O melhor é criar uma nova conta.  Além disso, é preciso que as duas contas sejam seguidoras uma da outra, senão a DM não pode ser enviada</p>
+
+<p>Claro que eu poderia criar um plugin ou script para o próprio Nagios e deixar ele fazer isso para mim, mas assim ficou mais rápido. Além disso é só um exemplo</p>
+
+<p>Fonte: <a href="http://davidwalsh.name/twitter-dm">http://davidwalsh.name/twitter-dm</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Material da palestra no PHPSC Conf 2009]]></title>
+    <link href="http://eminetto.github.com/blog/2009/06/10/material-da-palestra-no-phpsc-conf-2009/"/>
+    <updated>2009-06-10T17:48:17-03:00</updated>
+    <id>http://eminetto.github.com/blog/2009/06/10/material-da-palestra-no-phpsc-conf-2009</id>
+    <content type="html"><![CDATA[<p>Finalmente me organizei e fiz o upload dos slides da palestra que ministrei no PHPSC Conf 2009.
+Coloquei no Slideshare. Se alguém precisar do arquivo em outro formato é só me avisar.
+<a href="http://www.slideshare.net/eminetto/melhorando-a-performance-de-aplicaes-com-o-uso-do-memcache">Melhorando a performance de aplicações com o uso do MemCache</a></p>
+]]></content>
+  </entry>
+  
+</feed>

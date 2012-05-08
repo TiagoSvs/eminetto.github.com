@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Meteor - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Esse post é minha participação no desafio Coderockr de programação.
+Eu escolhi desenvolver o aplicativo usando um framework de Javascript chamado &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2012/04/23/meteor">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Meteor</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-23T14:22:06-03:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Esse post é minha participação no <a href="http://www.coderockr.com/blog/2012/04/desafio-de-programacao/">desafio Coderockr de programação</a>.
+Eu escolhi desenvolver o aplicativo usando um framework de Javascript chamado <a href="http://meteor.com/">Meteor</a>, que conheci em um post no Hacker News e estava na minha lista de coisas interessantes a olhar com calma. Exatamente o tipo de situação que o desafio quer promover :)
+O Meteor é um framework realmente interessante. Ele é baseado em algumas tecnologias de JavaScript que permitem criarmos um aplicativo completo usando apenas essa linguagem, tanto a porção servidor (ele usa o Nodejs para isso) quanto a parte cliente (jQuery e templates usando o <a href="http://www.handlebarsjs.com/">Handlebars</a>)
+Para instalar o Meteor é preciso executar os comandos no terminal (no Linux e MacOSX):</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+curl install.meteor.com | /bin/sh
+[/sourcecode]</p>
+
+<p>Para criar um novo projeto é só executar os comandos:
+[sourcecode language=&#8221;bash&#8221;]
+meteor create myapp
+[/sourcecode]</p>
+
+<p>O Meteor possui um servidor para podermos fazer o teste da aplicação. Para executá-lo é só:
+[sourcecode language=&#8221;bash&#8221;]
+cd myapp
+meteor
+[/sourcecode]</p>
+
+<p>E para acessar no navegador é só usar a url <em>http://localhost:3000</em></p>
+
+<p>Um projeto do Meteor é composto de três arquivos: um css, um html e um JavaScript. Pode ser estruturado de outra forma, mas esse é o exemplo mais comum. Dentro do JavaScript podemos definir a lógica que será executada no cliente (e que será enviada para o navegador do usuário) e a porção que será executada no servidor (no Nodejs).</p>
+
+<p>Para testar o framework eu criei um pequeno projeto, de cadastro de contatos. Para rodar o meu exemplo é só executar (depois de ter instalado o Meteor):
+[sourcecode language=&#8221;bash&#8221;]
+git clone git@github.com:eminetto/MeteorContactListSample.git
+cd MeteorContactListSample/
+meteor
+[/sourcecode]</p>
+
+<p>No arquivo ContactList.html é definido o visual do aplicativo, usando o sistema de templates usado pelo Meteor. No trecho abaixo definimos dois templates (add_contact e contacts) e fazemos a inclusão dos dois, dentro da tag body:</p>
+
+<p>[sourcecode language=&#8221;javascript&#8221;]
+<head>
+  <title>ContactList</title>
+</head></p>
+
+<p><body></p>
+
+<p></body></p>
+
+<p><template name="add_contact">
+  <h3> contact</h3>
+  <div id="new-contact"></p>
+
+<pre><code>&lt;input type="hidden" id="id" name="id"&gt;
+Name: &lt;input type="text" name="name" id="name"&gt;&lt;br&gt;
+E-mail: &lt;input type="text" name="email" id="email"&gt;&lt;br&gt;
+&lt;input type="button" id="actionButton" value=""&gt;
+</code></pre>
+
+<p>  </div>
+</template></p>
+
+<p><template name="contacts">
+  <h3>Contacts</h3>
+  <div id="contacts"></p>
+
+<pre><code>  &lt;div class="contact"&gt;
+     -  
+    &lt;input type="button" class="edit" id="" value="edit"&gt;
+    &lt;input type="button" class="del" id="" value="del"&gt;
+    &lt;br&gt;
+  &lt;/div&gt;
+</code></pre>
+
+<p>  </div>
+</template>
+[/sourcecode]</p>
+
+<p>O que está dentro de  são variáveis que serão substituídas pelo sistema de templates. A instrução <em>each</em> é usada como um <em>for</em> e mostrará todos os contatos existentes.</p>
+
+<p>No arquivo ContactList.js está a lógica do aplicativo. E aí entra algo muito interessante: as Collections. São interfaces para o banco de dados MongoDB que é usado pelo framework. Na documentação é citado que pode ser extendido para usar com outros bancos de dados, mas não cheguei a testar isso. Quando a aplicação é executada é criado um banco de dados MongoDB e os dados são inseridos nele. Uma das coisas mais legais do Meteor é que ele gera uma cópia do banco de dados no lado do cliente, assim o mesmo comando usado pelo servidor é usado pelo cliente. E os dados são sincronizados, o que significa que no momento que um cliente modifica o banco de dados essa mudança é replicada automaticamente para o servidor, que manda a alteração para todos os clientes. Magia negra! Você tem um sistema sincronizado entre diversos clientes, sem precisar se preocupar com isso, o que é realmente uma vantagem.
+O código do ContactList.js:</p>
+
+<p>[sourcecode language=&#8221;javascript&#8221;]
+Contacts = new Meteor.Collection(&#8220;contacts&#8221;);</p>
+
+<p>if (Meteor.is_client) {</p>
+
+<p>  Session.set(&#8216;action&#8217;,&#8217;add&#8217;);</p>
+
+<p>  Template.add_contact.action = function () {</p>
+
+<pre><code>var action = Session.get("action") || "add";  
+return action;
+</code></pre>
+
+<p>  };</p>
+
+<p>  Template.add_contact.events = {</p>
+
+<pre><code>'click input#actionButton' : function (evt) {
+  var $action = Session.get('action'),
+      $name = $("#name").val(),
+      $email = $("#email").val();
+
+  console.log($action);
+  if ($action == 'add') {
+    Contacts.insert({
+      name:  $name,
+      email: $email 
+    });
+    alert('contact ' + $name +  ' added');
+  }
+  else {
+    Contacts.update($("#id").val(), {$set: {name: $name, email: $email}});
+    $("#id").val('');
+    Session.set('action', 'add');
+    alert('contact ' + $name +  ' modified');
+  }
+  $("#name").val('');
+  $("#email").val('');
+}
+</code></pre>
+
+<p>  };</p>
+
+<p>  Template.contacts.contact_list = function () {</p>
+
+<pre><code>return Contacts.find({}, {sort: {name: 1}});
+</code></pre>
+
+<p>  };</p>
+
+<p>  Template.contacts.events = {</p>
+
+<pre><code>'click input.del' : function (evt) {
+  var $contact = $(evt.target),
+      $id = $contact.attr('id');
+  Contacts.remove($id);
+},
+'click input.edit' : function (evt) {
+  var $contact = $(evt.target),
+      $id = $contact.attr('id');
+  contact = Contacts.findOne($id);
+
+  $("#id").val(contact._id);
+  $("#name").val(contact.name);
+  $("#email").val(contact.email);
+  $("#name").focus();
+
+  Session.set('action', 'edit');
+},
+</code></pre>
+
+<p>  };</p>
+
+<p>}</p>
+
+<p>if (Meteor.is_server) {
+  Meteor.startup(function () {</p>
+
+<pre><code>// code to run on server at startup
+</code></pre>
+
+<p>  });
+}
+[/sourcecode]</p>
+
+<p>No código é possível ver os comandos <em>is_client</em> e <em>is_server</em> que dividem o código do cliente e servidor (eles podem ser separados em arquivos diferentes também). Também é possível ver o sistema de eventos (<em>Template.contacts.events</em>) e o retorno do banco de dados sendo enviado ao template (<em>return Contacts.find({}, {sort: {name: 1}});</em>)</p>
+
+<p>No site do Meteor existem alguns <a href="http://meteor.com/examples/leaderboard">exemplos</a> mais complexos que ajudam a entender os detalhes mais avançados.
+Apesar de ser uma ferramenta nova (versão 0.3.3 no momento da escrita deste post) eu fiquei surpreso com as possibilidades que ela fornece. Não cheguei a testar em uma aplicação mais complexa ou com maior carga, mas é uma tecnologia que vou prestar muita atenção na sua evolução, pois vejo várias utilidades para ela.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-23T14:22:06-03:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/etc/'>etc</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2012/04/23/meteor/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2012/04/23/meteor/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/19/uml-usando-astah/" title="Previous Post: UML usando Astah">&laquo; UML usando Astah</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/04/25/git-sparse-checkouts/" title="Next Post: Git sparse checkouts">Git sparse checkouts &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

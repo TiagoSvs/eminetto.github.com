@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: etc | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/etc/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Palestra sobre segurança e crimes digitais]]></title>
+    <link href="http://eminetto.github.com/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/"/>
+    <updated>2012-05-07T18:18:19-03:00</updated>
+    <id>http://eminetto.github.com/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais</id>
+    <content type="html"><![CDATA[<p>No último fim de semana ministrei uma palestra sobre segurança e crimes digitais para uma turma formada por alunos de Sistemas de Informação e Direito, em um curso na Unoesc Chapecó. </p>
+
+<p>Foi uma experiência muito legal, principalmente pelas contribuições da professora <a href="facebook.com/nice.bueno/">Elenice Bueno</a>, que complementou os meus tópicos com excelentes explicações da área jurídica, que era o foco principal do curso que ela estava ministrando. Os alunos também fizeram comentários e deram mais alguns exemplos interessantes. </p>
+
+<p>O material da palestra está nesse <a href="http://prezi.com/aupf1kqhzbik/securanca-da-informacao-e-crimes-digitais/">link</a>. Por ser uma apresentação feita no aplicativo Prezi não é possível fazer o download do material pelo site, mas se alguém tiver interesse é só entrar em contato que eu tento exportar para algum formato.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Post no Javascript Brasil]]></title>
+    <link href="http://eminetto.github.com/blog/2012/05/03/post-no-javascript-brasil/"/>
+    <updated>2012-05-03T14:09:45-03:00</updated>
+    <id>http://eminetto.github.com/blog/2012/05/03/post-no-javascript-brasil</id>
+    <content type="html"><![CDATA[<p>Fui convidado por um dos meus gurus de Javascript, o  <a href="http://twitter.com/osuissa">@osuissa</a>,  a escrever um post no <a href="http://javascriptbrasil.com/">Javascript Brasil</a>, sobre o <a href="http://javascriptbrasil.com/artigos/meteor">Meteor</a>.</p>
+
+<p>Espero poder contribuir com mais alguns posts, pois tenho trabalhado bastante com Javascript, e me divertindo bastante :)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Crie sua marca pessoal]]></title>
+    <link href="http://eminetto.github.com/blog/2012/05/03/crie-sua-marca-pessoal/"/>
+    <updated>2012-05-03T14:02:46-03:00</updated>
+    <id>http://eminetto.github.com/blog/2012/05/03/crie-sua-marca-pessoal</id>
+    <content type="html"><![CDATA[<p>Recentemente encontrei um <a href="http://www.codinghorror.com/blog/2006/04/your-personal-brand.html">post</a> que havia lido anos atrás e achei interessante comentá-lo aqui, pois ele continua relevante. O autor fala brevemente da importância de termos uma "personal brand" e cita algumas dicas úteis para nós que trabalhamos na área de TI. São elas (em tradução livre e com meus comentários):</p>
+
+<p><strong>Lidere ou crie um grupo de usuários</strong></p>
+
+<p>Posso citar vários amigos da comunidade PHP que trabalharam em grupos de usuários (PHP-SP, PHP-SC, PHP-MS, PHP-Maranhão, etc) e hoje encontram-se em empregos ótimos, e muito respeitados nas suas áreas. É algo que vai ocupar um pouco do seu tempo livre, mas que tem muita recompensa.</p>
+
+<p><strong>Crie ou contribua com um projeto open-soure popular</strong></p>
+
+<p>Também muito importante, pois é uma chance de você mostrar a várias pessoas o seu código, a sua forma de trabalhar.
+Alguns exemplos: <a href="http://www.doctrine-project.org">Doctrine</a> e o grande <a href="http://twitter.com/guilhermeblanco">Guilherme Blanco</a>, <a href="https://github.com/Respect">Respect</a> e o seu criador <a href="http://twitter.com/alganet">Alexandre Gaigalas</a>.</p>
+
+<p><strong>Escreva um blog</strong></p>
+
+<p>Esse blog começou como um site onde eu anotava as coisas que eu ia aprendendo, para poder usar mais tarde caso necessário, e acabou gerando muitos amigos e algumas boas propostas de emprego/projetos. A minha regra é: se eu demorei mais de 30 min para resolver ou aprender algo, no mínimo posso salvar 30 min do tempo de alguém, então isso acaba virando um post.</p>
+
+<p><strong>Publique um livro</strong></p>
+
+<p>Publicar um livro nos dias de hoje é algo um pouco mais fácil do que a alguns anos atrás, graças a popularização dos e-books e seus formatos. Você pode também aproveitar as lojas e serviços como Amazon, iBooks, ou colocar a venda (ou de graça) no seu próprio site, como eu fiz com o <a href="http://www.zfnapratica.com.br">Zend Framework na Prática</a>.</p>
+
+<p>Você também pode optar por um livro impresso e entrar em contato com as editoras, que estão sempre em busca de novos autores e títulos. Eu trabalhei com a Editora <a href="http://www.novatec.com.br/">Novatec</a> e tive uma boa experiência.</p>
+
+<p>Se você me perguntar se vale a pena eu vou responder que financeiramente não é algo que vá te deixar rico, mas vai te trazer reconhecimento, satisfação e alguns ótimos amigos</p>
+
+<p><strong>Palestre em conferências</strong></p>
+
+<p>Existem várias conferências onde você pode mostrar seu conhecimento e aparecer para o mercado. Eu recomendo começar por eventos menores, do seu grupo de usuários, da sua empresa, da sua universidade, para conseguir mais confiança perante ao público e depois partir para as conferências maiores como PHPConf, FISL e até as internacionais (uma ambição que eu ainda tenho hehe). Aqueles velhos medos como "e se as pessoas da platéia souberem mais do que eu?", "e se me perguntarem algo que eu não sei" são infundados, pois todos sabem que ninguém é "dono da verdade". Todas as minhas experiências palestrando foram muito recompensadoras, desde apresentar para 5 pessoas até 2 auditórios cheios de gente, no FISL 2009.</p>
+
+<p>Como o próprio autor do post comenta, essas são apenas algumas dicas, existem diversas outras formas de se fazer isso, mas já é um bom começo com um bom retorno.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Meteor]]></title>
+    <link href="http://eminetto.github.com/blog/2012/04/23/meteor/"/>
+    <updated>2012-04-23T14:22:06-03:00</updated>
+    <id>http://eminetto.github.com/blog/2012/04/23/meteor</id>
+    <content type="html"><![CDATA[<p>Esse post é minha participação no <a href="http://www.coderockr.com/blog/2012/04/desafio-de-programacao/">desafio Coderockr de programação</a>.
+Eu escolhi desenvolver o aplicativo usando um framework de Javascript chamado <a href="http://meteor.com/">Meteor</a>, que conheci em um post no Hacker News e estava na minha lista de coisas interessantes a olhar com calma. Exatamente o tipo de situação que o desafio quer promover :)
+O Meteor é um framework realmente interessante. Ele é baseado em algumas tecnologias de JavaScript que permitem criarmos um aplicativo completo usando apenas essa linguagem, tanto a porção servidor (ele usa o Nodejs para isso) quanto a parte cliente (jQuery e templates usando o <a href="http://www.handlebarsjs.com/">Handlebars</a>)
+Para instalar o Meteor é preciso executar os comandos no terminal (no Linux e MacOSX):</p>
+
+<p>[sourcecode language="bash"]
+curl install.meteor.com | /bin/sh
+[/sourcecode]</p>
+
+<p>Para criar um novo projeto é só executar os comandos:
+[sourcecode language="bash"]
+meteor create myapp
+[/sourcecode]</p>
+
+<p>O Meteor possui um servidor para podermos fazer o teste da aplicação. Para executá-lo é só:
+[sourcecode language="bash"]
+cd myapp
+meteor
+[/sourcecode]</p>
+
+<p>E para acessar no navegador é só usar a url <em>http://localhost:3000</em></p>
+
+<p>Um projeto do Meteor é composto de três arquivos: um css, um html e um JavaScript. Pode ser estruturado de outra forma, mas esse é o exemplo mais comum. Dentro do JavaScript podemos definir a lógica que será executada no cliente (e que será enviada para o navegador do usuário) e a porção que será executada no servidor (no Nodejs).</p>
+
+<p>Para testar o framework eu criei um pequeno projeto, de cadastro de contatos. Para rodar o meu exemplo é só executar (depois de ter instalado o Meteor):
+[sourcecode language="bash"]
+git clone git@github.com:eminetto/MeteorContactListSample.git
+cd MeteorContactListSample/
+meteor
+[/sourcecode]</p>
+
+<p>No arquivo ContactList.html é definido o visual do aplicativo, usando o sistema de templates usado pelo Meteor. No trecho abaixo definimos dois templates (add_contact e contacts) e fazemos a inclusão dos dois, dentro da tag body:</p>
+
+<p>[sourcecode language="javascript"]
+<head>
+  <title>ContactList</title>
+</head></p>
+
+<p><body>
+  </p>
+
+<p>  </p>
+
+<p></body></p>
+
+<p><template name="add_contact">
+  <h3> contact</h3>
+  <div id="new-contact"></p>
+
+<pre><code>&lt;input type="hidden" id="id" name="id"&gt;
+Name: &lt;input type="text" name="name" id="name"&gt;&lt;br&gt;
+E-mail: &lt;input type="text" name="email" id="email"&gt;&lt;br&gt;
+&lt;input type="button" id="actionButton" value=""&gt;
+</code></pre>
+
+<p>  </div>
+</template></p>
+
+<p><template name="contacts">
+  <h3>Contacts</h3>
+  <div id="contacts"></p>
+
+<pre><code>
+  &lt;div class="contact"&gt;
+     -  
+    &lt;input type="button" class="edit" id="" value="edit"&gt;
+    &lt;input type="button" class="del" id="" value="del"&gt;
+    &lt;br&gt;
+  &lt;/div&gt;
+
+</code></pre>
+
+<p>  </div>
+</template>
+[/sourcecode]</p>
+
+<p>O que está dentro de  são variáveis que serão substituídas pelo sistema de templates. A instrução <em>each</em> é usada como um <em>for</em> e mostrará todos os contatos existentes.</p>
+
+<p>No arquivo ContactList.js está a lógica do aplicativo. E aí entra algo muito interessante: as Collections. São interfaces para o banco de dados MongoDB que é usado pelo framework. Na documentação é citado que pode ser extendido para usar com outros bancos de dados, mas não cheguei a testar isso. Quando a aplicação é executada é criado um banco de dados MongoDB e os dados são inseridos nele. Uma das coisas mais legais do Meteor é que ele gera uma cópia do banco de dados no lado do cliente, assim o mesmo comando usado pelo servidor é usado pelo cliente. E os dados são sincronizados, o que significa que no momento que um cliente modifica o banco de dados essa mudança é replicada automaticamente para o servidor, que manda a alteração para todos os clientes. Magia negra! Você tem um sistema sincronizado entre diversos clientes, sem precisar se preocupar com isso, o que é realmente uma vantagem.
+O código do ContactList.js:</p>
+
+<p>[sourcecode language="javascript"]
+Contacts = new Meteor.Collection("contacts");</p>
+
+<p>if (Meteor.is_client) {</p>
+
+<p>  Session.set('action','add');</p>
+
+<p>  Template.add_contact.action = function () {</p>
+
+<pre><code>var action = Session.get("action") || "add";  
+return action;
+</code></pre>
+
+<p>  };</p>
+
+<p>  Template.add_contact.events = {</p>
+
+<pre><code>'click input#actionButton' : function (evt) {
+  var $action = Session.get('action'),
+      $name = $("#name").val(),
+      $email = $("#email").val();
+
+  console.log($action);
+  if ($action == 'add') {
+    Contacts.insert({
+      name:  $name,
+      email: $email 
+    });
+    alert('contact ' + $name +  ' added');
+  }
+  else {
+    Contacts.update($("#id").val(), {$set: {name: $name, email: $email}});
+    $("#id").val('');
+    Session.set('action', 'add');
+    alert('contact ' + $name +  ' modified');
+  }
+  $("#name").val('');
+  $("#email").val('');
+}
+</code></pre>
+
+<p>  };</p>
+
+<p>  Template.contacts.contact_list = function () {</p>
+
+<pre><code>return Contacts.find({}, {sort: {name: 1}});
+</code></pre>
+
+<p>  };</p>
+
+<p>  Template.contacts.events = {</p>
+
+<pre><code>'click input.del' : function (evt) {
+  var $contact = $(evt.target),
+      $id = $contact.attr('id');
+  Contacts.remove($id);
+},
+'click input.edit' : function (evt) {
+  var $contact = $(evt.target),
+      $id = $contact.attr('id');
+  contact = Contacts.findOne($id);
+
+  $("#id").val(contact._id);
+  $("#name").val(contact.name);
+  $("#email").val(contact.email);
+  $("#name").focus();
+
+  Session.set('action', 'edit');
+},
+</code></pre>
+
+<p>  };</p>
+
+<p>}</p>
+
+<p>if (Meteor.is_server) {
+  Meteor.startup(function () {</p>
+
+<pre><code>// code to run on server at startup
+</code></pre>
+
+<p>  });
+}
+[/sourcecode]</p>
+
+<p>No código é possível ver os comandos <em>is_client</em> e <em>is_server</em> que dividem o código do cliente e servidor (eles podem ser separados em arquivos diferentes também). Também é possível ver o sistema de eventos (<em>Template.contacts.events</em>) e o retorno do banco de dados sendo enviado ao template (<em>return Contacts.find({}, {sort: {name: 1}});</em>)</p>
+
+<p>No site do Meteor existem alguns <a href="http://meteor.com/examples/leaderboard">exemplos</a> mais complexos que ajudam a entender os detalhes mais avançados.
+Apesar de ser uma ferramenta nova (versão 0.3.3 no momento da escrita deste post) eu fiquei surpreso com as possibilidades que ela fornece. Não cheguei a testar em uma aplicação mais complexa ou com maior carga, mas é uma tecnologia que vou prestar muita atenção na sua evolução, pois vejo várias utilidades para ela.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[SOA e Silex]]></title>
+    <link href="http://eminetto.github.com/blog/2012/03/13/soa-e-silex/"/>
+    <updated>2012-03-13T10:29:11-03:00</updated>
+    <id>http://eminetto.github.com/blog/2012/03/13/soa-e-silex</id>
+    <content type="html"><![CDATA[<p>Nos últimos anos a arquitetura SOA (<a href="http://en.wikipedia.org/wiki/Service-oriented_architecture?utm_source=twitterfeed&amp;utm_medium=twitter">Service-oriented architecture</a>) deixou de ser uma tendência e virou realidade em diversos projetos e empresas. A maioria dos projetos que a <a href="http://www.coderockr.com">Coderockr</a> desenvolveu em 2011, e tem planejada para 2012, foi desenvolvida dessa forma.</p>
+
+<p>Um dos exemplos é o <a href="http://ufun.coderockr.com/">uFun</a>. Basicamente, a arquitetura da aplicação é:</p>
+
+<p><a href="http://eltonminetto.files.wordpress.com/2012/03/captura-de-tela-2012-03-13-c3a0s-09-57-10.png"><img src="http://eltonminetto.files.wordpress.com/2012/03/captura-de-tela-2012-03-13-c3a0s-09-57-10.png?w=426" alt="Imagem" /></a></p>
+
+<p> </p>
+
+<p>Essa é a típica aplicação que se beneficia desse tipo de arquitetura, pois temos várias interfaces acessando os mesmos dados e lógica. Os dados trafegam na forma de JSON via protocolo HTTP. Muito fácil de trabalhar em todas as plataformas e linguagens usadas no projeto (Objective C, Java, PHP e JavaScript).</p>
+
+<p>Outro assunto que me interessa muito é o de frameworks. Ultimamente tenho estudado bastante os novos micro-frameworks de PHP. A parte server do uFun foi desenvolvida pelo <a href="http://twitter.com/xorna">@xorna</a> em <a href="http://www.slimframework.com/">Slim Framework</a>, que comentei em outro <a href="http://eltonminetto.net/2011/11/29/slim-framework/">post</a>.  Além do Slim Framework outro framework que me pareceu interessante foi o <a href="http://silex.sensiolabs.org/">Silex</a>, principalmente por ser baseado em componentes do Symfony. </p>
+
+<p>Como eu tenho uma teoria de que só aprendemos alguma tecnologia quando precisamos desenvolver algo com ela eu me fiz um desafio: criar um aplicativo em Silex para facilitar a criação de serviços Rest e RPC. O resultado está no Github da Coderockr: <a href="https://github.com/Coderockr/SOA-Server">https://github.com/Coderockr/SOA-Server</a></p>
+
+<p>Além do Silex eu usei alguns componentes que eu achei importantes:</p>
+
+<ul>
+<li><a href="https://github.com/rdohms/DMS-Filter">DMS/Filter</a> do meu amigo <a href="http://twitter.com/rdohms">Rafael Dohms</a> para fazer o filtro dos dados usando annotations</li>
+<li><a href="http://www.doctrine-project.org/">Doctrine</a> para fazer o ORM das entidades</li>
+<li><a href="https://github.com/symfony/ClassLoader">Symfony ClassLoader</a>  para facilitar o carregamento dos outros componentes</li>
+<li><a href="https://github.com/symfony/Validator.git">Symfony Validator</a> para fazer a validação das entidades</li>
+</ul>
+
+
+<p>No <a href="https://github.com/Coderockr/SOA-Server/blob/master/README.md">README</a> do projeto tem mais informações sobre como fazer o download e instalação. Quanto ao funcionamento:</p>
+
+<p>Toda a lógica do projeto está no arquivo i<a href="https://github.com/Coderockr/SOA-Server/blob/master/index.php">ndex.php</a>. Essa é uma das vantagens do Silex, por ser um micro-framework. Tudo é muito simples, principalmente a criação de rotas, validações. O index.php faz o papel de bootstrap da aplicação e possui as rotas para os métodos Rest (GET, PUT, POST e DELETE) e RPC.</p>
+
+<p>Para que uma entidade esteja disponível via Rest basta que seja criada uma classe no namespace model que extends model\Entity, como no <a href="//github.com/Coderockr/SOA-Server/blob/master/model/User.php">exemplo</a>. Ela é uma entidade Doctrine, então temos todas as facilidades desse excelente framework. Além disso podemos adicionar as anotações para o DMS/Filter (por exemplo o @Filter\StripTags) e as configurações para o Symfony Validator (método loadValidatorMetadata)</p>
+
+<p>Para que uma classe seja acessível via RPC ela precisa ser criada no namespace procedure e estender procedure\Procedure. Como Procedure é uma classe abstrata a nova classe precisa definir o método execute e retornar sempre um array com o resultado, conforme o <a href="https://github.com/Coderockr/SOA-Server/blob/master/procedure/Login.php">exemplo</a>.</p>
+
+<p>Para termos um pouco de segurança foi implementado um controle de acesso, usando-se um header HTTP, o Authorization, que é validado baseado no arquivo configs/clients.php.</p>
+
+<p>Também escrevi um <a href="https://github.com/Coderockr/SOA-Server/blob/master/sample.html">exemplo</a> de como seria fácil acessar via jQuery os serviços. O mesmo pode ser facilmente feito via PHP e outras linguagens usando Curl e outras bibliotecas.</p>
+
+<p><strong>Conclusões</strong></p>
+
+<p>Me diverti bastante escrevendo e testando esses componentes. Além da diversão, acabei criando algo que pretendo usar nos próximos projetos da Coderockr. Então esse desafio cumpriu seus objetivos: aprendi algo novo (Silex nesse caso) e consegui criar algo útil. Se for útil para alguém mais só aumenta a minha recompensa :)</p>
+
+<p>Se alguém quiser contribuir com códigos é só usar a metodologia pull-request do Github e sugerir melhorias e correções.</p>
+]]></content>
+  </entry>
+  
+</feed>

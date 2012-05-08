@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>pyBovespa - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Neste ano eu comecei a investir em ações. É algo ao mesmo tempo emocionante e apavorante porque você pode ganhar e perder dinheiro em questão de &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2008/05/01/pybovespa">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">pyBovespa</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-01T12:49:13-03:00" pubdate data-updated="true">May 1<span>st</span>, 2008</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Neste ano eu comecei a investir em ações. É algo ao mesmo tempo emocionante e apavorante porque você pode ganhar e perder dinheiro em questão de horas. Por isso é importante ficar sempre atento as alterações dos valores das ações. Existem vários programas e sites que permitem o acompanhamento das alterações. Mesmo assim, eu aproveitei a manhã de feriado, enquanto me recupero de uma pequena ressaca, e fiz um script em Python que busca os dados da Bovespa e permite o acompanhamento da sua &#8220;carteira de ações&#8221;. Assim dá para deixar um terminal aberto e ir acompanhando o mercado.
+O script foi feito por diversão e uso pessoal, mas se servir para alguém mais legal. O código:</p>
+
+<pre><code># -*- coding: utf-8 -*-
+# Elton Luís Minetto
+import urllib
+from xml.dom import minidom
+from time import sleep
+from os import system
+
+#adicionar as acoes aqui
+#formato ACAO: [num_acoes,valor_compra,data_compra]
+acoes = {
+    'BBDC4':[100,34.84,'25/04/2008'],
+    'PETR4':[100,42.00,'20/04/2008'],
+}
+
+def atualiza(acoes):
+    system('clear')
+    url = 'http://www.bovespa.com.br/Mercado/RendaVariavel/InfoPregao/ExecutaAcaoAjax.asp?CodigoPapel='
+    for i in acoes:
+        url += '|'+i
+    f = urllib.urlopen(url)
+    xml = f.read()
+    xmldoc = minidom.parseString(xml)
+    papeis = xmldoc.getElementsByTagName('Papel')
+    #cabecalho
+    print 'Ação\tValor de Compra\tData da Compra\tQtd\tAtual\tDiferença R$\tDiferença %\tData de Atualização'
+
+    total_compra = 0.0
+    total_dif_reais = 0.0
+    for i in papeis:
+        codigo = i.attributes['Codigo'].value
+        valor_compra = acoes[codigo][1]
+        qtd_acoes = acoes[codigo][0]
+        data_compra = acoes[codigo][2]
+        valor_atual = i.attributes['Ultimo'].value.replace(',','.')
+        data_atual = i.attributes['Data'].value
+
+        diferenca_reais = (float(valor_atual) * qtd_acoes) - (valor_compra * qtd_acoes)
+        diferenca_perc = (diferenca_reais*100)/(valor_compra * qtd_acoes)
+        total_compra += valor_compra * qtd_acoes
+        total_dif_reais += diferenca_reais
+
+        print '%s\t%02f\t%s\t%d\t%s\t%02f\t%02f\t%s' % (codigo,valor_compra,data_compra,qtd_acoes,valor_atual,diferenca_reais,diferenca_perc,data_atual)
+
+    print 'Total de Compra:%02f' % total_compra
+    print 'Total da Diferença em Reais:%02f' % total_dif_reais
+    total_dif_perc = (total_dif_reais * 100)/total_compra
+    print 'Total da Diferença em Percentual:%02f' % total_dif_perc
+    sleep(1200)
+
+while 1:
+    atualiza(acoes)
+</code></pre>
+
+<p>Eu testei o script no MacOSX Leopard. Mas deve funcionar legal no Linux e no Windows
+<a href="https://s3.amazonaws.com/elton/codes/pyBovespa.py">Download do arquivo</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2008-05-01T12:49:13-03:00" pubdate data-updated="true">May 1<span>st</span>, 2008</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/apple/'>apple</a>, <a class='category' href='/blog/categories/codes/'>codes</a>, <a class='category' href='/blog/categories/python/'>python</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2008/05/01/pybovespa/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2008/05/01/pybovespa/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2008/04/26/evento-phpsc-chamada-de-trabalhos/" title="Previous Post: Evento PHPSC - Chamada de Trabalhos">&laquo; Evento PHPSC - Chamada de Trabalhos</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2008/05/26/dicas-de-performance-para-scripts-php/" title="Next Post: Dicas de performance para scripts PHP">Dicas de performance para scripts PHP &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

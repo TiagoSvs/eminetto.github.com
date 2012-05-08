@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Maldito segmentation fault - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Esse é um daqueles posts que serve mais para me ajudar, mas acho que pode ser útil para mais pessoas.
+Já tive vários casos onde uma aplicação PHP &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2012/04/27/maldito-segmentation-fault">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Maldito Segmentation Fault</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-27T15:30:50-03:00" pubdate data-updated="true">Apr 27<span>th</span>, 2012</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Esse é um daqueles posts que serve mais para me ajudar, mas acho que pode ser útil para mais pessoas.
+Já tive vários casos onde uma aplicação PHP gera um erro muito genérico nos logs do Apache, o famigerado &#8220;Segmentation fault&#8221;. Na prática significa que alguma coisa deu tão errado que o processo do Apache que estava executando o seu script PHP foi cancelado. Mas o log não ajuda muito, pois podem ser várias coisas.
+Nesse post vou descrever o processo que fiz para encontrar um problema em uma aplicação. Os passos foram feitos em uma máquina virtual Ubuntu, a que eu gerei com o <a href="http://eltonminetto.net/2012/04/02/usando-o-vagrant-para-criar-maquinas-virtuais-para-desenvolvimento-e-testes/">Vagrant</a>.
+O primeiro passo é instalar os pacotes necessários para conseguirmos toda a informação possível:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+apt-get install libapr1-dbg libaprutil1-dbg gdb php5-dbg
+[/sourcecode]</p>
+
+<p>Precisamos também configurar o Apache para que ele gere um &#8220;dump&#8221; com toda a informação do erro em um arquivo. No arquivo /etc/apache2/apache2.conf eu adicionei a seguinte linha:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+CoreDumpDirectory /tmp/apache2-gdb-dump
+[/sourcecode]</p>
+
+<p>Também precisamos criar o diretório e dar permissões para o Apache criar os arquivos:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+mkdir /tmp/apache2-gdb-dump
+chown -R www-data:www-data /tmp/apache2-gdb-dump
+[/sourcecode]</p>
+
+<p>Após reiniciar o Apache é só executar novamente o script que está gerando o erro, e um arquivo será gerado no diretório criado, o <em>/tmp/apache2-gdb-dump/core</em></p>
+
+<p>Com esse arquivo podemos executar o gdb e verificar o que aconteceu com o programa. Precisamos executar:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]
+gdb /usr/sbin/apache2 /tmp/apache2-gdb-dump/core
+[/sourcecode]</p>
+
+<p>Será mostrado uma lista de ítens que o Apache executou. Para ver mais detalhe é só executar o comando
+[sourcecode language=&#8221;bash&#8221;]
+bt full
+[/sourcecode]</p>
+
+<p>Analisando as mensagem é bem provável que você vai encontrar uma pista para o que exatamente está ocorrendo. No caso da minha aplicação que testei hoje o problema era na forma como estava carregando o arquivo .phar do Silex, conforme o que o gdb me mostrou:</p>
+
+<p>[sourcecode language=&#8221;bash&#8221;]</p>
+
+<h1>0  0x0112cefe in phar_get_archive (archive=0xbff5f87c, fname=0xb5dab6c4 &#8220;/vagrant/SOA-Server/vendor/silex.phar&#8221;, fname_len=55, alias=0x213f323c &#8220;silex.phar&#8221;, alias_len=10, error=0x0) at /build/buildd/php5-5.3.2/ext/phar/util.c:1255</h1>
+
+<p>[/sourcecode]</p>
+
+<p>Espero que esse post seja útil para mais alguém, e se você tiver outra receita de como desvendar esse tipo de problemas é só usar os comentários para dar a dica.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-27T15:30:50-03:00" pubdate data-updated="true">Apr 27<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/coderockr/'>coderockr</a>, <a class='category' href='/blog/categories/codes/'>codes</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2012/04/27/maldito-segmentation-fault/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2012/04/27/maldito-segmentation-fault/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/04/25/git-sparse-checkouts/" title="Previous Post: Git sparse checkouts">&laquo; Git sparse checkouts</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/05/03/crie-sua-marca-pessoal/" title="Next Post: Crie sua marca pessoal">Crie sua marca pessoal &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

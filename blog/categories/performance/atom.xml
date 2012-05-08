@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: performance | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/performance/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Curso sobre PHP, Memcache, Sphinx e Gearman]]></title>
+    <link href="http://eminetto.github.com/blog/2012/01/03/curso-sobre-php-memcache-sphinx-e-gearman/"/>
+    <updated>2012-01-03T15:09:05-02:00</updated>
+    <id>http://eminetto.github.com/blog/2012/01/03/curso-sobre-php-memcache-sphinx-e-gearman</id>
+    <content type="html"><![CDATA[<p>Em Fevereiro vou repetir o curso "mão na massa" que ministrei no <a href="http://eltonminetto.net/2011/09/30/tutorial-mao-na-massa-php-conference-2011/">PHPConference de 2011</a>, pela Tempo Real Eventos, em SP.
+Os detalhes do curso encontram-se na <a href="http://www.temporealeventos.com.br/?area=242-memcached-gearman-e-sphinx-search">página do evento</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tutorial Mão na Massa - PHP Conference 2011]]></title>
+    <link href="http://eminetto.github.com/blog/2011/09/30/tutorial-mao-na-massa-php-conference-2011/"/>
+    <updated>2011-09-30T09:37:41-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/09/30/tutorial-mao-na-massa-php-conference-2011</id>
+    <content type="html"><![CDATA[<p>No início de Dezembro vai acontecer o <a href="http://www.phpconference.com.br/">PHP Conference Brasil 6</a>, em Osasco/SP.
+Não preciso lembrar a todos a importância do evento e nem a minha empolgação em participar de mais um ano.
+E este ano é especial para nós, do <a href="http://www.phpsc.com.br/">PHPSC</a>, pois tivemos uma participação um pouco maior, ajudando a escolher as palestras para o evento. Algumas <a href="http://www.phpconference.com.br/presentations">já foram divulgadas</a> e a grade final deve estar pronta nos próximos dias. O nível das palestras e palestrantes está excelente, como já é de costume.
+Como eu sabia que iria auxiliar na escolha das palestras eu não submeti nenhum trabalho, mas fui convidado pela organização a ministrar um tutorial Mão na Massa no primeiro dia do evento. No "Melhore a Performance de seus sites usando Memcached, Gearman e Sphinx Search" eu vou apresentar as tecnologias Memcached, Gearman e Sphinx Search bem como a sua integração com o PHP para criar aplicativos e sites escaláveis e de alta performance.
+As inscrições para o evento e para os Mão na Massa podem ser feitos no site do evento.
+Nos vemos por lá. No tutorial, nas palestras ou no PHPinga ;)</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Vídeo da apresentação TcheLinux - Otimizando aplicações Zend Framework]]></title>
+    <link href="http://eminetto.github.com/blog/2011/08/22/video-da-apresentacao-tchelinux-otimizando-aplicacoes-zend-framework/"/>
+    <updated>2011-08-22T13:29:48-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/08/22/video-da-apresentacao-tchelinux-otimizando-aplicacoes-zend-framework</id>
+    <content type="html"><![CDATA[<p>Complementando o post anterior, com os slides da palestra no Tchelinux, o pessoal publicou no Blip.tv o <a href="http://blip.tv/tchelinux/palestra-eminetto_compress-5482637">vídeo da minha apresentação</a></p>
+
+<p>P.S.: não me responsabilizo por pesadelos ou traumas causados pela visão dantesta :D</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Material da palestra em Bento Gonçalves]]></title>
+    <link href="http://eminetto.github.com/blog/2011/08/15/material-da-palestra-em-bento-goncalves/"/>
+    <updated>2011-08-15T13:40:07-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/08/15/material-da-palestra-em-bento-goncalves</id>
+    <content type="html"><![CDATA[<p>No último fim de semana estive em <a href="http://eltonminetto.net/2011/06/20/palestra-em-bento-golcalves/">Bento Gonçalves,</a>RS, para palestrar no evento do Tchelinux.
+Primeiramente, gostaria de parabenizar o pessoal da organização, em especial o Rafael Jaques, pelo sucesso do evento. Ótimas palestras, boas conversas nos corredores, e a hospitalidade do pessoal do RS são sempre legais.
+Coloquei o material da minha apresentação no <a href="http://www.slideshare.net/eminetto/otimizando-aplicaes-zend-framework-tchelinux">slideshare</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Palestra em Bento Gonçalves]]></title>
+    <link href="http://eminetto.github.com/blog/2011/06/20/palestra-em-bento-golcalves/"/>
+    <updated>2011-06-20T14:24:43-03:00</updated>
+    <id>http://eminetto.github.com/blog/2011/06/20/palestra-em-bento-golcalves</id>
+    <content type="html"><![CDATA[<p>No dia 13 de Agosto eu vou ministrar uma nova palestra, no tradicional evento TcheLinux que vai acontecer em Bento Gonçalves, no RS.
+A palestra é sobre "Otimizando aplicações desenvolvidas com Zend Framework" e os detalhes do evento podem ser encontrados neste site:
+<a href="http://tchelinux.org/site/doku.php?id=evento_2011_agosto_bento">http://tchelinux.org/site/doku.php?id=evento_2011_agosto_bento</a></p>
+
+<p>E dá-lhe cerveja Polar e vinho para esquentar no frio do rio grande :)</p>
+]]></content>
+  </entry>
+  
+</feed>

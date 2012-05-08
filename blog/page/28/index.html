@@ -1,0 +1,715 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="É incrível como por mais que façamos testes e temos a segurança em mente no desenvolvimento de sistemas sempre alguma coisa &#8220;escapa&#8221;. O &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/page/28">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/07/20/seguranca/">None</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-20T22:18:57-03:00" pubdate data-updated="true">Jul 20<span>th</span>, 2006</time>
+        
+         | <a href="/blog/2006/07/20/seguranca/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>É incrível como por mais que façamos testes e temos a segurança em mente no desenvolvimento de sistemas sempre alguma coisa &#8220;escapa&#8221;. O amigo William percebeu um problema em um script que estou usando aqui no meu site para demonstrar os códigos php de uma maneira mais organizada.</p>
+
+<p>No script era passado o nome do arquivo para ser formatado. No início do script tomei o cuidado de verificar se somente arquivos de determinados formatos fossem visualizados. Para isso usei o seguinte código:</p>
+
+<p>$file = $_GET[file];
+$extensao = strtolower(end(explode(&#8216;.&#8217;, $file)));
+if($extensao != &#8216;php&#8217; &amp;&amp; $extensao != &#8216;html&#8217; &amp;&amp; $extensao != &#8216;htm&#8217; &amp;&amp; $extensao != &#8216;css&#8217; &amp;&amp; $extensao != &#8216;js&#8217;) {
+echo &#8220;Somente arquivos php&#8221;;
+exit;
+}</p>
+
+<p>Assim somente códigos php, html, htm, css e js podem ser visualizados. Mas mesmo assim estes arquivos podem conter informações importantes como senhas de bancos de dados, nomes de usuários, etc. Assim, este código não estava impedindo que fosse passado como parâmetro o caminho completo de um arquivo como por exemplo:</p>
+
+<p>showphp.php?file=../wp-config.php</p>
+
+<p>Este arquivo contém todas as configurações do wordpress, inclusive nome de usuário e senha da base de dados. Para resolver esse problema usei uma configuração do servidor Apache onde está hospedado meu site. Coloquei o trecho abaixo no arquivo httpd.conf:</p>
+
+<p>php_admin_value open_basedir /home/elm/public_html/codes</p>
+
+<p>Desta forma se alguém tentar usar o showcodes.php para tentar visualizar arquivos em outras pastas receberá um erro dizendo que o script não tem permissão de acessar outros diretórios. É o que faz a função open_basedir, dizendo que todos os scripts existentes dentro do diretório codes só podem acessar arquivos  no diretório codes. No arquivo php.ini também é possivel configurar esta variável para restringir o acesso mas fazendo desta forma todos os scripts do servidor são atingidos. Usando da forma que eu fiz, no apache e indicando o diretório eu não altero o comportamento de scripts de outros usuários do servidor.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/07/14/formulario-dinamico/">None</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-14T18:19:05-03:00" pubdate data-updated="true">Jul 14<span>th</span>, 2006</time>
+        
+         | <a href="/blog/2006/07/14/formulario-dinamico/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Um amigo me mandou um e-mail pedindo se eu conhecia alguma maneira de criar formulários dinamicamente. Por exemplo, um formulário de cadastro onde a pessoa pode ter que cadastrar um número indefinido de filhos ou de produtos.</p>
+
+<p>Eu e o colega <a href="mailto:oda@unochapeco.edu.br">Odair</a> fizemos uns testes e conseguimos achar uma solução.</p>
+
+<p><a href="http://www.eltonminetto.net/codes/showphp.php?file=form_dinamico.php">Código</a></p>
+
+<p>Testamos no Firefox, IE6 e Opera 9.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/07/09/novo-menu-da-novell-no-dapper/">Novo Menu Da Novell No Dapper</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-07-09T17:04:21-03:00" pubdate data-updated="true">Jul 9<span>th</span>, 2006</time>
+        
+         | <a href="/blog/2006/07/09/novo-menu-da-novell-no-dapper/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Uma das coisas mais legais que vi no último FISL foi o novo menu que a Novell estava desenvolvendo para a nova versão de sua distro para desktop. Fiz uma pesquisa e encontrei esse <a href="http://www.ubuntuforums.org/showthread.php?t=208131">tópico</a> no fórum do Ubuntu com instruções de como fazer isso no Dapper. Usei o .deb fornecido no endereço <a href="http://ubuntuforums.org/showpost.php?p=1203615&amp;postcount=130">http://ubuntuforums.org/showpost.php?p=1203615&amp;postcount=130</a></p>
+
+<p>E depois foi só adicionar no painel o novo menu:</p>
+
+<p><a href="/wp-content/uploads/2006/07/adicionar_menu.png"></a><a href="/wp-content/uploads/2006/07/adicionar_menu.png"><img src="/wp-content/uploads/2006/07/adicionar_menu.thumbnail.png" alt="adicionar_menu.png" /></a></p>
+
+<p><a href="/wp-content/uploads/2006/07/adicionar_menu.png">
+</a>O resultado é um menu bem organizado e bonito</p>
+
+<p><a href="/wp-content/uploads/2006/07/menu.jpg"><img src="/wp-content/uploads/2006/07/menu.thumbnail.jpg" alt="menu.jpg" /></a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/06/10/nerd-view/">Nerd View</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-10T14:33:52-03:00" pubdate data-updated="true">Jun 10<span>th</span>, 2006</time>
+        
+         | <a href="/blog/2006/06/10/nerd-view/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Montei um site paralelo para poder comentar sobre assuntos que acho interessantes relacionados a cultura geek ou nerd.</p>
+
+<p>O endereço é <a href="http://nerdview.wordpress.com">http://nerdview.wordpress.com</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/06/08/atk/">ATK</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-08T16:31:33-03:00" pubdate data-updated="true">Jun 8<span>th</span>, 2006</time>
+        
+         | <a href="/blog/2006/06/08/atk/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Um framework interessante que já é antigo, está na versão 5.5, e é pouco comentado é o <a href="http://www.achievo.org/atk/">Achievo ATK</a>. Segundo o site, o ATK é &#8221; um framework de aplicações orientadas a objeto escrito em PHP. Seu público alvo são desenvolvedores que desejam focar na lógica de negócios ao invés de codificar HTML.  Enquanto outros frameworks proveem uma grande quantidade de classes utilitárias, ATK prove um framework completo que requer apenas pequenas quantidades de código para criar aplicações usáveis, enquanto mantém completa flexibilidade.&#8221;</p>
+
+<p>Além dos <a href="http://www.achievo.org/atk/docs/">manuais</a> existentes no site, foi publicado um <a href="http://www.oracle.com/technology/pub/articles/jansch_atk.html">texto</a> bem completo no site da Oracle com exemplos para esta base de dados. A minha pequena <a href="http://www.achievo.org/product/languages">contribuição</a> foi ajudar na tradução para o pt_BR. Esse é mais um  exemplo de framework que pode ajudar bastante nós desenvolvedores.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/06/02/miniframework-ajax/">Miniframework AJAX</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-06-02T17:17:01-03:00" pubdate data-updated="true">Jun 2<span>nd</span>, 2006</time>
+        
+         | <a href="/blog/2006/06/02/miniframework-ajax/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Seguindo a idéia do meu <a href="http://www.eltonminetto.net/miniframework-php.htm">Miniframework PHP</a> criei o Miniframework AJAX. Não tem nada de complexo, a idéia e &#8220;escrever menos código sem ter que aprender muita coisa nova&#8221;.</p>
+
+<p><a href="http://www.eltonminetto.net/codes/showphp.php?file=ajax.js">ajax.js - arquivo com os comandos JavaScript
+</a></p>
+
+<p><a href="http://www.eltonminetto.net/codes/showphp.php?file=ajax_frame.php">ajax_frame.php - Exemplo de uso
+</a></p>
+
+<p><a href="http://www.eltonminetto.net/codes/showphp.php?file=teste_frame.php">teste_frame.php - PHP que é chamado pelo AJAX</a></p>
+
+<p><a href="http://www.eltonminetto.net/codes/espera.gif">espera.gif</a></p>
+
+<p><a href="http://www.eltonminetto.net/codes/espera.gif">
+</a><a href="http://www.eltonminetto.net/codes/ajax_frame.php">Demonstração</a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/05/30/medindo-tempo-de-execucao-de-scripts-python/">None</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-30T11:56:06-03:00" pubdate data-updated="true">May 30<span>th</span>, 2006</time>
+        
+         | <a href="/blog/2006/05/30/medindo-tempo-de-execucao-de-scripts-python/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Numa aula eu estava explicando a técnica de programação &#8220;Divisão e Conquista&#8221;, que consiste em dividir um problema grande em pequenos subproblemas e resolvê-los separadamente de forma que o resultado deles seja o resultado do problema original. Um exemplo de algoritmo desenvolvido nessa técnica é o de busca binária, onde o espaço de busca é sempre dividido pela metade, diminuindo o tempo de pesquisa. Para ilustrar a diferença desenvolvi dois scripts em Python para mostrar o tempo de execução de um algoritmo de pesquisa usando &#8220;força bruta&#8221; e a pesquisa binária. Para isso usei o módulo <a href="http://www.python.org/doc/2.4/lib/module-timeit.html">timeit</a> do Python. Com este módulo é possível medir o tempo de execução de pequenos trechos de código. Abaixo os códigos usados:</p>
+
+<p><a href="http://www.eltonminetto.net/codes/buscaForcaBruta.py">Pesquisa por Força Bruta</a></p>
+
+<p><a href="http://www.eltonminetto.net/codes/buscaDivisaoConquista.py">Pesquisa Binária (Divisão e Conquista)</a></p>
+
+<p><a href="http://www.eltonminetto.net/codes/compara_buscas.py">Comparação dos tempos de execução</a></p>
+
+<p>Como neste caso são poucos dados a serem pesquisados a diferença de tempo não é tão grande, mas é visível o suficiente para ilustrar aos alunos a diferença.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/05/23/aplicativos-portateis/">None</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-23T12:02:04-03:00" pubdate data-updated="true">May 23<span>rd</span>, 2006</time>
+        
+         | <a href="/blog/2006/05/23/aplicativos-portateis/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>O site <a href="http://portableapps.com/apps">PortableApps</a> fornece uma lista de aplicativos que podem ser usados direto de um dispositivo portátil como um pendrive. Montei um kit de primeiros socorros para windows
+no meu pendrive de 128mb:</p>
+
+<p><a href="http://portableapps.com/apps/development/servers/xampp">Xampp Lite</a>  - com o apache, php5, mysql, phpmyadmin, etc. O básico para testar e desenvolver para web - 104MB
+<a href="http://portableapps.com/apps/internet/browsers/portable_firefox">Portable Firefox</a> - navegador - 17MB
+<a href="http://portableapps.com/apps/internet/ftp/portable_filezilla">Portable FileZilla</a> - cliente de ftp - 3.4MB
+<a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe">putty</a> - cliente de ssh - 400K
+<a href="http://the.earth.li/~sgtatham/putty/latest/x86/pscp.exe">pscp</a> - cliente de cópia segura - 200K</p>
+
+<p>Ainda me sobrou uns 3MB para armezenar alguns logs do apache e alguns arquivos pequenos. Com um pendrive maior dá para instalar outras coisas legais como o Portable OpenOffice ou algumas distros Linux.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/05/19/artigo-sobre-python-e-oracle/">Artigo Sobre Python E Oracle</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-19T19:44:25-03:00" pubdate data-updated="true">May 19<span>th</span>, 2006</time>
+        
+         | <a href="/blog/2006/05/19/artigo-sobre-python-e-oracle/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>No site da Oracle encontrei esse <a href="http://www.oracle.com/technology/pub/articles/devlin-python-oracle.html">artigo</a> sobre como usar o Python em conjunto com o Oracle.</p>
+
+<p>Um trecho legal, que resume bem o Python:</p>
+
+<p>&#8221;[..] não é apenas fácil de usar, mas também facil de usar bem, produzindo códigos legíveis e bem organizados. Assim, quando você retornar a um pedaço de código meses depois de ter escrito, você poderá endendê-lo, modificá-lo e e reusá-lo. A elegância e limpeza da sintaxe de Python é chamada algumas vezes de &#8220;pseudo-código executável&#8221;, por sua aparência próxima da auto-documentação. Ele é altamente orientado a objetos e torna fácil aprender e seguir um bom estilo de programação, mesmo para aqueles entre nós sem treinamento formal de engenharia de software. Sua curva de aprendizagem leve torna-o interessante tanto para novatos quanto para experts. &#8221;</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2006/05/17/padroes-algoritmicos-em-python/">None</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-05-17T18:17:06-03:00" pubdate data-updated="true">May 17<span>th</span>, 2006</time>
+        
+         | <a href="/blog/2006/05/17/padroes-algoritmicos-em-python/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Um dos conteúdos que estou trabalhando na disciplina de Algoritmos e Estruturas de Dados III é Padrões Algoritmicos.</p>
+
+<p>Dentre estes padrões existem os chamados &#8220;Algoritmos de Força Bruta (brute force algorithms)&#8221; e os &#8220;Algoritmos Gulosos (greedy algorithms)&#8221;.</p>
+
+<p>Segundo [1], &#8220;um  algoritmo de força bruta resolve um problema da maneira mais simples, direta e óbvia. Como resultado esse algoritmo terminar realizando muito mais trabalho para resolver um certo problema do que um algoritmo mais sofisticado. Por outro lado, um algoritmo de força bruta é em geral mais fácil de implementar do que um outro mais sofisticado e, por causa da sua simplicidade, às vezes ele é mais eficiente.&#8221;</p>
+
+<p>O mesmo autor sugere um exemplo de problema a ser resolvido usando essa abordagem, o problema da Contagem de Dinheiro. &#8220;Considere o problema que um caixa de banco resolve sempre que ele ou ela precisa dar ao cliente uma certa quantidade de dinheiro. O caixa tem à sua disposição um conjunto de várias notas e moedas de valores diferentes e precisa contar uma certa quantia usando o menor número possível de peças.&#8221;</p>
+
+<p>Um algoritmo usando a abordagem de força bruta iria testar todas as combinações possíveis até encontrar a melhor combinação. Fiz um código em Python para ilustrar esse algoritmo:</p>
+
+<p><a href="/codes/forca_bruta.py">forca_bruta.py</a>
+Executando o script:</p>
+
+<p><em>bash-3.00$ python forca_bruta.py
+__Digite o valor a encontrar
+20
+Solucoes encontradas
+Solucao [1, 1, 1, 1, 1, 15]
+Solucao [10, 10]
+A melhor solucao eh
+[10, 10]</em></p>
+
+<p>O algoritmo encontrou duas soluções e sugeriu como a melhor a que usou menos moedas. Nesta abordagem ele testa todas as possibilidades até encontrar a melhor.</p>
+
+<p>Já com a abordadem de algoritmos gulosos uma lógica mais sofisticada é utilizada. O caixa de um banco não iria testar todas as possibilidades até encontrar a melhor. Ele iria pegar as moedas com maior valor primeiro e iria encontrar uma solução para o problema. A idéia dos algoritmos gulosos é encontrar uma resposta não sabendo se é a melhor delas, mas torcendo para que seja. O algoritmo abaixo resolve o mesmo problema usando esta abordagem:</p>
+
+<p><a href="/codes/guloso.py">guloso.py</a>
+Sua execução retorna o seguinte:</p>
+
+<p><em>bash-3.00$ python guloso.py
+Digite o valor a encontrar
+20
+Solucao
+[15, 1, 1, 1, 1, 1]</em>
+Ele mostra a primeira solução que encontrou. É mais rápido do que o força bruta e é uma solução correta, mas não é a melhor solução, que neste caso seria [10,10].</p>
+
+<p>Mais um exemplo de python com ferramenta didática.</p>
+
+<p>[1] <a href="http://www.brpreiss.com/books/opus7/">http://www.brpreiss.com/books/opus7/ </a></p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
+    
+      <a class="prev" href="/blog/page/29/">&larr; Older</a>
+    
+    <a href="/blog/archives">Blog Archives</a>
+    
+    <a class="next" href="/blog/page/27/">Newer &rarr;</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

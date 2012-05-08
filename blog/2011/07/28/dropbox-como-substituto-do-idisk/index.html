@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Dropbox como substituto do iDisk - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Com o lançamento do iCloud a Apple já avisou que em alguns meses vai descontinuar um dos serviços do MobileMe que eu mais usava, o iDisk. Então fiz &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2011/07/28/dropbox-como-substituto-do-idisk">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Dropbox Como Substituto Do iDisk</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-28T18:02:07-03:00" pubdate data-updated="true">Jul 28<span>th</span>, 2011</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Com o lançamento do iCloud a Apple já avisou que em alguns meses vai descontinuar um dos serviços do MobileMe que eu mais usava, o iDisk. Então fiz uma pesquisa para achar um substituto e o escolhido foi o já amado por todos, o Dropbox. Mas tive dois pequenos problemas para resolver: como eu já uso o Dropbox para armazenar os dados da Coderockr precisava ter duas contas ativas no meu Mac. E o segundo problema é que o iDisk fornece uma pasta pública para acesso via web, útil para compartilhar coisas temporárias e o Dropbox não permite isso.
+Para resolver o primeiro problema eu segui os passos <a href="http://wiki.dropbox.com/TipsAndTricks/MultipleInstancesOnUnix">deste site</a>
+Para solucionar o segundo problema eu configurei o Dropbox para Linux em um servidor que eu controlo, uma instância das mais simples no EC2 da Amazon. Eu segui os passos <a href="http://wiki.dropbox.com/TipsAndTricks/TextBasedLinuxInstall">deste site</a>, mas resumindo:
+<code>
+wget -O dropbox.tar.gz "http://www.dropbox.com/download/?plat=lnx.x86"
+tar -xvzf dropbox.tar.gz
+~/.dropbox-dist/dropboxd &amp;
+</code>
+A primeira vez que você executar ele vai mostrar uma mensagem com um link para você acessar no navegador. Ele vai fazer com que a máquina Linux seja vinculada a sua conta do Dropbox. Após isso será criado um diretório Dropbox no seu home.
+Agora basta configurar o seu Apache para ter acesso a este diretório. No meu caso eu criei um domínio virtual:
+`</p>
+
+<pre><code>    DocumentRoot "/home/eminetto/Dropbox/Public"
+    ServerName public.eminetto.me
+
+
+
+            Options Indexes MultiViews FollowSymLinks
+            AllowOverride All
+            Order allow,deny
+            Allow from all
+</code></pre>
+
+<p><code>
+Lembre-se de dar permissão de leitura nos diretórios para o usuário do Apache ter acesso:
+</code>
+chmod 755 /home/eminetto
+chmod 755 /home/eminetto/Dropbox
+chmod 755 /home/eminetto/Dropbox/Public
+<code>
+Outra opção é usar algo como http://seuserver.com.br/~eminetto/Dropbox/Public, se o Apache tiver essa opção configurada.
+Se o seu Apache estiver configurado para listar os arquivos do diretório você já pode ver os seus arquivos ao acessar via web. Caso não esteja, é possível usar um [script python](http://code.google.com/p/kosciak-misc/wiki/DropboxIndex) que lê o diretório e cria um index.html com o conteúdo. Depois de instalado você pode executar o comando:
+</code> /usr/bin/dropbox-index -R /home/eminetto/Dropbox/Public/ <code>
+Se tudo der certo, sempre que você alterar/adicionar arquivos no Dropbox do seu desktop (no meu Mac no caso, mas o Windows e o Linux deve funcionar na mesma forma) é sincronizado com o linux e estão visíveis na internet. Lembre-se de que o comando
+</code>~/.dropbox-dist/dropboxd &amp; `
+Deve estar sempre executando no Linux, pois é o responsável por fazer a sincronização entre a pasta local e o Dropbox.
+Com algumas configurações adicionais no Apache você pode colocar autenticação e coisas mais complexas para incrementar a solução.
+E que venha o iCloud. Agora o iDisk não vai me fazer mais falta</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-07-28T18:02:07-03:00" pubdate data-updated="true">Jul 28<span>th</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/etc/'>etc</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2011/07/28/dropbox-como-substituto-do-idisk/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2011/07/28/dropbox-como-substituto-do-idisk/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2011/07/20/sorteio-de-descontos-para-o-webcast-sobre-frameworks/" title="Previous Post: Sorteio de descontos para o webcast sobre frameworks">&laquo; Sorteio de descontos para o webcast sobre frameworks</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2011/08/02/vaga-para-programador-php-na-coderockr/" title="Next Post: Vaga para programador PHP na Coderockr">Vaga para programador PHP na Coderockr &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

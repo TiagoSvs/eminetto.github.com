@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Eclipse, PHP e CVS - Elton Luís Minetto</title>
+  <meta name="author" content="eminetto">
+
+  
+  <meta name="description" content="Eclipse O Eclipse é um projeto open source iniciado pela IBM e que hoje é uma das melhores IDEs do mercado. O Eclipse foi desenvolvido inicialmente &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://eminetto.github.com/blog/2006/02/01/eclipse-php-e-cvs">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="/javascripts/ender.js"></script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <link href="/atom.xml" rel="alternate" title="Elton Luís Minetto" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-584603-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Elton Luís Minetto</a></h1>
+  
+    <h2>Site pessoal de Elton Minetto</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:eminetto.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Eclipse, PHP E CVS</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-02-01T16:11:21-02:00" pubdate data-updated="true">Feb 1<span>st</span>, 2006</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h2>Eclipse</h2>
+
+<p>O <a href="http://www.eclipse.org">Eclipse</a> é um projeto open source iniciado pela IBM e que hoje é uma das melhores IDEs do mercado. O Eclipse foi desenvolvido inicialmente como uma IDE para Java, mas graças a seu sistema de plugins hoje é possível usá-lo para programar em quase todas as linguagens existentes, dentre elas PHP.
+O plugin para trabalhar com PHP no Eclipse é o <a href="http://www.phpeclipse.de/">PHPeclipse</a> . Sua instalação é simples, bastando descompactar o arquivo no mesmo diretório onde está instalado o Eclipse.
+Ele fornece várias facilidades para o programador PHP, como opção de iniciar e parar o apache e o mysql, autocompletar de comandos, highlighting , lista de funções/métodos do arquivo, projetos, etc, como mostra a figura abaixo</p>
+
+<p><a href="/wp-content/uploads/2006/02/figura0.png"><img src="/wp-content/uploads/2006/02/figura0.thumbnail.png" alt="PHPeclipse" /></a></p>
+
+<h2>CVS</h2>
+
+<p>O CVS é um dos mais usados sistemas de controle de versões. Apesar de existirem outras opções como o Subversion, ele ainda atende as necessidades de diversos projetos. No decorrer deste texto mostrarei como criar um repositório e como usar o Eclipse para gerenciar os arquivos de um projeto.
+Para este exemplo foi utilizado um computador com o Ubuntu 5.10 para servir como repositório central do projeto. Os clientes, no caso o Eclipse rodando no Linux ou no Windows, irão usar o servidor para salvar os arquivos do projeto. A instação do CVS é simples, bastando executar</p>
+
+<p><em>sudo apt-get install cvs</em></p>
+
+<p>para que o pacote seja instalado.</p>
+
+<p><strong>Iniciar o projeto no CVS </strong></p>
+
+<p>Exportar a variável CVSROOT</p>
+
+<p><em>export CVSROOT=/home/cvs</em></p>
+
+<p>Criar o diretório onde vão ser armazenados os arquivos dos projetos
+<em>mkdir /home/cvs</em></p>
+
+<p>O melhor é criar um grupo cvs, adicionar os usuários nesse grupo e dar as permissões corretas para o diretório</p>
+
+<p><em>chown -R cvs /home/cvs
+chmod g+rwx /home/cvs
+_
+Com o comando abaixo é inicializado o repositório
+</em>cvs init_
+Para importar os arquivos de um projeto antigo para o repositório, os comandos são:</p>
+
+<p><em>cd path_projeto_antigo
+cvs import -m &#8220;mensagem&#8221; nome_projeto_repositorio nome_release nome_tag</em></p>
+
+<p>_
+Exemplo:
+__cd /home/elm/Projects/saa
+cvs import -m &#8220;Sistema de Auto Atendimento&#8221; saa R1 inicio
+_
+Os arquivos serão copiados para o diretório /home/cvs, indicado pela variável CVSROOT</p>
+
+<p>_ <em>_Depois disto pode-se compactar e remover os arquivos do diretório /home/elm/Projects/saa para não correr o risco de usar os programas que não estão no repositório</em></p>
+
+<p>_ <em>_<strong>Utilizando o Eclipse para acessar o repositório</strong></em></p>
+
+<p>_ <em>_No Eclipse, pode-se criar um novo projeto do tipo PHP e importar os arquivos do CVS para ele.</em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura1.png"><img src="/wp-content/uploads/2006/02/figura1.thumbnail.png" alt="figura1.png" /></a></em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura2.png"><img src="/wp-content/uploads/2006/02/figura2.thumbnail.png" alt="figura2.png" /></a></em></p>
+
+<p>_ <em>_Após criado o projeto, pode-se usar a opção de importar os arquivos para o projeto. Clicando-se com o segundo botão sobre o projeto criado, opção Import</em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura3.png"><img src="/wp-content/uploads/2006/02/figura3.thumbnail.png" alt="figura3.png" /></a></em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura4.png"><img src="/wp-content/uploads/2006/02/figura4.thumbnail.png" alt="figura4.png" /></a></em></p>
+
+<p>_ <em>_Na figura abaixo são demonstrados as informações necessárias para conectar no servidor.</em></p>
+
+<p>_ <strong><a href="/wp-content/uploads/2006/02/figura51.png"><img src="/wp-content/uploads/2006/02/figura51.thumbnail.png" alt="figura51.png" /></a>
+</strong> Host:<em> endereço ip ou nome do servidor onde está o repositório
+_ Repository path:</em> o mesmo valor do CVSROOT, no exemplo, /home/cvs
+_ User:<em> cvs ou qualquer usuário que pertença ao grupo cvs, pois os membros deste grupo tem acesso a gravar os dados no diretório do repositório
+_ Connection type:</em>extssh
+_ Use default port:<em> A conexão será feita pelo protocolo SSH, então o servidor deste protocolo deve estar sendo executado no servidor. Caso o servidor sshd esteja sendo executado em outra porta que não a padrão, pode-se informá-la na opção Use port.
+_ Save password:</em> pode ser marcado para que não seja preciso digitar a senha do usuário a cada operação. A senha será gravada localmente, por isso, paranóicos por segurança podem preferir não marcar esta opção</p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura6.png"><img src="/wp-content/uploads/2006/02/figura6.thumbnail.png" alt="figura6.png" /></a></em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura7.png"><img src="/wp-content/uploads/2006/02/figura7.thumbnail.png" alt="figura7.png" /></a></em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura8.png"><img src="/wp-content/uploads/2006/02/figura8.thumbnail.png" alt="figura8.png" /></a></em></p>
+
+<p>_ <em>_No detalhe da figura abaixo é possível ver o nome do arquivo e a versão atual (1.1.1.1)</em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura9.png"><img src="/wp-content/uploads/2006/02/figura9.thumbnail.png" alt="figura9.png" /></a></em></p>
+
+<p>_ <em>_<strong>Salvando os arquivos no CVS</strong></em></p>
+
+<p>_ <em>_Após alterar os arquivos localmente é preciso salvar as alterações no CVS. Para fazer isso é só clicar com o segundo botão sobre o arquivo alterado (note que aparece um sinal > no início do arquivo mostrando que ele sofreu alterações desde a última sincronização) e escolher a opção Team -> Commit. Uma tela é mostrada pedindo que seja informado um comentário sobre o que foi alterado nessa nova versão, como mostra a figura abaixo.</em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura10.png"><img src="/wp-content/uploads/2006/02/figura10.thumbnail.png" alt="figura10.png" /></a></em></p>
+
+<p>_ <em>_Na figura abaixo é possível ver que o arquivo agora está na versão 1.2</em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura11.png"><img src="/wp-content/uploads/2006/02/figura11.thumbnail.png" alt="figura11.png" /></a>
+<strong>Comparando as alterações</strong></em></p>
+
+<p>_ <em>_Clicando com o segundo botão no arquivo, opção Compare With ->Revision é possivel ver todas as versões existentes do programa. Clicando duplo em uma das versões anteriores é mostrado uma tela com a versão atual e mostrando o que foi alterado entre a versão atual e a antiga.Como mostra a figura abaixo.</em></p>
+
+<p>_ <em>_<a href="/wp-content/uploads/2006/02/figura12.png"><img src="/wp-content/uploads/2006/02/figura12.thumbnail.png" alt="figura12.png" /></a>
+Outra vantagem de se utilizar um sistema de controle de versões como o CVS é o trabalho colaborativo. Se outra pessoal alterou o arquivo, no momento do commit é mostrado as suas alterações e as da outra pessoa. Assim pode-se decidir qual das duas, ou as duas, devem ficar no arquivo e deve-se executar o commit novamente.</em></p>
+
+<p>_ <em>_Este é apenas um resumo das principais funções do CVS. Mais informações podem ser encontradas no manual do CVS ou na excelente <a href="http://www.rau-tu.unicamp.br/nou-rau/softwarelivre/document/?code=80&amp;tid=3">Apostila de CVS</a>  escrita por André Duarte Bueno, que serviu de fonte para este texto.</em></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">eminetto</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2006-02-01T16:11:21-02:00" pubdate data-updated="true">Feb 1<span>st</span>, 2006</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/home/'>home</a>, <a class='category' href='/blog/categories/ubuntu/'>ubuntu</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://eminetto.github.com/blog/2006/02/01/eclipse-php-e-cvs/" data-via="eminetto" data-counturl="http://eminetto.github.com/blog/2006/02/01/eclipse-php-e-cvs/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2006/01/27/ajax-sem-usar-bibliotecas/" title="Previous Post: Ajax sem usar bibliotecas">&laquo; Ajax sem usar bibliotecas</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2006/02/02/114/" title="Next Post: None">None &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2012/05/07/palestra-sobre-seguranca-e-crimes-digitais/">Palestra sobre segurança e crimes digitais</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/post-no-javascript-brasil/">Post no Javascript Brasil</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/05/03/crie-sua-marca-pessoal/">Crie sua marca pessoal</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/27/maldito-segmentation-fault/">Maldito segmentation fault</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2012/04/25/git-sparse-checkouts/">Git sparse checkouts</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/eminetto">@eminetto</a> on GitHub
+  
+  <script type="text/javascript">
+    $.domReady(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'eminetto',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("eminetto", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/eminetto" class="twitter-follow-button" data-show-count="false">Follow @eminetto</a>
+  
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2012 - eminetto -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'eminetto';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

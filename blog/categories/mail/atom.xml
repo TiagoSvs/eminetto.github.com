@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: mail | Elton Luís Minetto]]></title>
+  <link href="http://eminetto.github.com/blog/categories/mail/atom.xml" rel="self"/>
+  <link href="http://eminetto.github.com/"/>
+  <updated>2012-05-08T17:48:13-03:00</updated>
+  <id>http://eminetto.github.com/</id>
+  <author>
+    <name><![CDATA[eminetto]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Contato]]></title>
+    <link href="http://eminetto.github.com/blog/2003/09/04/contato/"/>
+    <updated>2003-09-04T21:30:01-03:00</updated>
+    <id>http://eminetto.github.com/blog/2003/09/04/contato</id>
+    <content type="html"><![CDATA[<p>assinatura = {}
+assinatura["Nome"] = "Elton Luís Minetto"
+assinatura["EMail"] = "eminetto@gmail.com"
+assinatura["HomePage"] = "http://www.eltonminetto.net"
+assinatura["MSN"] = "eminetto at hotmail dot com"
+assinatura["LinuxUser"] = 232436
+for   i   in   assinatura.items():
+print i</p>
+]]></content>
+  </entry>
+  
+</feed>
