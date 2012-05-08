@@ -4,7 +4,7 @@
   <title><![CDATA[Elton Luís Minetto]]></title>
   <link href="http://eminetto.github.com/atom.xml" rel="self"/>
   <link href="http://eminetto.github.com/"/>
-  <updated>2012-05-08T18:10:40-03:00</updated>
+  <updated>2012-05-08T18:15:56-03:00</updated>
   <id>http://eminetto.github.com/</id>
   <author>
     <name><![CDATA[eminetto]]></name>
@@ -139,42 +139,54 @@ O primeiro passo é instalar os pacotes necessários para conseguirmos toda a in
     <content type="html"><![CDATA[<p>Ontem eu e o colega <a href="http://twitter.com/msilvagarcia">Marcos Garcia</a> nos deparamos com uma situação que acabou nos ensinando mais um truque do git
 Um dos repositórios privados da <a href="http://www.coderockr.com">Coderockr</a> no Github tem uma estrutura parecida com essa:</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-Design - arquivos PSD e PNG com as telas do projeto
-Docs - documentações do projeto
-Android - porção Android
-iOS - porção de códigos para o iPhone/iPad
-Web - interface de administração do projeto, acessível via web
-library - diretório com entidades e webservices usado pelo projeto
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Design - arquivos PSD e PNG com as telas <span class="k">do </span>projeto
+</span><span class='line'>Docs - documentações <span class="k">do </span>projeto
+</span><span class='line'>Android - porção Android
+</span><span class='line'>iOS - porção de códigos para o iPhone/iPad
+</span><span class='line'>Web - interface de administração <span class="k">do </span>projeto, acessível via web
+</span><span class='line'>library - diretório com entidades e webservices usado pelo projeto
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>A nossa necessidade era de fazer o deploy para o nosso servidor web apenas da pasta Web do projeto, não necessitando das demais. O git permite fazer algo assim usando <a href="http://help.github.com/submodules/">submodulos</a> mas não era exatamente o que procurávamos, principalmente porque cada submodulo deve ser um repositório separado no Github, o que iria aumentar os nossos custos mensais.
 Depois de algumas pesquisas no Google o Marcos encontrou a solução pro problema: o git sparse checkouts, uma opção que foi lançada com a versão 1.7 do git.
 Para exemplificar o uso, no nosso servidor agora fazemos o seguinte:</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-git clone <repository_url> <directory>
-cd <directory>
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone &lt;repository_url&gt; &lt;directory&gt;
+</span><span class='line'><span class="nb">cd</span> &lt;directory&gt;
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Habilitamos a opção do sparse checkout</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-git config core.sparsecheckout true
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git config core.sparsecheckout <span class="nb">true</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Indicamos quais diretórios queremos ter acesso:</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-echo Web >> .git/info/sparse-checkout
-echo library >> .git/info/sparse-checkout
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">echo </span>Web &gt;&gt; .git/info/sparse-checkout
+</span><span class='line'><span class="nb">echo </span>library &gt;&gt; .git/info/sparse-checkout
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>E rodamos o comando <em>read-tree</em> para atualizar a árvore de diretórios</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-git read-tree -m -u HEAD
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git <span class="nb">read</span>-tree -m -u HEAD
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>Se verificar com o comando <em>ls</em> é possível ver que os outros diretórios desapareceram do diretório do projeto
 Quando rodarmos um git pull para atualizar, apenas os diretórios Web e library serão atualizados.
@@ -192,161 +204,258 @@ Eu escolhi desenvolver o aplicativo usando um framework de Javascript chamado <a
 O Meteor é um framework realmente interessante. Ele é baseado em algumas tecnologias de JavaScript que permitem criarmos um aplicativo completo usando apenas essa linguagem, tanto a porção servidor (ele usa o Nodejs para isso) quanto a parte cliente (jQuery e templates usando o <a href="http://www.handlebarsjs.com/">Handlebars</a>)
 Para instalar o Meteor é preciso executar os comandos no terminal (no Linux e MacOSX):</p>
 
-<p>[sourcecode language=&#8221;bash&#8221;]
-curl install.meteor.com | /bin/sh
-[/sourcecode]</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>curl install.meteor.com | /bin/sh
+</span></code></pre></td></tr></table></div></figure>
 
-<p>Para criar um novo projeto é só executar os comandos:
-[sourcecode language=&#8221;bash&#8221;]
-meteor create myapp
-[/sourcecode]</p>
 
-<p>O Meteor possui um servidor para podermos fazer o teste da aplicação. Para executá-lo é só:
-[sourcecode language=&#8221;bash&#8221;]
-cd myapp
-meteor
-[/sourcecode]</p>
+<p>Para criar um novo projeto é só executar os comandos:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>meteor create myapp
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>O Meteor possui um servidor para podermos fazer o teste da aplicação. Para executá-lo é só:</p>
+
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">cd </span>myapp
+</span><span class='line'>meteor
+</span></code></pre></td></tr></table></div></figure>
+
 
 <p>E para acessar no navegador é só usar a url <em>http://localhost:3000</em></p>
 
 <p>Um projeto do Meteor é composto de três arquivos: um css, um html e um JavaScript. Pode ser estruturado de outra forma, mas esse é o exemplo mais comum. Dentro do JavaScript podemos definir a lógica que será executada no cliente (e que será enviada para o navegador do usuário) e a porção que será executada no servidor (no Nodejs).</p>
 
-<p>Para testar o framework eu criei um pequeno projeto, de cadastro de contatos. Para rodar o meu exemplo é só executar (depois de ter instalado o Meteor):
-[sourcecode language=&#8221;bash&#8221;]
-git clone git@github.com:eminetto/MeteorContactListSample.git
-cd MeteorContactListSample/
-meteor
-[/sourcecode]</p>
+<p>Para testar o framework eu criei um pequeno projeto, de cadastro de contatos. Para rodar o meu exemplo é só executar (depois de ter instalado o Meteor):</p>
 
-<p>No arquivo ContactList.html é definido o visual do aplicativo, usando o sistema de templates usado pelo Meteor. No trecho abaixo definimos dois templates (add_contact e contacts) e fazemos a inclusão dos dois, dentro da tag body:</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone git@github.com:eminetto/MeteorContactListSample.git
+</span><span class='line'><span class="nb">cd </span>MeteorContactListSample/
+</span><span class='line'>meteor
+</span></code></pre></td></tr></table></div></figure>
 
-<p>[sourcecode language=&#8221;javascript&#8221;]
-<head>
-  <title>ContactList</title>
-</head></p>
 
-<p><body></p>
+<p>No arquivo ContactList.htzml é definido o visual do aplicativo, usando o sistema de templates usado pelo Meteor. No trecho abaixo definimos dois templates (add_contact e contacts) e fazemos a inclusão dos dois, dentro da tag body:</p>
 
-<p></body></p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;</span><span class="nx">ContactList</span><span class="o">&lt;</span><span class="err">/title&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/head&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/body&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">template</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;add_contact&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span> <span class="nx">contact</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;new-contact&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;hidden&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;id&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="nx">Name</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="o">&gt;&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="nx">E</span><span class="o">-</span><span class="nx">mail</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;email&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;email&quot;</span><span class="o">&gt;&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+</span><span class='line'>    <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;actionButton&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/template&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="nx">template</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;contacts&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">h3</span><span class="o">&gt;</span><span class="nx">Contacts</span><span class="o">&lt;</span><span class="err">/h3&gt;</span>
+</span><span class='line'>  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;contacts&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;contact&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>         <span class="o">-</span>
+</span><span class='line'>        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;edit&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;edit&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;button&quot;</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;del&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;&quot;</span> <span class="nx">value</span><span class="o">=</span><span class="s2">&quot;del&quot;</span><span class="o">&gt;</span>
+</span><span class='line'>        <span class="o">&lt;</span><span class="nx">br</span><span class="o">&gt;</span>
+</span><span class='line'>      <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="o">&lt;</span><span class="err">/div&gt;</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/template&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p><template name="add_contact">
-  <h3> contact</h3>
-  <div id="new-contact"></p>
-
-<pre><code>&lt;input type="hidden" id="id" name="id"&gt;
-Name: &lt;input type="text" name="name" id="name"&gt;&lt;br&gt;
-E-mail: &lt;input type="text" name="email" id="email"&gt;&lt;br&gt;
-&lt;input type="button" id="actionButton" value=""&gt;
-</code></pre>
-
-<p>  </div>
-</template></p>
-
-<p><template name="contacts">
-  <h3>Contacts</h3>
-  <div id="contacts"></p>
-
-<pre><code>  &lt;div class="contact"&gt;
-     -  
-    &lt;input type="button" class="edit" id="" value="edit"&gt;
-    &lt;input type="button" class="del" id="" value="del"&gt;
-    &lt;br&gt;
-  &lt;/div&gt;
-</code></pre>
-
-<p>  </div>
-</template>
-[/sourcecode]</p>
 
 <p>O que está dentro de  são variáveis que serão substituídas pelo sistema de templates. A instrução <em>each</em> é usada como um <em>for</em> e mostrará todos os contatos existentes.</p>
 
 <p>No arquivo ContactList.js está a lógica do aplicativo. E aí entra algo muito interessante: as Collections. São interfaces para o banco de dados MongoDB que é usado pelo framework. Na documentação é citado que pode ser extendido para usar com outros bancos de dados, mas não cheguei a testar isso. Quando a aplicação é executada é criado um banco de dados MongoDB e os dados são inseridos nele. Uma das coisas mais legais do Meteor é que ele gera uma cópia do banco de dados no lado do cliente, assim o mesmo comando usado pelo servidor é usado pelo cliente. E os dados são sincronizados, o que significa que no momento que um cliente modifica o banco de dados essa mudança é replicada automaticamente para o servidor, que manda a alteração para todos os clientes. Magia negra! Você tem um sistema sincronizado entre diversos clientes, sem precisar se preocupar com isso, o que é realmente uma vantagem.
 O código do ContactList.js:</p>
 
-<p>[sourcecode language=&#8221;javascript&#8221;]
-Contacts = new Meteor.Collection(&#8220;contacts&#8221;);</p>
+<figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">Contacts</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Meteor</span><span class="p">.</span><span class="nx">Collection</span><span class="p">(</span><span class="s2">&quot;contacts&quot;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">is_client</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">Session</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span><span class="s1">&#39;add&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">Template</span><span class="p">.</span><span class="nx">add_contact</span><span class="p">.</span><span class="nx">action</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">action</span> <span class="o">=</span> <span class="nx">Session</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;action&quot;</span><span class="p">)</span> <span class="o">||</span> <span class="s2">&quot;add&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">action</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">Template</span><span class="p">.</span><span class="nx">add_contact</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s1">&#39;click input#actionButton&#39;</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">$action</span> <span class="o">=</span> <span class="nx">Session</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">),</span>
+</span><span class='line'>          <span class="nx">$name</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#name&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span>
+</span><span class='line'>          <span class="nx">$email</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#email&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">$action</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">if</span> <span class="p">(</span><span class="nx">$action</span> <span class="o">==</span> <span class="s1">&#39;add&#39;</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">Contacts</span><span class="p">.</span><span class="nx">insert</span><span class="p">({</span>
+</span><span class='line'>          <span class="nx">name</span><span class="o">:</span>  <span class="nx">$name</span><span class="p">,</span>
+</span><span class='line'>          <span class="nx">email</span><span class="o">:</span> <span class="nx">$email</span>
+</span><span class='line'>        <span class="p">});</span>
+</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;contact &#39;</span> <span class="o">+</span> <span class="nx">$name</span> <span class="o">+</span>  <span class="s1">&#39; added&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="k">else</span> <span class="p">{</span>
+</span><span class='line'>        <span class="nx">Contacts</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#id&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(),</span> <span class="p">{</span><span class="nx">$set</span><span class="o">:</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="nx">$name</span><span class="p">,</span> <span class="nx">email</span><span class="o">:</span> <span class="nx">$email</span><span class="p">}});</span>
+</span><span class='line'>        <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#id&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">Session</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;add&#39;</span><span class="p">);</span>
+</span><span class='line'>        <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;contact &#39;</span> <span class="o">+</span> <span class="nx">$name</span> <span class="o">+</span>  <span class="s1">&#39; modified&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#name&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#email&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">Template</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">contact_list</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">Contacts</span><span class="p">.</span><span class="nx">find</span><span class="p">({},</span> <span class="p">{</span><span class="nx">sort</span><span class="o">:</span> <span class="p">{</span><span class="nx">name</span><span class="o">:</span> <span class="mi">1</span><span class="p">}});</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="nx">Template</span><span class="p">.</span><span class="nx">contacts</span><span class="p">.</span><span class="nx">events</span> <span class="o">=</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s1">&#39;click input.del&#39;</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">$contact</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">),</span>
+</span><span class='line'>          <span class="nx">$id</span> <span class="o">=</span> <span class="nx">$contact</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">Contacts</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">$id</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="s1">&#39;click input.edit&#39;</span> <span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">evt</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="kd">var</span> <span class="nx">$contact</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">evt</span><span class="p">.</span><span class="nx">target</span><span class="p">),</span>
+</span><span class='line'>          <span class="nx">$id</span> <span class="o">=</span> <span class="nx">$contact</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">contact</span> <span class="o">=</span> <span class="nx">Contacts</span><span class="p">.</span><span class="nx">findOne</span><span class="p">(</span><span class="nx">$id</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#id&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">contact</span><span class="p">.</span><span class="nx">_id</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#name&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">contact</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#email&quot;</span><span class="p">).</span><span class="nx">val</span><span class="p">(</span><span class="nx">contact</span><span class="p">.</span><span class="nx">email</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#name&quot;</span><span class="p">).</span><span class="nx">focus</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">Session</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;edit&#39;</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>  <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">if</span> <span class="p">(</span><span class="nx">Meteor</span><span class="p">.</span><span class="nx">is_server</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">Meteor</span><span class="p">.</span><span class="nx">startup</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="c1">// code to run on server at startup</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
 
-<p>if (Meteor.is_client) {</p>
-
-<p>  Session.set(&#8216;action&#8217;,&#8217;add&#8217;);</p>
-
-<p>  Template.add_contact.action = function () {</p>
-
-<pre><code>var action = Session.get("action") || "add";  
-return action;
-</code></pre>
-
-<p>  };</p>
-
-<p>  Template.add_contact.events = {</p>
-
-<pre><code>'click input#actionButton' : function (evt) {
-  var $action = Session.get('action'),
-      $name = $("#name").val(),
-      $email = $("#email").val();
-
-  console.log($action);
-  if ($action == 'add') {
-    Contacts.insert({
-      name:  $name,
-      email: $email 
-    });
-    alert('contact ' + $name +  ' added');
-  }
-  else {
-    Contacts.update($("#id").val(), {$set: {name: $name, email: $email}});
-    $("#id").val('');
-    Session.set('action', 'add');
-    alert('contact ' + $name +  ' modified');
-  }
-  $("#name").val('');
-  $("#email").val('');
-}
-</code></pre>
-
-<p>  };</p>
-
-<p>  Template.contacts.contact_list = function () {</p>
-
-<pre><code>return Contacts.find({}, {sort: {name: 1}});
-</code></pre>
-
-<p>  };</p>
-
-<p>  Template.contacts.events = {</p>
-
-<pre><code>'click input.del' : function (evt) {
-  var $contact = $(evt.target),
-      $id = $contact.attr('id');
-  Contacts.remove($id);
-},
-'click input.edit' : function (evt) {
-  var $contact = $(evt.target),
-      $id = $contact.attr('id');
-  contact = Contacts.findOne($id);
-
-  $("#id").val(contact._id);
-  $("#name").val(contact.name);
-  $("#email").val(contact.email);
-  $("#name").focus();
-
-  Session.set('action', 'edit');
-},
-</code></pre>
-
-<p>  };</p>
-
-<p>}</p>
-
-<p>if (Meteor.is_server) {
-  Meteor.startup(function () {</p>
-
-<pre><code>// code to run on server at startup
-</code></pre>
-
-<p>  });
-}
-[/sourcecode]</p>
 
 <p>No código é possível ver os comandos <em>is_client</em> e <em>is_server</em> que dividem o código do cliente e servidor (eles podem ser separados em arquivos diferentes também). Também é possível ver o sistema de eventos (<em>Template.contacts.events</em>) e o retorno do banco de dados sendo enviado ao template (<em>return Contacts.find({}, {sort: {name: 1}});</em>)</p>
 

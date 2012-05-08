@@ -4,7 +4,7 @@
   <title><![CDATA[Category: coderockr | Elton Luís Minetto]]></title>
   <link href="http://eminetto.github.com/blog/categories/coderockr/atom.xml" rel="self"/>
   <link href="http://eminetto.github.com/"/>
-  <updated>2012-05-08T18:10:40-03:00</updated>
+  <updated>2012-05-08T18:15:56-03:00</updated>
   <id>http://eminetto.github.com/</id>
   <author>
     <name><![CDATA[eminetto]]></name>
@@ -80,42 +80,49 @@ O primeiro passo é instalar os pacotes necessários para conseguirmos toda a in
     <content type="html"><![CDATA[<p>Ontem eu e o colega <a href="http://twitter.com/msilvagarcia">Marcos Garcia</a> nos deparamos com uma situação que acabou nos ensinando mais um truque do git
 Um dos repositórios privados da <a href="http://www.coderockr.com">Coderockr</a> no Github tem uma estrutura parecida com essa:</p>
 
-<p>[sourcecode language="bash"]
-Design - arquivos PSD e PNG com as telas do projeto
-Docs - documentações do projeto
-Android - porção Android
-iOS - porção de códigos para o iPhone/iPad
-Web - interface de administração do projeto, acessível via web
-library - diretório com entidades e webservices usado pelo projeto
-[/sourcecode]</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>Design - arquivos PSD e PNG com as telas <span class="k">do </span>projeto
+</span><span class='line'>Docs - documentações <span class="k">do </span>projeto
+</span><span class='line'>Android - porção Android
+</span><span class='line'>iOS - porção de códigos para o iPhone/iPad
+</span><span class='line'>Web - interface de administração <span class="k">do </span>projeto, acessível via web
+</span><span class='line'>library - diretório com entidades e webservices usado pelo projeto
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>A nossa necessidade era de fazer o deploy para o nosso servidor web apenas da pasta Web do projeto, não necessitando das demais. O git permite fazer algo assim usando <a href="http://help.github.com/submodules/">submodulos</a> mas não era exatamente o que procurávamos, principalmente porque cada submodulo deve ser um repositório separado no Github, o que iria aumentar os nossos custos mensais.
 Depois de algumas pesquisas no Google o Marcos encontrou a solução pro problema: o git sparse checkouts, uma opção que foi lançada com a versão 1.7 do git.
 Para exemplificar o uso, no nosso servidor agora fazemos o seguinte:</p>
 
-<p>[sourcecode language="bash"]
-git clone <repository_url> <directory>
-cd <directory>
-[/sourcecode]</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git clone &lt;repository_url&gt; &lt;directory&gt;
+</span><span class='line'><span class="nb">cd</span> &lt;directory&gt;
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Habilitamos a opção do sparse checkout</p>
 
-<p>[sourcecode language="bash"]
-git config core.sparsecheckout true
-[/sourcecode]</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git config core.sparsecheckout <span class="nb">true</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Indicamos quais diretórios queremos ter acesso:</p>
 
-<p>[sourcecode language="bash"]
-echo Web >> .git/info/sparse-checkout
-echo library >> .git/info/sparse-checkout
-[/sourcecode]</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nb">echo </span>Web &gt;&gt; .git/info/sparse-checkout
+</span><span class='line'><span class="nb">echo </span>library &gt;&gt; .git/info/sparse-checkout
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>E rodamos o comando <em>read-tree</em> para atualizar a árvore de diretórios</p>
 
-<p>[sourcecode language="bash"]
-git read-tree -m -u HEAD
-[/sourcecode]</p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'> <div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>git <span class="nb">read</span>-tree -m -u HEAD
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <p>Se verificar com o comando <em>ls</em> é possível ver que os outros diretórios desapareceram do diretório do projeto
 Quando rodarmos um git pull para atualizar, apenas os diretórios Web e library serão atualizados.
